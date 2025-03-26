@@ -38,6 +38,10 @@ const Login = () =>{
                                 </div>
                             </div>
 
+                            <div id="text" >
+                                <p className='flex justify-center font-light'>use your email and password</p>
+                            </div>
+
                             <form action="" className='py-3'>
                                 <label htmlFor="username">Username:</label><br />
                                 <input className='border-2 w-[27vh] rounded-sm' type="text"></input>
