@@ -9,7 +9,7 @@ const contex = createContext<{
     setUser : React.Dispatch<React.SetStateAction<userType[]>>
 } | null>(null);
 
-export const Provinder = ({children} : {children : React.ReactNode}) =>{
+export const ProvinderKost = ({children} : {children : React.ReactNode}) =>{
     const [user, setUser] = useState<userType[]>(UserData)
 
     return(
@@ -25,5 +25,5 @@ export const useHook = () =>{
     if(!KostHub){
         throw new Error("");
     } 
-    return contex;
+    return KostHub;
 }

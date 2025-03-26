@@ -7,12 +7,18 @@ import FacebookIcon from '../../../../public/asset/Facebook.png'
 import LinkIn from '../../../../public/asset/Linkin.png'
 import Github from '../../../../public/asset/GitHub.png'
 import { useState } from 'react';
+import { useHook } from '@/app/layout/Provider';
 
 const Login = () =>{
 
+    const {user, setUser} = useHook()
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
+    const handleLogin = () =>{
+
+    }
+    
 
     return(
         <div className="w-screen h-screen flex justify-center items-center rounded-tl-lg">
