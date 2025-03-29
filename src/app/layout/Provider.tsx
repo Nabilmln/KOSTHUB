@@ -12,6 +12,26 @@ const contex = createContext<{
 export const ProvinderKost = ({children} : {children : React.ReactNode}) =>{
     const [user, setUser] = useState<userType[]>(UserData)
 
+    useEffect(() =>{
+        const users = localStorage.getItem("users");
+        console.log("Data dari users :", users);
+
+        if(users){
+            try{
+                setUser(JSON.parse(users))
+            } catch (err){
+                console.log("Parsing data users gagal :", err);
+                setUser([]);
+            }
+        }
+    }, [])
+
+    // Clear Data
+    // useEffect(() =>{
+    //     const relod = localStorage.removeItem("users");
+    //     console.log("Data Berhasil Di Hapus :", relod);
+    // }, [])
+
     return(
        <contex.Provider value={{user, setUser}}>
         {children}

@@ -1,6 +1,6 @@
-import Login from "./(pages)/login/page";
+import LandingPage from '../../src/app/(pages)/LandingPage/page'
 
 const Route = () =>{
-  return <Login/>
+  return <LandingPage/>
 }
 export default Route;
