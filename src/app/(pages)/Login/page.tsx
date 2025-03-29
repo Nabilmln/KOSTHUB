@@ -8,6 +8,7 @@ import LinkIn from '../../../../public/asset/Linkin.png'
 import Github from '../../../../public/asset/GitHub.png'
 import { useState } from 'react';
 import { useHook } from '@/app/layout/Provider';
+import Image from 'next/image';
 
 const Login = () =>{
 
@@ -31,16 +32,16 @@ const Login = () =>{
 
                             <div className='grid grid-cols-4 grid-rows-1 gap-6 py-3' id="icon-Login">
                                 <div className=''>
-                                    <img src={GogleIcon.src} alt="Goggle" />
+                                    <Image src={GogleIcon} alt="Goggle" width={40} height={40} />
                                 </div>
                                 <div className=''>
-                                    <img src={FacebookIcon.src} alt="Facebook" />
+                                    <Image src={FacebookIcon} alt="Facebook" width={40} height={40} />
                                 </div>
                                 <div className=''>
-                                    <img src={LinkIn.src} alt="LinkIn" />
+                                    <Image src={LinkIn} alt="LinkIn" width={40} height={40} />
                                 </div>
                                 <div className=''>
-                                    <img src={Github.src} alt="" />
+                                    <Image src={Github} alt="" width={40} height={40} />
                                 </div>
                             </div>
 
