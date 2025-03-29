@@ -3,6 +3,8 @@
 import { useState, useEffect, createContext ,useContext } from "react"
 import { userType } from "../type";
 import { UserData } from "../data";
+import AOS from "aos";
+import "aos/dist/aos.css"
 
 const contex = createContext<{
     user : userType[];
@@ -25,6 +27,11 @@ export const ProvinderKost = ({children} : {children : React.ReactNode}) =>{
             }
         }
     }, [])
+
+    // AOS
+    useEffect(()=>{
+        AOS.init({ duration: 1000, once: true})
+      }, [])
 
     // Clear Data
     // useEffect(() =>{
