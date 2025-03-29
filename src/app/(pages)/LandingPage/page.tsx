@@ -1,11 +1,16 @@
+"use client"
 import LandingPageIcon from "../../../../public/asset/LandingPageIcon.png";
 import NavbarLanding from "@/app/component/nabvar/NavbarLanding";
+import CardLanding from "@/app/component/card/LandingPage";
+import { cardLandingData } from "@/app/data/card";
+import Image from "next/image";
+
 
 const LandingPage = () =>{
     return(
         <>
         <NavbarLanding/>
-            <div className="h-screen w-screen flex justify-center items-center">
+            <div data-aos="fade-up" className="h-screen w-screen flex justify-center items-center">
                 <div className="grid grid-cols-2 grid-rows-1 gap-6">
                     <div className="flex justify-center flex-col">
                         <h1 className="font-bold text-[2rem]">Let's Find a Home</h1>
@@ -29,10 +34,28 @@ const LandingPage = () =>{
                     </div>
 
                     <div className="">
-                        <img src={LandingPageIcon.src} alt="LadingPage Icon" />
+                        <Image src={LandingPageIcon} alt="icon" height={700} width={700}/>
                     </div>
                 </div>
             </div>
+
+                <div title="Services" className="h-screen w-screen">
+                    <div className="flex items-center flex-col ">
+                        <h1 className="font-bold text-[3rem]">Our Services</h1>
+                        <p className="font-light text-[1rem]">Discover the services we offer to make your stay comfortable and hassle-free.</p>
+                        <p className="font-light text-[1rem]">From easy booking to reliable facilities, we've got you covered!</p>
+                    </div>
+                    <div className="grid grid-cols-4 grid-rows-1 gap-4 pl-[2rem] pt-[6rem]">
+                    {cardLandingData.map((item, index) => (
+                        <CardLanding 
+                        key={index} 
+                        image={item.image} 
+                        title={item.title} 
+                        deskripsi={item.deskripsi} 
+                    />
+                        ))}
+                    </div>
+                </div> 
         </>
     )
 }
