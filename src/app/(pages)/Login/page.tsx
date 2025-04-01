@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import Icon from "../../../../public/asset/icon.png";
 import GogleIcon from "../../../../public/asset/GogleIcon.png";
@@ -45,7 +44,7 @@ const Login = () => {
                 <Image src={LinkIn} alt="LinkIn" width={40} height={40} />
               </div>
               <div className="">
-                <Image src={Github} alt="" width={40} height={40} />
+                <Image src={Github} alt="Github" width={40} height={40} />
               </div>
             </div>
 
@@ -61,12 +60,17 @@ const Login = () => {
               <input
                 className="border-2 w-[27vh] rounded-sm"
                 type="text"
+                onChange={(e) => setUsername(e.target.value)}
               ></input>
             </form>
 
             <form action="" className="pb-3">
               <label htmlFor="password">Password :</label> <br />
-              <input type="password" className="border-2 w-[27vh] rounded-sm" />
+              <input
+                type="password"
+                className="border-2 w-[27vh] rounded-sm"
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </form>
 
             <div id="forgot Password" className="flex justify-center">
@@ -74,9 +78,11 @@ const Login = () => {
             </div>
 
             <div id="button SignIn" className="flex justify-center py-3">
-              <button className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg">
-                Sign In
-              </button>
+              <Link href="Home">
+                <button className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg">
+                  Sign In
+                </button>
+              </Link>
             </div>
           </div>
         </div>
