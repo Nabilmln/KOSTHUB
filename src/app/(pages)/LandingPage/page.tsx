@@ -13,7 +13,7 @@ const LandingPage = () => {
       <NavbarLanding />
       <div
         data-aos="fade-up"
-        className="h-screen w-screen flex justify-center items-center"
+        className="h-screen w-full flex justify-center items-center"
       >
         <div className="grid grid-cols-2 grid-rows-1 gap-6">
           <div className="flex justify-center flex-col">
@@ -47,7 +47,7 @@ const LandingPage = () => {
       </div>
 
       <div title="Services" className="h-screen w-screen">
-        <div className="flex items-center flex-col ">
+        <div data-aos="fade-left" className="flex items-center flex-col ">
           <h1 className="font-bold text-[3rem]">Our Services</h1>
           <p className="font-light text-[1rem]">
             Discover the services we offer to make your stay comfortable and
@@ -57,7 +57,10 @@ const LandingPage = () => {
             From easy booking to reliable facilities, we've got you covered!
           </p>
         </div>
-        <div className="grid grid-cols-4 grid-rows-1 gap-4 pl-[2rem] pt-[6rem]">
+        <div
+          data-aos="fade-right"
+          className="grid grid-cols-4 grid-rows-1 gap-4 pl-[2rem] pt-[6rem]"
+        >
           {ourServicesData.map((item, index) => (
             <OurServices
               key={index}
@@ -68,14 +71,20 @@ const LandingPage = () => {
           ))}
         </div>
 
-        <div className="flex justify-center pt-[2rem] flex-col text-center">
-          <h1 className="font-bold text-[2rem]">Best Propersties</h1>
+        <div
+          data-aos="fade-right"
+          className="flex justify-center pt-[2rem] flex-col text-center"
+        >
+          <h1 className="font-bold text-[3rem]">Best Propersties</h1>
           <p className="font-light">
             Temukan pilihan properti terbaik dengan fasilitas unggulan dan
             lokasi strategis sesuai dengan kebutuhan dan gaya hidup anda.
           </p>
         </div>
-        <div className="grid grid-cols-4 grid-rows-1 gap-4 pl-[2rem] pt-[6rem] pb-[3rem]">
+        <div
+          data-aos="zoom-out-up"
+          className="grid grid-cols-4 grid-rows-1 gap-4 pl-[2rem] pt-[6rem] pb-[3rem]"
+        >
           {bestProperyData.map((item, index) => (
             <BestProperty
               key={index}
