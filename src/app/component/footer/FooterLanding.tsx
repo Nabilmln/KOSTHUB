@@ -7,7 +7,7 @@ const FooterLanding: React.FC = () => {
     <div className="w-full h-[50vh] bg-sky-800 gap-3 " title="Footer">
       <div className="grid grid-cols-4 grid-rows-1 gap-4">
         <div className="flex flex-col pt-[10vh] pl-[5vw]">
-          <div className="flex items-center">
+          <div className="flex items-center gap-[1rem]">
             <Image src={icon} alt="icon" className="w-10 h-[5vh]"></Image>
             <h1 className="font-bold text-white text-[3rem]">KostHub</h1>
           </div>
@@ -68,11 +68,7 @@ const FooterLanding: React.FC = () => {
           </Link>
         </div>
         <div className="flex flex-col pt-[17vh]">
-          <Link href="#">
-            <h1 className="hover:underline duration-[1s] text-white pb-[3vh]">
-              Hubungi Kami
-            </h1>
-          </Link>
+          <h1 className="duration-[1s] text-white pb-[3vh]">Hubungi Kami</h1>
           <Link href="#">
             <div className="flex gap-2">
               <Mail className="text-white" />
@@ -86,6 +82,14 @@ const FooterLanding: React.FC = () => {
               <Phone className="text-white" />
               <h1 className="hover:underline duration-[1s] text-white pb-[3vh]">
                 +62 11 34455666
+              </h1>
+            </div>
+          </Link>
+
+          <Link href="#">
+            <div className="flex gap-2">
+              <h1 className="hover:underline duration-[1s] text-white">
+                Creator
               </h1>
             </div>
           </Link>
