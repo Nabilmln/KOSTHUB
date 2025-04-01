@@ -14,7 +14,6 @@ const Register = () => {
   const { user, setUser } = useHook();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [nama, setNama] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
   const handleRegister = () => {};
@@ -95,6 +94,7 @@ const Register = () => {
                 type="text"
                 minLength={4}
                 maxLength={8}
+                onChange={(e) => setUsername(e.target.value)}
               ></input>
             </form>
 
@@ -106,6 +106,7 @@ const Register = () => {
                 className="border-2 w-[27vh] rounded-sm"
                 minLength={4}
                 maxLength={8}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </form>
 
@@ -115,6 +116,7 @@ const Register = () => {
                 type="email"
                 className="border-2 w-[27vh] rounded-sm"
                 placeholder="KostHub@example.com"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </form>
 
