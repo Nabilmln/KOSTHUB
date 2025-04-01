@@ -12,19 +12,27 @@ const NavbarLanding: React.FC = () => {
         </Link>
 
         <Link href="#">
-          <h1 className="font-bold text-[1.5rem]">Home</h1>
+          <h1 className="font-bold text-[1.5rem] hover:underline duration-[2ms]">
+            Home
+          </h1>
         </Link>
 
         <Link href="#">
-          <h1 className="font-bold text-[1.5rem]">Service</h1>
+          <h1 className="font-bold text-[1.5rem] hover:underline duration-[2ms] ">
+            Service
+          </h1>
         </Link>
 
         <Link href="#">
-          <h1 className="font-bold text-[1.5rem]">Product</h1>
+          <h1 className="font-bold text-[1.5rem] hover:underline duration-[2ms] ">
+            Product
+          </h1>
         </Link>
 
         <Link href="#">
-          <h1 className="font-bold text-[1.5rem]">About US</h1>
+          <h1 className="font-bold text-[1.5rem] hover:underline duration-[2ms]">
+            About US
+          </h1>
         </Link>
       </div>
 
