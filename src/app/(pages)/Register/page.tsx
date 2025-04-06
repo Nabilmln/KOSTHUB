@@ -16,7 +16,15 @@ const Register = () => {
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
-  const handleRegister = () => {};
+  const handleRegister = () => {
+    const newUser = {
+      username: username,
+      password: password,
+      email: email,
+    };
+    setUser((prev) => [...prev, newUser]);
+  };
+
   return (
     <div className="w-screen h-screen flex justify-center items-center rounded-tl-lg">
       <div className="grid grid-cols-2 grid-rows-1 gap-4">
@@ -123,12 +131,16 @@ const Register = () => {
             <div id="forgot Password" className="flex justify-center">
               <h1 className="font-bold">Forgor Password?</h1>
             </div>
-
-            <div id="button SignIn" className="flex justify-center py-3">
-              <button className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg">
-                Sign Up
-              </button>
-            </div>
+            <Link href="/Login">
+              <div id="button SignIn" className="flex justify-center py-3">
+                <button
+                  className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg"
+                  onClick={handleRegister}
+                >
+                  Sign Up
+                </button>
+              </div>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,9 +1,11 @@
-import { ourServicesType, bestPropertyType } from "@/app/type";
+import { ourServicesType, bestPropertyType, itemsType } from "@/app/type";
 import HomeSecure from "../../../../public/asset/Home Secure.png";
 import Secure from "../../../../public/asset//Secured.png";
 import MoneyDolar from "../../../../public/asset/Money Dollar.png";
 import TimeTwenty from "../../../../public/asset/Time Twenty Four.png";
 import Kost1 from "../../../../public/asset/kost1.png";
+import Kost2 from "../../../../public/asset/kost2.png";
+import photofrofil from "../../../../public/asset/porfil.png";
 
 export const ourServicesData: ourServicesType[] = [
   {
@@ -43,5 +45,24 @@ export const bestProperyData: bestPropertyType[] = [
     lokasi: "Lampineng",
     toilet: "1",
     kamar: "1",
+  },
+];
+
+export const itemsData: itemsType[] = [
+  {
+    image: Kost2.src,
+    harga: "Rp.2.000.000/Tahun",
+    hargabulan: "Rp.6.500.000/Bulan",
+    hargatahun: "Rp.30.000.000/Tahun",
+    deskripsi:
+      "Kost elite anak orang kaya 7 turunan dan uang nya ga abis-abis ...",
+    lokasi: "Lamgugob, Banda Aceh",
+    kamar: "3",
+    toilet: "3",
+    map: "300M",
+    wifi: "Wifi",
+    fotofrofil: photofrofil.src,
+    username: "Serenity III",
+    nomorhp: "+62 98765432",
   },
 ];

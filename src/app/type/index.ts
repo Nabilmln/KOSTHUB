@@ -1,5 +1,5 @@
 export interface userType {
-  usename: string;
+  username: string;
   password: string;
 }
 
@@ -16,4 +16,20 @@ export interface bestPropertyType {
   lokasi: string;
   toilet: string;
   kamar: string;
+}
+
+export interface itemsType {
+  image: string;
+  harga: string;
+  hargabulan: string;
+  hargatahun: string;
+  deskripsi: string;
+  lokasi: string;
+  kamar: string;
+  toilet: string;
+  map: string;
+  wifi: string;
+  fotofrofil: string;
+  username: string;
+  nomorhp: string;
 }

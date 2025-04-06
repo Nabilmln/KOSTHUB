@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Icon from "../../../../public/asset/icon.png";
 import GogleIcon from "../../../../public/asset/GogleIcon.png";
 import FacebookIcon from "../../../../public/asset/Facebook.png";
@@ -13,8 +14,18 @@ const Login = () => {
   const { user, setUser } = useHook();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const router = useRouter();
 
-  const handleLogin = () => {};
+  const handleLogin = () => {
+    const login = user.find(
+      (u: any) => u.username === username && u.password === password
+    );
+
+    if (login) {
+      localStorage.setItem("current", JSON.stringify("users"));
+      router.push("/Home");
+    }
+  };
 
   return (
     <div className="w-screen h-screen flex justify-center items-center rounded-tl-lg">
@@ -78,11 +89,12 @@ const Login = () => {
             </div>
 
             <div id="button SignIn" className="flex justify-center py-3">
-              <Link href="Home">
-                <button className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg">
-                  Sign In
-                </button>
-              </Link>
+              <button
+                className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg"
+                onClick={handleLogin}
+              >
+                Sign In
+              </button>
             </div>
           </div>
         </div>
