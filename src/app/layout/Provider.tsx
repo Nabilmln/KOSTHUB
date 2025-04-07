@@ -11,17 +11,18 @@ const contex = createContext<{
   setUser: React.Dispatch<React.SetStateAction<userType[]>>;
   currentUser: userType | null;
   setCurrentUser: React.Dispatch<React.SetStateAction<userType | null>>;
+  isLoading: boolean;
 } | null>(null);
 
 export const ProvinderKost = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<userType[]>(UserData);
   const [currentUser, setCurrentUser] = useState<userType | null>(null);
-
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
     const users = localStorage.getItem("users");
     console.log("Data dari users :", users);
     const currents = localStorage.getItem("current");
-    // console.log("data dari current");
+    console.log("data dari current", currents);
 
     if (users) {
       try {
@@ -40,6 +41,7 @@ export const ProvinderKost = ({ children }: { children: React.ReactNode }) => {
         setCurrentUser(null);
       }
     }
+    setIsLoading(false);
   }, []);
 
   // AOS
@@ -63,7 +65,9 @@ export const ProvinderKost = ({ children }: { children: React.ReactNode }) => {
   // }, []);
 
   return (
-    <contex.Provider value={{ user, setUser, currentUser, setCurrentUser }}>
+    <contex.Provider
+      value={{ user, setUser, currentUser, setCurrentUser, isLoading }}
+    >
       {children}
     </contex.Provider>
   );
