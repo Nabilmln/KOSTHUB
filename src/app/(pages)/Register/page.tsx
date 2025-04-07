@@ -14,12 +14,14 @@ const Register = () => {
   const { user, setUser } = useHook();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [nama, setNama] = useState<string>("");
   const [email, setEmail] = useState<string>("");
 
   const handleRegister = () => {
     const newUser = {
       username: username,
       password: password,
+      nama: nama,
       email: email,
     };
     setUser((prev) => [...prev, newUser]);
@@ -118,6 +120,14 @@ const Register = () => {
               />
             </form>
 
+            <form action="" className="text-center">
+              <label htmlFor="nama">Nama : (Real Name)</label> <br />
+              <input
+                type="text"
+                className="border-2 w-[27vh] rounded-sm"
+                onChange={(e) => setNama(e.target.value)}
+              />
+            </form>
             <form action="" className="text-center">
               <label htmlFor="email">Email :</label> <br />
               <input
