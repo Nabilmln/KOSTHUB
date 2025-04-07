@@ -1,6 +1,8 @@
 export interface userType {
   username: string;
   password: string;
+  nama: string;
+  email: string;
 }
 
 export interface ourServicesType {
@@ -32,4 +34,13 @@ export interface itemsType {
   fotofrofil: string;
   username: string;
   nomorhp: string;
+}
+
+export interface successModalProps {
+  title: string;
+  icon: "success" | "error" | "warning" | "info" | "question";
+  deskripsi: string;
+  confirmButtonText?: string;
+  confirmButtonColor?: string;
+  onClose?: () => void;
 }
