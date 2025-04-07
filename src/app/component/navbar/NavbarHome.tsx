@@ -3,8 +3,11 @@ import Image from "next/image";
 import profil from "../../../../public/asset/porfil.png";
 import { Search } from "lucide-react";
 import Link from "next/link";
+import { useHook } from "@/app/layout/Provider";
 
 const NavbarHome: React.FC = () => {
+  const { currentUser, isLoading } = useHook();
+
   return (
     <div className="flex justify-around pt-[1rem] pb-[1rem] border-b-1">
       <Link href="#">
@@ -30,7 +33,9 @@ const NavbarHome: React.FC = () => {
             alt="profil"
             className="w-[2vw] h-[3.8vh]"
           ></Image>
-          <h1 className="font-bold">Diki</h1>
+          <h1 className="font-bold">
+            {isLoading ? "Loading..." : currentUser?.nama ?? "Guest"}
+          </h1>
         </div>
       </Link>
     </div>
