@@ -22,8 +22,10 @@ const Login = () => {
     );
 
     if (login) {
-      localStorage.setItem("current", JSON.stringify("users"));
+      localStorage.setItem("current", JSON.stringify(login));
       router.push("/Home");
+    } else {
+      alert("username dan password salah");
     }
   };
 
