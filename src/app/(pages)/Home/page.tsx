@@ -4,6 +4,7 @@ import NavbarHome from "@/app/component/navbar/NavbarHome";
 import Items from "@/app/component/card/Items";
 import { itemsData } from "@/app/data/card";
 import FooterLanding from "@/app/component/footer/FooterLanding";
+import { Funnel } from "lucide-react";
 
 const Home = () => {
   const [filter, setFilter] = useState<string>("");
@@ -24,9 +25,30 @@ const Home = () => {
           </div>
 
           <div className="flex">
-            <button className="border-2 rounded-full w-[5vw] hover:bg-sky-400 duration-[1s]">
-              Filter
-            </button>
+            <div className="flex">
+              <form action="" className="border-2 rounded-sm flex">
+                <Funnel />
+                <h1 className="">Filter</h1>
+                <select
+                  value={filter}
+                  className=""
+                  onChange={(e) => setFilter(e.target.value)}
+                >
+                  <option value="-" className="text-black font-bold">
+                    Pilih
+                  </option>
+                  <option value="diminati" className="text-black font-bold">
+                    diminati
+                  </option>
+                  <option
+                    value="paling-diminati"
+                    className="text-black font-bold"
+                  >
+                    paling diminati
+                  </option>
+                </select>
+              </form>
+            </div>
             <form
               action=""
               className="border-2 rounded-full w-[14vw] flex items-center"
