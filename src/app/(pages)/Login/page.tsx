@@ -9,11 +9,14 @@ import Github from "../../../../public/asset/GitHub.png";
 import { useState } from "react";
 import { useHook } from "@/app/layout/Provider";
 import Image from "next/image";
+import Modal from "@/app/component/modal/Modal";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { user, setUser } = useHook();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [showModal, setShowModal] = useState(false);
   const router = useRouter();
 
   const handleLogin = () => {
@@ -23,9 +26,16 @@ const Login = () => {
 
     if (login) {
       localStorage.setItem("current", JSON.stringify(login));
-      router.push("/Home");
+      Swal.fire({
+        title: "Berhasil Login",
+        icon: "success",
+        text: "Selamat Datang di Website KostHub",
+        confirmButtonColor: "lanjut",
+      }).then(() => {
+        router.push("/Home");
+      });
     } else {
-      alert("username dan password salah");
+      setShowModal(true);
     }
   };
 
@@ -35,7 +45,7 @@ const Login = () => {
         <div className="flex justify-center items-center" id="kiri">
           <div id="side-kiri">
             <div className="flex justify-center py-3">
-              <h1 className="text-[4rem] font-bold">Sing In</h1>
+              <h1 className="text-[4rem] font-bold">Sign In </h1>
             </div>
 
             <div
@@ -126,6 +136,14 @@ const Login = () => {
                 </button>
               </Link>
             </div>
+            {showModal && (
+              <Modal
+                title="Login gagal"
+                icon="error"
+                deskripsi="usename dan password salah"
+                onClose={() => setShowModal(false)}
+              />
+            )}
           </div>
         </div>
       </div>
