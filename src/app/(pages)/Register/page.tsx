@@ -9,6 +9,9 @@ import Github from "../../../../public/asset/GitHub.png";
 import { useState } from "react";
 import { useHook } from "@/app/layout/Provider";
 import Image from "next/image";
+import Modal from "@/app/component/modal/Modal";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const Register = () => {
   const { user, setUser } = useHook();
@@ -16,6 +19,7 @@ const Register = () => {
   const [password, setPassword] = useState<string>("");
   const [nama, setNama] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const router = useRouter();
 
   const handleRegister = () => {
     const newUser = {
@@ -25,6 +29,13 @@ const Register = () => {
       email: email,
     };
     setUser((prev) => [...prev, newUser]);
+    Swal.fire({
+      title: "Berhasil",
+      icon: "success",
+      confirmButtonColor: "lanjut",
+    }).then(() => {
+      router.push("/Login");
+    });
   };
 
   return (
@@ -141,16 +152,15 @@ const Register = () => {
             <div id="forgot Password" className="flex justify-center">
               <h1 className="font-bold">Forgor Password?</h1>
             </div>
-            <Link href="/Login">
-              <div id="button SignIn" className="flex justify-center py-3">
-                <button
-                  className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg"
-                  onClick={handleRegister}
-                >
-                  Sign Up
-                </button>
-              </div>
-            </Link>
+
+            <div id="button SignIn" className="flex justify-center py-3">
+              <button
+                className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg"
+                onClick={handleRegister}
+              >
+                Sign Up
+              </button>
+            </div>
           </div>
         </div>
       </div>
