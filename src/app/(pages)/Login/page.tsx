@@ -10,32 +10,55 @@ import { useState } from "react";
 import { useHook } from "@/app/layout/Provider";
 import Image from "next/image";
 import Modal from "@/app/component/modal/Modal";
-import Swal from "sweetalert2";
+import { ModalProps } from "@/app/type";
 
 const Login = () => {
-  const { user, setUser } = useHook();
+  const { user } = useHook();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [showModal, setShowModal] = useState(false);
+  const [modalData, setModalData] = useState<ModalProps | null>(null);
   const router = useRouter();
 
-  const handleLogin = () => {
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!username || !password) {
+      setModalData({
+        title: "Login Gagal",
+        icon: "error",
+        deskripsi: "Username & Password Tidak Boleh Kosong",
+        confirmButtonColor: "#3572EF",
+        confirmButtonText: "Coba Lagi",
+      });
+      return;
+    }
     const login = user.find(
       (u: any) => u.username === username && u.password === password
     );
 
     if (login) {
       localStorage.setItem("current", JSON.stringify(login));
-      Swal.fire({
+      setModalData({
         title: "Berhasil Login",
         icon: "success",
-        text: "Selamat Datang di Website KostHub",
-        confirmButtonColor: "lanjut",
-      }).then(() => {
-        router.push("/Home");
+        deskripsi: "Selamat Datang Di KostHub",
+        confirmButtonText: "lanjut",
+        confirmButtonColor: "#3572EF",
+        onClose: () => {
+          setModalData(null);
+          router.push("/Home");
+        },
       });
     } else {
-      setShowModal(true);
+      setModalData({
+        title: "Login Gagal",
+        icon: "error",
+        deskripsi: "Username dan kata sandi salah",
+        confirmButtonColor: "#3572EF",
+        confirmButtonText: "Coba Lagi",
+        onClose: () => {
+          setModalData(null);
+        },
+      });
     }
   };
 
@@ -77,7 +100,7 @@ const Login = () => {
               </p>
             </div>
 
-            <form action="" className="py-3">
+            <form onSubmit={handleLogin} className="py-3">
               <label htmlFor="username">Username:</label>
               <br />
               <input
@@ -85,29 +108,29 @@ const Login = () => {
                 type="text"
                 onChange={(e) => setUsername(e.target.value)}
               ></input>
+
+              <div className="pb-3">
+                <label htmlFor="password">Password :</label> <br />
+                <input
+                  type="password"
+                  className="border-2 w-[27vh] rounded-sm"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+
+              <div id="forgot Password" className="flex justify-center">
+                <h1 className="font-bold">Forgor Password?</h1>
+              </div>
+
+              <div id="button SignIn" className="flex justify-center py-3">
+                <button
+                  type="submit"
+                  className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg"
+                >
+                  Sign In
+                </button>
+              </div>
             </form>
-
-            <form action="" className="pb-3">
-              <label htmlFor="password">Password :</label> <br />
-              <input
-                type="password"
-                className="border-2 w-[27vh] rounded-sm"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </form>
-
-            <div id="forgot Password" className="flex justify-center">
-              <h1 className="font-bold">Forgor Password?</h1>
-            </div>
-
-            <div id="button SignIn" className="flex justify-center py-3">
-              <button
-                className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg"
-                onClick={handleLogin}
-              >
-                Sign In
-              </button>
-            </div>
           </div>
         </div>
         <div
@@ -116,7 +139,13 @@ const Login = () => {
         >
           <div className="" id="sidebar Container">
             <div className="flex justify-center" id="icon">
-              <img className="h-[15vh] w-[8vw]" src={Icon.src} alt="Logo" />
+              <Image
+                className="h-[15vh] w-[8vw]"
+                src={Icon}
+                alt="Logo"
+                height="10"
+                width="100"
+              />
             </div>
 
             <div className="flex justify-center pt-[2rem]" id="text">
@@ -136,14 +165,7 @@ const Login = () => {
                 </button>
               </Link>
             </div>
-            {showModal && (
-              <Modal
-                title="Login gagal"
-                icon="error"
-                deskripsi="usename dan password salah"
-                onClose={() => setShowModal(false)}
-              />
-            )}
+            {modalData && <Modal {...modalData} />}
           </div>
         </div>
       </div>
