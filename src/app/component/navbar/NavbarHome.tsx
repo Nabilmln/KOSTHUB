@@ -26,7 +26,7 @@ const NavbarHome: React.FC = () => {
         </form>
         <Search />
       </div>
-      <Link href="#">
+      <Link href="/Profile">
         <div className="flex gap-2 items-center">
           <Image
             src={profil}
@@ -34,7 +34,7 @@ const NavbarHome: React.FC = () => {
             className="w-[2vw] h-[3.8vh]"
           ></Image>
           <h1 className="font-bold">
-            {isLoading ? "Loading..." : currentUser?.nama ?? "Guest"}
+            {isLoading ? "Loading..." : currentUser?.username ?? "Guest"}
           </h1>
         </div>
       </Link>
