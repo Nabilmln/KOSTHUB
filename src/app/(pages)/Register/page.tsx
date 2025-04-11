@@ -10,31 +10,53 @@ import { useState } from "react";
 import { useHook } from "@/app/layout/Provider";
 import Image from "next/image";
 import Modal from "@/app/component/modal/Modal";
-import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import { ModalProps } from "@/app/type";
+import { userType } from "@/app/type";
 
 const Register = () => {
-  const { user, setUser } = useHook();
+  const { setUser } = useHook();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [nama, setNama] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [modalData, setModalData] = useState<ModalProps | null>(null);
   const router = useRouter();
 
-  const handleRegister = () => {
-    const newUser = {
+  const handleRegister = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!username || !password || !email) {
+      setModalData({
+        title: "Register Gagal",
+        icon: "warning",
+        deskripsi: "Field Tidak Boleh Kosong!",
+        confirmButtonColor: "#3572EF",
+        confirmButtonText: "try again!",
+        onClose: () => {
+          setModalData(null);
+        },
+      });
+      return;
+    }
+    const newUser: userType = {
       username: username,
       password: password,
-      nama: nama,
       email: email,
+      nama: "",
+      date: "",
+      gender: "",
+      contact: ",",
     };
     setUser((prev) => [...prev, newUser]);
-    Swal.fire({
-      title: "Berhasil",
+    setModalData({
+      title: "Berhasil Register",
       icon: "success",
-      confirmButtonColor: "lanjut",
-    }).then(() => {
-      router.push("/Login");
+      deskripsi: "Selamat Akun Kamu Sudah Dibuat",
+      confirmButtonColor: "#3572EF",
+      confirmButtonText: "Isi Data",
+      onClose: () => {
+        setModalData(null);
+        router.push("/Biodata");
+      },
     });
   };
 
@@ -107,61 +129,55 @@ const Register = () => {
               </p>
             </div>
 
-            <form action="" className="text-center">
+            <form onSubmit={handleRegister} className="text-center">
               <label htmlFor="username">Username: (4 to 8 characters)</label>
               <br />
               <input
-                className="border-2 w-[27vh] rounded-sm"
+                className="border-2 w-[27vh] rounded-sm p-2"
                 type="text"
                 minLength={4}
                 maxLength={8}
                 onChange={(e) => setUsername(e.target.value)}
               ></input>
-            </form>
 
-            <form action="" className="text-center">
-              <label htmlFor="password">Password : (4 to 8 characters)</label>{" "}
-              <br />
-              <input
-                type="password"
-                className="border-2 w-[27vh] rounded-sm"
-                minLength={4}
-                maxLength={8}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </form>
+              <div className="text-center">
+                <label htmlFor="password">Password : (4 to 8 characters)</label>{" "}
+                <br />
+                <input
+                  type="password"
+                  className="border-2 w-[27vh] rounded-sm p-2"
+                  minLength={4}
+                  maxLength={8}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
 
-            <form action="" className="text-center">
-              <label htmlFor="nama">Nama : (Real Name)</label> <br />
-              <input
-                type="text"
-                className="border-2 w-[27vh] rounded-sm"
-                onChange={(e) => setNama(e.target.value)}
-              />
-            </form>
-            <form action="" className="text-center">
-              <label htmlFor="email">Email :</label> <br />
-              <input
-                type="email"
-                className="border-2 w-[27vh] rounded-sm"
-                placeholder="KostHub@example.com"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </form>
+              <div className="text-center">
+                <label htmlFor="email">Email :</label> <br />
+                <input
+                  type="email"
+                  className="border-2 w-[27vh] rounded-sm p-2"
+                  placeholder="KostHub@example.com"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
 
-            <div id="forgot Password" className="flex justify-center">
-              <h1 className="font-bold">Forgor Password?</h1>
-            </div>
+              <div id="forgot Password" className="flex justify-center">
+                <h1 className="font-bold">Forgor Password?</h1>
+              </div>
 
-            <div id="button SignIn" className="flex justify-center py-3">
-              <button
-                className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg"
-                onClick={handleRegister}
-              >
-                Sign Up
-              </button>
-            </div>
+              <div id="button SignIn" className="flex justify-center py-3">
+                <button
+                  className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg"
+                  onClick={handleRegister}
+                  type="submit"
+                >
+                  Sign Up
+                </button>
+              </div>
+            </form>
           </div>
+          {modalData && <Modal {...modalData} />}
         </div>
       </div>
     </div>
