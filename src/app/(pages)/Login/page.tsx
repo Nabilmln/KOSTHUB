@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useHook } from "@/app/layout/Provider";
 import Image from "next/image";
 import Modal from "@/app/component/modal/Modal";
-import { ModalProps } from "@/app/type";
+import { ModalProps, userType } from "@/app/type";
 
 const Login = () => {
   const { user } = useHook();
@@ -24,15 +24,18 @@ const Login = () => {
     if (!username || !password) {
       setModalData({
         title: "Login Gagal",
-        icon: "error",
+        icon: "warning",
         deskripsi: "Username & Password Tidak Boleh Kosong",
         confirmButtonColor: "#3572EF",
-        confirmButtonText: "Coba Lagi",
+        confirmButtonText: "try again!",
+        onClose: () => {
+          setModalData(null);
+        },
       });
       return;
     }
     const login = user.find(
-      (u: any) => u.username === username && u.password === password
+      (u: userType) => u.username === username && u.password === password
     );
 
     if (login) {
@@ -54,7 +57,7 @@ const Login = () => {
         icon: "error",
         deskripsi: "Username dan kata sandi salah",
         confirmButtonColor: "#3572EF",
-        confirmButtonText: "Coba Lagi",
+        confirmButtonText: "try again!",
         onClose: () => {
           setModalData(null);
         },
@@ -119,7 +122,7 @@ const Login = () => {
               </div>
 
               <div id="forgot Password" className="flex justify-center">
-                <h1 className="font-bold">Forgor Password?</h1>
+                <h1 className="font-bold">Forgot Password?</h1>
               </div>
 
               <div id="button SignIn" className="flex justify-center py-3">
