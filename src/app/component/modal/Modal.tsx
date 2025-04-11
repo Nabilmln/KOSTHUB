@@ -1,8 +1,8 @@
-import { successModalProps } from "@/app/type";
+import { ModalProps } from "@/app/type";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
 
-const Modal: React.FC<successModalProps> = ({
+const Modal: React.FC<ModalProps> = ({
   title,
   icon = "success",
   deskripsi,
@@ -23,7 +23,6 @@ const Modal: React.FC<successModalProps> = ({
       }
     });
   };
-
   useEffect(() => {
     showModal();
   }, []);
