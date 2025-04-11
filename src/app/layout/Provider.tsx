@@ -1,8 +1,8 @@
 "use client";
-
 import { useState, useEffect, createContext, useContext } from "react";
 import { userType } from "../type";
 import { UserData } from "../data";
+
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -18,6 +18,7 @@ export const ProvinderKost = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<userType[]>(UserData);
   const [currentUser, setCurrentUser] = useState<userType | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
   useEffect(() => {
     const users = localStorage.getItem("users");
     console.log("Data dari users :", users);
@@ -53,20 +54,19 @@ export const ProvinderKost = ({ children }: { children: React.ReactNode }) => {
     localStorage.setItem("users", JSON.stringify(user));
   }, [user]);
 
-  // Clear Data
-  // useEffect(() => {
-  //   const relod = localStorage.removeItem("users");
-  //   console.log("Data Berhasil Di Hapus :", relod);
-  // }, []);
-
-  // useEffect(() => {
-  //   const relod = localStorage.removeItem("current");
-  //   console.log("Data Berhasil Di Hapus :", relod);
-  // }, []);
+  useEffect(() => {
+    localStorage.setItem("current", JSON.stringify(currentUser));
+  }, [currentUser]);
 
   return (
     <contex.Provider
-      value={{ user, setUser, currentUser, setCurrentUser, isLoading }}
+      value={{
+        user,
+        setUser,
+        currentUser,
+        setCurrentUser,
+        isLoading,
+      }}
     >
       {children}
     </contex.Provider>

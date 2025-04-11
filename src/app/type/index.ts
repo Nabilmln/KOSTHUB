@@ -1,8 +1,11 @@
 export interface userType {
   username: string;
   password: string;
-  nama: string;
   email: string;
+  nama?: string;
+  date?: string;
+  contact?: string;
+  gender?: string;
 }
 
 export interface ourServicesType {
@@ -36,7 +39,7 @@ export interface itemsType {
   nomorhp: string;
 }
 
-export interface successModalProps {
+export interface ModalProps {
   title: string;
   icon: "success" | "error" | "warning" | "info" | "question";
   deskripsi: string;
