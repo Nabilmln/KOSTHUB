@@ -10,7 +10,7 @@ import { useHook } from "@/app/layout/Provider";
 import { useRouter } from "next/navigation";
 
 const EditProfile = () => {
-  const { setUser } = useHook();
+  const { setCurrentUser } = useHook();
   const [nama, setNama] = useState<string>("");
   const [tanggal, setTanggal] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -22,44 +22,44 @@ const EditProfile = () => {
 
   const handleEditProfile = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!nama || !tanggal || !email || !nomorHp || !gender) {
-      setModalData({
-        title: "Edit Profile Gagal",
-        icon: "warning",
-        deskripsi: "Field Tidak Boleh Kosong!",
-        confirmButtonColor: "#3572EF",
-        confirmButtonText: "try again!",
-        onClose: () => {
-          setModalData(null);
-        },
-      });
-    }
-    const updateProfile = {
-      nama: nama,
-      date: tanggal,
-      gender: gender,
-      contact: nomorHp,
-    };
-    setUser((prev) => {
-      const newUpdate = [...prev];
-      const index = newUpdate.length - 1;
-      newUpdate[index] = {
-        ...newUpdate[index],
-        ...updateProfile,
-      };
-      setModalData({
-        title: "Berhasil",
-        icon: "success",
-        deskripsi: "Selamat Biodata Kamu Sudah Di Update",
-        confirmButtonColor: "#3572EF",
-        confirmButtonText: "Oke",
-        onClose: () => {
-          setModalData(null);
-          router.push("/Profile");
-        },
-      });
-      return newUpdate;
-    });
+    // if (!nama || !tanggal || !email || !nomorHp || !gender) {
+    //   setModalData({
+    //     title: "Edit Profile Gagal",
+    //     icon: "warning",
+    //     deskripsi: "Field Tidak Boleh Kosong!",
+    //     confirmButtonColor: "#3572EF",
+    //     confirmButtonText: "try again!",
+    //     onClose: () => {
+    //       setModalData(null);
+    //     },
+    //   });
+    // }
+    // const updateProfile = {
+    //   nama: nama,
+    //   date: tanggal,
+    //   gender: gender,
+    //   contact: nomorHp,
+    // };
+    // setCurrentUser((prev) => {
+    //   const newUpdate = [...prev];
+    //   const index = newUpdate.length - 1;
+    //   newUpdate[index] = {
+    //     ...newUpdate[index],
+    //     ...updateProfile,
+    //   };
+    //   setModalData({
+    //     title: "Berhasil",
+    //     icon: "success",
+    //     deskripsi: "Selamat Biodata Kamu Sudah Di Update",
+    //     confirmButtonColor: "#3572EF",
+    //     confirmButtonText: "Oke",
+    //     onClose: () => {
+    //       setModalData(null);
+    //       router.push("/Profile");
+    //     },
+    //   });
+    //   return newUpdate;
+    // });
   };
   return (
     <>

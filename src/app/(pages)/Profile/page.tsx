@@ -38,7 +38,7 @@ const profil = () => {
                       <h1 className="border-2 rounded-md py-2 w-[15vw] px-2">
                         {isLoading
                           ? "loading..."
-                          : currentUser?.nama ?? "guest"}
+                          : currentUser?.fullname ?? "guest"}
                       </h1>
                     </div>
                     <div className="mx-2">
@@ -47,7 +47,7 @@ const profil = () => {
                       <h1 className="border-2 rounded-md py-2 w-[15vw] px-2">
                         {isLoading
                           ? "loading..."
-                          : currentUser?.date ?? "00/00/0000"}
+                          : currentUser?.tanggal_lahir ?? "00/00/0000"}
                       </h1>
                     </div>
                   </div>
@@ -64,16 +64,14 @@ const profil = () => {
                     <h1 className="border-2 rounded-md py-2 w-[31vw] px-2">
                       {isLoading
                         ? "loading..."
-                        : currentUser?.contact ?? "0811111111"}
+                        : currentUser?.nomor ?? "0811111111"}
                     </h1>
                   </div>
 
                   <div className="mx-2">
                     <label htmlFor="Jenis Kelamin">Jenis Kelamin:</label> <br />
                     <h1 className="border-2 rounded-md py-2 w-[31vw] px-2">
-                      {isLoading
-                        ? "loading..."
-                        : currentUser?.gender ?? "Anonim"}
+                      {isLoading ? "loading..." : currentUser?.gender}
                     </h1>
                   </div>
 

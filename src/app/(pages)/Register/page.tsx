@@ -7,18 +7,23 @@ import FacebookIcon from "../../../../public/asset/Facebook.png";
 import LinkIn from "../../../../public/asset/Linkin.png";
 import Github from "../../../../public/asset/GitHub.png";
 import { useState } from "react";
-import { useHook } from "@/app/layout/Provider";
 import Image from "next/image";
 import Modal from "@/app/component/modal/Modal";
 import { useRouter } from "next/navigation";
 import { ModalProps } from "@/app/type";
-import { userType } from "@/app/type";
+import { useHook } from "@/app/layout/Provider";
+import API from "@/app/util/API";
 
 const Register = () => {
-  const { setUser } = useHook();
+  const { setCurrentUser } = useHook();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [tanggal_lahir, setTanggal_lahir] = useState<string>("");
+  const [fullname, setFullname] = useState<string>("");
+  const [gender, setGender] = useState<string>("");
+  const [nomor, setNomor] = useState<string>("");
+  const [alamat, setAlamat] = useState<string>("");
   const [modalData, setModalData] = useState<ModalProps | null>(null);
   const router = useRouter();
 
@@ -26,7 +31,7 @@ const Register = () => {
     e.preventDefault();
     if (!username || !password || !email) {
       setModalData({
-        title: "Register Gagal",
+        title: "Edit Profile Gagal",
         icon: "warning",
         deskripsi: "Field Tidak Boleh Kosong!",
         confirmButtonColor: "#3572EF",
@@ -35,31 +40,50 @@ const Register = () => {
           setModalData(null);
         },
       });
-      return;
     }
-    const newUser: userType = {
-      username: username,
-      password: password,
-      email: email,
-      nama: "",
-      date: "",
-      gender: "",
-      contact: ",",
-    };
-    setUser((prev) => [...prev, newUser]);
-    setModalData({
-      title: "Berhasil Register",
-      icon: "success",
-      deskripsi: "Selamat Akun Kamu Sudah Dibuat",
-      confirmButtonColor: "#3572EF",
-      confirmButtonText: "Isi Data",
-      onClose: () => {
-        setModalData(null);
-        router.push("/Biodata");
-      },
-    });
+    API.post("/api/auth/register", {
+      username,
+      password,
+      email,
+      tanggal_lahir,
+      fullname,
+      gender,
+      nomor,
+      alamat,
+    })
+      .then((res) => {
+        console.log(res.data.user);
+        setCurrentUser(res.data.user);
+        localStorage.setItem("current", JSON.stringify(res.data.user));
+        setModalData({
+          title: "Berhasil Daftar",
+          icon: "success",
+          deskripsi: "Selamat Datang Di KostHub",
+          confirmButtonText: "lanjut",
+          confirmButtonColor: "#3572EF",
+          onClose: () => {
+            setModalData(null);
+            router.push("/Login");
+          },
+        });
+      })
+      .catch((err) => {
+        setModalData({
+          title: "Login Gagal",
+          icon: "error",
+          deskripsi: "Username dan kata sandi salah",
+          confirmButtonColor: "#3572EF",
+          confirmButtonText: "try again!",
+          onClose: () => {
+            setModalData(null);
+          },
+        });
+      });
   };
 
+  const handleChange = (value: string) => {
+    setGender((prev) => (prev === value ? "" : value));
+  };
   return (
     <div className="w-screen h-screen flex justify-center items-center rounded-tl-lg">
       <div className="grid grid-cols-2 grid-rows-1 gap-4">
@@ -162,9 +186,60 @@ const Register = () => {
                 />
               </div>
 
-              <div id="forgot Password" className="flex justify-center">
-                <h1 className="font-bold">Forgor Password?</h1>
+              <label htmlFor="Nama Lengkap">Nama Lengkap :</label>
+              <br />
+              <input
+                type="text"
+                className="p-[1rem] border-2 rounded-md bg-slate-300 w-[20vw]"
+                onChange={(e) => setFullname(e.target.value)}
+              />
+              <div>
+                <label htmlFor="Tanggal Lahir">Tanggal Lahir :</label> <br />
+                <input
+                  type="date"
+                  className="border-2 rounded-md bg-slate-300 w-[20vw] p-[1rem]"
+                  value={tanggal_lahir}
+                  onChange={(e) => setTanggal_lahir(e.target.value)}
+                />
               </div>
+
+              <div>
+                <label htmlFor="NomorHp">Nomor Hp :</label> <br />
+                <input
+                  type="text"
+                  className="border-2 rounded-md bg-slate-300 p-[1rem] w-[20vw]"
+                  placeholder="+62"
+                  onChange={(e) => setNomor(e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="Alamat">Alamat :</label> <br />
+                <input
+                  type="text"
+                  className="border-2 rounded-md bg-slate-300 p-[1rem] w-[20vw]"
+                  placeholder="ACEH"
+                  onChange={(e) => setAlamat(e.target.value)}
+                />
+              </div>
+              <fieldset>
+                <label htmlFor="Role">Gender:</label> <br />
+                <div className="flex gap-x-1 text-[1rem] items-center">
+                  <input
+                    type="radio"
+                    className="w-[2vw] h-[2vh]"
+                    name="gender"
+                    onChange={() => handleChange("Laki")}
+                  />
+                  <label htmlFor="">Laki-Laki</label>
+                  <input
+                    type="radio"
+                    className="w-[2vw] h-[2vh]"
+                    name="gender"
+                    onChange={() => handleChange("Perempuan")}
+                  />
+                  <label htmlFor="Perempuan">Perempuan</label>
+                </div>
+              </fieldset>
 
               <div id="button SignIn" className="flex justify-center py-3">
                 <button
@@ -175,9 +250,13 @@ const Register = () => {
                   Sign Up
                 </button>
               </div>
+              {modalData && <Modal {...modalData} />}
             </form>
+
+            <div id="forgot Password" className="flex justify-center">
+              <h1 className="font-bold">Forgor Password?</h1>
+            </div>
           </div>
-          {modalData && <Modal {...modalData} />}
         </div>
       </div>
     </div>

@@ -6,15 +6,15 @@ import GogleIcon from "../../../../public/asset/GogleIcon.png";
 import FacebookIcon from "../../../../public/asset/Facebook.png";
 import LinkIn from "../../../../public/asset/Linkin.png";
 import Github from "../../../../public/asset/GitHub.png";
-import { useHook } from "@/app/layout/Provider";
 import { useState } from "react";
 import Image from "next/image";
 import Modal from "@/app/component/modal/Modal";
 import { ModalProps } from "@/app/type";
 import API from "@/app/util/API";
+import { useHook } from "@/app/layout/Provider";
 
 const Login = () => {
-  const { currentUser } = useHook();
+  const { setCurrentUser } = useHook();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [modalData, setModalData] = useState<ModalProps | null>(null);
@@ -22,13 +22,26 @@ const Login = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!username || !password) {
+      setModalData({
+        title: "Edit Profile Gagal",
+        icon: "warning",
+        deskripsi: "Field Tidak Boleh Kosong!",
+        confirmButtonColor: "#3572EF",
+        confirmButtonText: "try again!",
+        onClose: () => {
+          setModalData(null);
+        },
+      });
+    }
     API.post("/api/auth/login", {
       username,
       password,
     })
       .then((res) => {
-        console.log(res.data.data);
-        localStorage.setItem("current", JSON.stringify(res.data.data));
+        console.log(res.data.user);
+        setCurrentUser(res.data.user);
+        localStorage.setItem("current", JSON.stringify(res.data.user));
         setModalData({
           title: "Berhasil Login",
           icon: "success",
@@ -53,48 +66,6 @@ const Login = () => {
           },
         });
       });
-    // if (!username || !password) {
-    //   setModalData({
-    //     title: "Login Gagal",
-    //     icon: "warning",
-    //     deskripsi: "Username & Password Tidak Boleh Kosong",
-    //     confirmButtonColor: "#3572EF",
-    //     confirmButtonText: "try again!",
-    //     onClose: () => {
-    //       setModalData(null);
-    //     },
-    //   });
-    //   return;
-    // }
-    // const login = user.find(
-    //   (u: userType) => u.username === username && u.password === password
-    // );
-
-    // if (login) {
-
-    //   setModalData({
-    //     title: "Berhasil Login",
-    //     icon: "success",
-    //     deskripsi: "Selamat Datang Di KostHub",
-    //     confirmButtonText: "lanjut",
-    //     confirmButtonColor: "#3572EF",
-    //     onClose: () => {
-    //       setModalData(null);
-    //       router.push("/Home");
-    //     },
-    //   });
-    // } else {
-    //   setModalData({
-    //     title: "Login Gagal",
-    //     icon: "error",
-    //     deskripsi: "Username dan kata sandi salah",
-    //     confirmButtonColor: "#3572EF",
-    //     confirmButtonText: "try again!",
-    //     onClose: () => {
-    //       setModalData(null);
-    //     },
-    //   });
-    // }
   };
 
   return (

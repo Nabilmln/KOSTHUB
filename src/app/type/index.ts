@@ -1,11 +1,14 @@
 export interface userType {
+  token: string;
+  _id: string;
   username: string;
   password: string;
   email: string;
-  nama?: string;
-  date?: string;
-  contact?: string;
+  fullname?: string;
+  tanggal_lahir?: string;
+  nomor?: string;
   gender?: string;
+  alamat?: string;
 }
 
 export interface ourServicesType {
