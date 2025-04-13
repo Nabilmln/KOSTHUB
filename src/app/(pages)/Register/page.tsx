@@ -11,8 +11,8 @@ import Image from "next/image";
 import Modal from "@/app/component/modal/Modal";
 import { useRouter } from "next/navigation";
 import { ModalProps } from "@/app/type";
-import { useHook } from "@/app/layout/Provider";
 import API from "@/app/util/API";
+import { useHook } from "@/app/component/hooks/UserAuth";
 
 const Register = () => {
   const { setCurrentUser } = useHook();

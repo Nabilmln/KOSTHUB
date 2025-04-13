@@ -1,15 +1,10 @@
 "use client";
-import { useState, useEffect, createContext, useContext } from "react";
+import { useState, useEffect } from "react";
 import { userType } from "../type";
+import contex from "../component/hooks/UserAuth";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
-
-const contex = createContext<{
-  currentUser: userType | null;
-  setCurrentUser: React.Dispatch<React.SetStateAction<userType | null>>;
-  isLoading: boolean;
-} | null>(null);
 
 export const ProvinderKost = ({ children }: { children: React.ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<userType | null>(null);
@@ -50,12 +45,4 @@ export const ProvinderKost = ({ children }: { children: React.ReactNode }) => {
       {children}
     </contex.Provider>
   );
-};
-
-export const useHook = () => {
-  const KostHub = useContext(contex);
-  if (!KostHub) {
-    throw new Error("");
-  }
-  return KostHub;
 };

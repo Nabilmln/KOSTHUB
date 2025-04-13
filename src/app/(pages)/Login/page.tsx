@@ -11,7 +11,7 @@ import Image from "next/image";
 import Modal from "@/app/component/modal/Modal";
 import { ModalProps } from "@/app/type";
 import API from "@/app/util/API";
-import { useHook } from "@/app/layout/Provider";
+import { useHook } from "@/app/component/hooks/UserAuth";
 
 const Login = () => {
   const { setCurrentUser } = useHook();

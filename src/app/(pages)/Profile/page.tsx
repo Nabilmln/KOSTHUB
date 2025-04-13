@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import profilehd from "../../../../public/asset/prfilhd.png";
 import Sidebar from "@/app/component/sidebar/Sidebar";
-import { useHook } from "@/app/layout/Provider";
+import { useHook } from "@/app/component/hooks/UserAuth";
 
 const profil = () => {
   const { currentUser, isLoading } = useHook();

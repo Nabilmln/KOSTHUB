@@ -6,8 +6,8 @@ import profilehd from "../../../../../public/asset/prfilhd.png";
 import { useState } from "react";
 import Modal from "@/app/component/modal/Modal";
 import { ModalProps } from "@/app/type";
-import { useHook } from "@/app/layout/Provider";
 import { useRouter } from "next/navigation";
+import { useHook } from "@/app/component/hooks/UserAuth";
 
 const EditProfile = () => {
   const { setCurrentUser } = useHook();
