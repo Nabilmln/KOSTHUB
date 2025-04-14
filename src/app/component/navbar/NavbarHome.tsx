@@ -26,7 +26,7 @@ const NavbarHome: React.FC = () => {
         </form>
         <Search />
       </div>
-      <Link href="/Profile">
+      <Link href="/profile">
         <div className="flex gap-2 items-center">
           <Image
             src={profil}

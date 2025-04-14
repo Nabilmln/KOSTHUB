@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import Icon from "../../../../public/asset/icon.png";
-import GogleIcon from "../../../../public/asset/GogleIcon.png";
-import FacebookIcon from "../../../../public/asset/Facebook.png";
-import LinkIn from "../../../../public/asset/Linkin.png";
-import Github from "../../../../public/asset/GitHub.png";
+import Icon from "../../../../../public/asset/icon.png";
+import GogleIcon from "../../../../../public/asset/GogleIcon.png";
+import FacebookIcon from "../../../../../public/asset/Facebook.png";
+import LinkIn from "../../../../../public/asset/Linkin.png";
+import Github from "../../../../../public/asset/GitHub.png";
 import { useState } from "react";
 import Image from "next/image";
 import Modal from "@/app/component/modal/Modal";
@@ -40,6 +40,7 @@ const Register = () => {
           setModalData(null);
         },
       });
+      return;
     }
     API.post("/api/auth/register", {
       username,
@@ -223,7 +224,7 @@ const Register = () => {
               </div>
               <fieldset>
                 <label htmlFor="Role">Gender:</label> <br />
-                <div className="flex gap-x-1 text-[1rem] items-center">
+                <div className="flex gap-x-1 text-[1rem] items-center justify-center">
                   <input
                     type="radio"
                     className="w-[2vw] h-[2vh]"

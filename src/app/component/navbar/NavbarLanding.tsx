@@ -37,7 +37,7 @@ const NavbarLanding: React.FC = () => {
       </div>
 
       <div title="Login">
-        <Link href="/Login" className="flex gap-x-1 items-center">
+        <Link href="/auth/login" className="flex gap-x-1 items-center">
           <CircleUserRound className="text-blue-500 w-[2vw] h-[3.3vh]" />
           <h1 className="font-bold text-blue-500 text-[1.5rem]">Login</h1>
         </Link>

@@ -1,4 +1,4 @@
-import LandingPage from "../../src/app/(pages)/LandingPage/page";
+import LandingPage from "./(pages)/landingpage/page";
 
 const Route = () => {
   return <LandingPage />;
