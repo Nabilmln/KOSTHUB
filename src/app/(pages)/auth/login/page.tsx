@@ -142,7 +142,7 @@ const Login = () => {
           </div>
         </div>
         <div
-          className="bg-sky-400 w-[50vw] h-[100vh] flex justify-center items-center rounded-s-lg"
+          className="bg-sky-400 w-[50vw] h-[100vh] flex justify-center items-center rounded-s-full"
           id="kanan"
         >
           <div className="" id="sidebar Container">
@@ -161,7 +161,7 @@ const Login = () => {
             </div>
 
             <div className="flex justify-center py-[2rem]" id="Paragraf">
-              <p className="text-[2rem] font-light text-white">
+              <p className="text-[2rem] font-light text-white text-center">
                 Register your personal detail to use all of site feature
               </p>
             </div>

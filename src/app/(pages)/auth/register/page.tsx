@@ -87,9 +87,9 @@ const Register = () => {
   };
   return (
     <div className="w-screen h-screen flex justify-center items-center rounded-tl-lg">
-      <div className="grid grid-cols-2 grid-rows-1 gap-4">
+      <div className="grid grid-cols-[1.4fr_2fr] grid-rows-1 gap-4">
         <div
-          className="bg-sky-400 w-[50vw] h-[100vh] flex justify-center items-center rounded-s-lg"
+          className="bg-sky-400 flex justify-center items-center rounded-r-full h-[100vh]"
           id="kanan"
         >
           <div className="" id="sidebar kiri">
@@ -104,13 +104,13 @@ const Register = () => {
             </div>
 
             <div className="flex justify-center py-[2rem]" id="Paragraf">
-              <p className="text-[2rem] font-light text-white">
+              <p className="text-[2rem] font-light text-center text-white">
                 Enter your personal details to use all of site features
               </p>
             </div>
 
             <div className="flex justify-center" id="sign Up">
-              <Link href="/Login">
+              <Link href="/auth/login">
                 <button className="border-2 rounded-full text-[1rem] text-white hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg">
                   Sign In
                 </button>
@@ -155,10 +155,12 @@ const Register = () => {
             </div>
 
             <form onSubmit={handleRegister} className="text-center">
-              <label htmlFor="username">Username: (4 to 8 characters)</label>
+              <label htmlFor="username">
+                Nama Lengkap: (4 to 8 characters)
+              </label>
               <br />
               <input
-                className="border-2 w-[27vh] rounded-sm p-2"
+                className="border-2 w-[70vh] rounded-sm p-2"
                 type="text"
                 minLength={4}
                 maxLength={8}
@@ -166,81 +168,84 @@ const Register = () => {
               ></input>
 
               <div className="text-center">
-                <label htmlFor="password">Password : (4 to 8 characters)</label>{" "}
+                <label htmlFor="password">Email : (4 to 8 characters)</label>{" "}
                 <br />
                 <input
                   type="password"
-                  className="border-2 w-[27vh] rounded-sm p-2"
+                  className="border-2 w-[70vh] rounded-sm p-2"
                   minLength={4}
                   maxLength={8}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-
-              <div className="text-center">
-                <label htmlFor="email">Email :</label> <br />
-                <input
-                  type="email"
-                  className="border-2 w-[27vh] rounded-sm p-2"
-                  placeholder="KostHub@example.com"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-
-              <label htmlFor="Nama Lengkap">Nama Lengkap :</label>
-              <br />
-              <input
-                type="text"
-                className="p-[1rem] border-2 rounded-md bg-slate-300 w-[20vw]"
-                onChange={(e) => setFullname(e.target.value)}
-              />
-              <div>
-                <label htmlFor="Tanggal Lahir">Tanggal Lahir :</label> <br />
-                <input
-                  type="date"
-                  className="border-2 rounded-md bg-slate-300 w-[20vw] p-[1rem]"
-                  value={tanggal_lahir}
-                  onChange={(e) => setTanggal_lahir(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <label htmlFor="NomorHp">Nomor Hp :</label> <br />
-                <input
-                  type="text"
-                  className="border-2 rounded-md bg-slate-300 p-[1rem] w-[20vw]"
-                  placeholder="+62"
-                  onChange={(e) => setNomor(e.target.value)}
-                />
-              </div>
-              <div>
-                <label htmlFor="Alamat">Alamat :</label> <br />
-                <input
-                  type="text"
-                  className="border-2 rounded-md bg-slate-300 p-[1rem] w-[20vw]"
-                  placeholder="ACEH"
-                  onChange={(e) => setAlamat(e.target.value)}
-                />
-              </div>
-              <fieldset>
-                <label htmlFor="Role">Gender:</label> <br />
-                <div className="flex gap-x-1 text-[1rem] items-center justify-center">
+              <div className="grid grid-cols-2 grid-rows-1 gap-x-12">
+                <div className="text-center">
+                  <label htmlFor="email">Username :</label> <br />
                   <input
-                    type="radio"
-                    className="w-[2vw] h-[2vh]"
-                    name="gender"
-                    onChange={() => handleChange("Laki")}
+                    type="email"
+                    className="border-2 w-[22.8vw] rounded-sm p-2"
+                    placeholder="KostHub@example.com"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
-                  <label htmlFor="">Laki-Laki</label>
-                  <input
-                    type="radio"
-                    className="w-[2vw] h-[2vh]"
-                    name="gender"
-                    onChange={() => handleChange("Perempuan")}
-                  />
-                  <label htmlFor="Perempuan">Perempuan</label>
                 </div>
-              </fieldset>
+
+                <div className="text-center">
+                  <label htmlFor="Tanggal Lahir">Tanggal Lahir :</label> <br />
+                  <input
+                    type="date"
+                    className="border-2 w-[22.8vw] rounded-sm p-2"
+                    value={tanggal_lahir}
+                    onChange={(e) => setTanggal_lahir(e.target.value)}
+                  />
+                </div>
+                <div className="text-center">
+                  <label htmlFor="Nama Lengkap">Nama Lengkap :</label>
+                  <br />
+                  <input
+                    type="text"
+                    className="border-2 w-[22.8vw] rounded-sm p-2"
+                    onChange={(e) => setFullname(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="NomorHp">Nomor Hp :</label> <br />
+                  <input
+                    type="text"
+                    className="border-2 w-[22.8vw] rounded-sm p-2"
+                    placeholder="+62"
+                    onChange={(e) => setNomor(e.target.value)}
+                  />
+                </div>
+
+                <div className="text-cente">
+                  <label htmlFor="Alamat">Alamat :</label> <br />
+                  <input
+                    type="text"
+                    className="border-2 w-[22.8vw] rounded-sm p-2"
+                    placeholder="ACEH"
+                    onChange={(e) => setAlamat(e.target.value)}
+                  />
+                </div>
+                <fieldset>
+                  <label htmlFor="Role">Gender:</label> <br />
+                  <div className="flex gap-x-1 text-[1rem] items-center justify-center">
+                    <input
+                      type="radio"
+                      className="w-[2vw] h-[2vh]"
+                      name="gender"
+                      onChange={() => handleChange("Laki")}
+                    />
+                    <label htmlFor="">Laki-Laki</label>
+                    <input
+                      type="radio"
+                      className="w-[2vw] h-[2vh]"
+                      name="gender"
+                      onChange={() => handleChange("Perempuan")}
+                    />
+                    <label htmlFor="Perempuan">Perempuan</label>
+                  </div>
+                </fieldset>
+              </div>
 
               <div id="button SignIn" className="flex justify-center py-3">
                 <button

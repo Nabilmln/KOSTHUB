@@ -25,7 +25,6 @@ export const ProvinderKost = ({ children }: { children: React.ReactNode }) => {
     setIsLoading(false);
   }, []);
 
-  // AOS
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);

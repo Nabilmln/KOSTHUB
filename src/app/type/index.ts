@@ -42,6 +42,14 @@ export interface itemsType {
   nomorhp: string;
 }
 
+export interface bestReviewType {
+  image: string;
+  title: string;
+  date: string;
+  gambar: string;
+  deskripsi: string;
+}
+
 export interface ModalProps {
   title: string;
   icon: "success" | "error" | "warning" | "info" | "question";

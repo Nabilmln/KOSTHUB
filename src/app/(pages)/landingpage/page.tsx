@@ -2,10 +2,15 @@
 import LandingPageIcon from "../../../../public/asset/LandingPageIcon.png";
 import NavbarLanding from "@/app/component/navbar/NavbarLanding";
 import OurServices from "@/app/component/card/OurServices";
-import { ourServicesData, bestProperyData } from "@/app/data/card";
+import {
+  ourServicesData,
+  bestProperyData,
+  bestReviewData,
+} from "@/app/data/card";
 import Image from "next/image";
 import FooterLanding from "@/app/component/footer/FooterLanding";
 import BestProperty from "@/app/component/card/BestProperty";
+import BestRewiew from "@/app/component/card/BestReview";
 
 const LandingPage = () => {
   return (
@@ -96,6 +101,25 @@ const LandingPage = () => {
               kamar={item.kamar}
             />
           ))}
+        </div>
+
+        <div className="flex justify-center flex-col text-center">
+          <div data-aos="fade-left">
+            <h1 className="font-bold text-[4rem]">Best Reviews</h1>
+            <p className="font-light">Properti dengan review terbaik!</p>
+          </div>
+          <div className="grid grid-cols-4 grid-rows-1 gap-4 pl-[2rem] pt-[2rem] pb-[3rem]">
+            {bestReviewData.map((item, index) => (
+              <BestRewiew
+                key={index}
+                image={item.image}
+                title={item.title}
+                date={item.date}
+                gambar={item.gambar}
+                deskripsi={item.deskripsi}
+              />
+            ))}
+          </div>
         </div>
         <FooterLanding />
       </div>

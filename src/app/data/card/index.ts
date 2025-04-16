@@ -1,4 +1,9 @@
-import { ourServicesType, bestPropertyType, itemsType } from "@/app/type";
+import {
+  ourServicesType,
+  bestPropertyType,
+  itemsType,
+  bestReviewType,
+} from "@/app/type";
 import HomeSecure from "../../../../public/asset/Home Secure.png";
 import Secure from "../../../../public/asset//Secured.png";
 import MoneyDolar from "../../../../public/asset/Money Dollar.png";
@@ -6,6 +11,9 @@ import TimeTwenty from "../../../../public/asset/Time Twenty Four.png";
 import Kost1 from "../../../../public/asset/kost1.png";
 import Kost2 from "../../../../public/asset/kost2.png";
 import photofrofil from "../../../../public/asset/porfil.png";
+import kost3 from "../../../../public/asset/kost3.png";
+import account from "../../../../public/asset/account.png";
+import { title } from "process";
 
 export const ourServicesData: ourServicesType[] = [
   {
@@ -64,5 +72,16 @@ export const itemsData: itemsType[] = [
     fotofrofil: photofrofil.src,
     username: "Serenity III",
     nomorhp: "+62 98765432",
+  },
+];
+
+export const bestReviewData: bestReviewType[] = [
+  {
+    image: account.src,
+    title: "Aji Gunawan",
+    date: "21 Januari 2025",
+    gambar: kost3.src,
+    deskripsi:
+      "Lingkungan ternyaman selama ngekos. Tetangganya super ramah dan suka menolong. Kamarnya juga luas, betah banget di kos ini",
   },
 ];
