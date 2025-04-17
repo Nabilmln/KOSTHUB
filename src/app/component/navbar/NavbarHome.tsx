@@ -3,7 +3,7 @@ import Image from "next/image";
 import profil from "../../../../public/asset/porfil.png";
 import { Search } from "lucide-react";
 import Link from "next/link";
-import { useHook } from "../hooks/UserAuth";
+import { useHook } from "../hooks/Kontex";
 
 const NavbarHome: React.FC = () => {
   const { currentUser, isLoading } = useHook();

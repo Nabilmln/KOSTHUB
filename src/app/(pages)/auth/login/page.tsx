@@ -11,7 +11,7 @@ import Image from "next/image";
 import Modal from "@/app/component/modal/Modal";
 import { ModalProps } from "@/app/type";
 import API from "@/app/util/API";
-import { useHook } from "@/app/component/hooks/UserAuth";
+import { useHook } from "@/app/component/hooks/Kontex";
 
 const Login = () => {
   const { setCurrentUser } = useHook();
@@ -120,17 +120,19 @@ const Login = () => {
 
               <div className="pb-3">
                 <label htmlFor="password">Password :</label> <br />
-                <input
-                  type="password"
-                  className="border-2 w-[50vh] rounded-sm p-2"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <span
-                  onClick={() => setShowpassword((prev) => !prev)}
-                  className="absolute right-3 top-[38px] cursor-pointer text-gray-500 hover:text-black select-none"
-                >
-                  {showpassword ? "A" : "B"}
-                </span>
+                <div className="border-2 w-[50vh] rounded-sm p-2 flex">
+                  <input
+                    type={showpassword ? "text" : "password"}
+                    className="w-[48vh] outline-none"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <span
+                    onClick={() => setShowpassword((prev) => !prev)}
+                    className=""
+                  >
+                    {showpassword ? "A" : "B"}
+                  </span>
+                </div>
               </div>
 
               <div id="forgot Password" className="flex justify-center">

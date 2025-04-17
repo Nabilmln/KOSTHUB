@@ -7,7 +7,7 @@ import { useState } from "react";
 import Modal from "@/app/component/modal/Modal";
 import { ModalProps } from "@/app/type";
 import { useRouter } from "next/navigation";
-import { useHook } from "@/app/component/hooks/UserAuth";
+import { useHook } from "@/app/component/hooks/Kontex";
 
 const EditProfile = () => {
   const { setCurrentUser } = useHook();

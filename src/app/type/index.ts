@@ -7,7 +7,7 @@ export interface userType {
   fullname?: string;
   tanggal_lahir?: string;
   nomor?: string;
-  gender?: string;
+  gender?: any;
   alamat?: string;
 }
 

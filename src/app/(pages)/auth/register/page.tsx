@@ -6,13 +6,13 @@ import GogleIcon from "../../../../../public/asset/GogleIcon.png";
 import FacebookIcon from "../../../../../public/asset/Facebook.png";
 import LinkIn from "../../../../../public/asset/Linkin.png";
 import Github from "../../../../../public/asset/GitHub.png";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Modal from "@/app/component/modal/Modal";
 import { useRouter } from "next/navigation";
 import { ModalProps } from "@/app/type";
 import API from "@/app/util/API";
-import { useHook } from "@/app/component/hooks/UserAuth";
+import { useHook } from "@/app/component/hooks/Kontex";
 
 const Register = () => {
   const { setCurrentUser } = useHook();
@@ -70,7 +70,7 @@ const Register = () => {
       })
       .catch((err) => {
         setModalData({
-          title: "Login Gagal",
+          title: "Gagal Daftar",
           icon: "error",
           deskripsi: "Username dan kata sandi salah",
           confirmButtonColor: "#3572EF",
@@ -82,7 +82,7 @@ const Register = () => {
       });
   };
 
-  const handleChange = (value: string) => {
+  const handleChange = (value: any) => {
     setGender((prev) => (prev === value ? "" : value));
   };
   return (
@@ -168,6 +168,7 @@ const Register = () => {
                 <input
                   type="text"
                   className="border-2 w-[70vh] rounded-sm p-2"
+                  placeholder="KostHub@example.com"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
@@ -178,7 +179,6 @@ const Register = () => {
                   <input
                     type="email"
                     className="border-2 w-[12vw] rounded-sm p-2"
-                    placeholder="KostHub@example.com"
                     onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
@@ -211,7 +211,7 @@ const Register = () => {
                   />
                 </div>
 
-                <div className="text-cente">
+                <div className="text-center">
                   <label htmlFor="Alamat">Alamat :</label> <br />
                   <input
                     type="text"
@@ -228,12 +228,14 @@ const Register = () => {
                       className="w-[2vw] h-[2vh]"
                       name="gender"
                       onChange={() => handleChange("Laki")}
+                      checked={gender === "laki"}
                     />
                     <label htmlFor="">Laki-Laki</label>
                     <input
                       type="radio"
                       className="w-[2vw] h-[2vh]"
                       name="gender"
+                      checked={gender === "Perempuan"}
                       onChange={() => handleChange("Perempuan")}
                     />
                     <label htmlFor="Perempuan">Perempuan</label>

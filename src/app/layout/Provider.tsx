@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { userType } from "../type";
-import contex from "../component/hooks/UserAuth";
+import contex from "../component/hooks/Kontex";
 
 import AOS from "aos";
 import "aos/dist/aos.css";

@@ -4,7 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import profilehd from "../../../../public/asset/prfilhd.png";
 import Sidebar from "@/app/component/sidebar/Sidebar";
-import { useHook } from "@/app/component/hooks/UserAuth";
+import { useHook } from "@/app/component/hooks/Kontex";
+import getGenderString from "../helper/helper";
 
 const profil = () => {
   const { currentUser, isLoading } = useHook();
@@ -76,7 +77,7 @@ const profil = () => {
                   <div className="mx-2">
                     <label htmlFor="Jenis Kelamin">Jenis Kelamin:</label> <br />
                     <h1 className="border-2 rounded-md py-2 w-[31vw] px-2">
-                      {isLoading ? "loading..." : currentUser?.gender}
+                      {getGenderString(currentUser?.gender)}
                     </h1>
                   </div>
 
