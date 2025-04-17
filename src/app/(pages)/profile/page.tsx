@@ -20,7 +20,7 @@ const profil = () => {
             className="grid grid-cols-[1fr_2fr] grid-rows-1 gap-1 h-full w-full"
             title="side-kanan"
           >
-            <div className="border-2 flex justify-center items-center">
+            <div className="border-2 flex-col flex justify-center items-center">
               <Image
                 src={profilehd}
                 alt="profil"
@@ -28,6 +28,11 @@ const profil = () => {
                 height={300}
                 className=""
               />
+              <Link href="/profile/editProfile">
+                <h1 className="border-2 p-2 mt-2 rounded-md bg-sky-400 hover:bg-sky-600 duration-[0.3s] hover:scale-105 ">
+                  Edit Foto
+                </h1>
+              </Link>
             </div>
             <div className="border-2 flex justify-center items-center">
               <form className="">
@@ -81,7 +86,7 @@ const profil = () => {
                     <h1 className="border-2 rounded-md py-2 w-[31vw] h-[10vh] px-2"></h1>
                   </div>
                   <div className="mx-2">
-                    <Link href="Profile/editprofile">
+                    <Link href="/profile/editProfile">
                       <button
                         className="border-2 rounded-md p-1 w-[31vw] hover:bg-sky-500 duration-[0.3s]"
                         type="submit"

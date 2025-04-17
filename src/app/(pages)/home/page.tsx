@@ -31,7 +31,7 @@ const Home = () => {
                 <h1 className="">Filter</h1>
                 <select
                   value={filter}
-                  className=""
+                  className="outline-none"
                   onChange={(e) => setFilter(e.target.value)}
                 >
                   <option value="-" className="text-black font-bold">
@@ -58,7 +58,7 @@ const Home = () => {
               </h1>
               <select
                 value={short}
-                className=""
+                className="outline-none"
                 onChange={(e) => setShort(e.target.value)}
               >
                 <option value="-" className="text-black font-bold">

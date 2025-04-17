@@ -72,13 +72,17 @@ const EditProfile = () => {
             className="grid grid-cols-[1fr_2fr] grid-rows-1 gap-1 h-full w-full"
             title="side-kanan"
           >
-            <div className="border-2 flex justify-center items-center">
+            <div className="border-2 flex flex-col justify-center items-center">
               <Image
                 src={profilehd}
                 alt="profil"
                 width={300}
                 height={300}
                 className=""
+              />
+              <input
+                type="file"
+                className="border-2 p-2 mt-2 rounded-md bg-gray-400 w-[11vw] hover:bg-gray-600 duration-[0.3s]"
               />
             </div>
 

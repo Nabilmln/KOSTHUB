@@ -19,6 +19,7 @@ const Login = () => {
   const [password, setPassword] = useState<string>("");
   const [modalData, setModalData] = useState<ModalProps | null>(null);
   const router = useRouter();
+  const [showpassword, setShowpassword] = useState<boolean>();
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -72,7 +73,7 @@ const Login = () => {
 
   return (
     <div className="w-screen h-screen flex justify-center items-center rounded-tl-lg">
-      <div className="grid grid-cols-2 grid-rows-1 gap-4">
+      <div className="grid grid-cols-[2fr_1fr] grid-rows-1 gap-4">
         <div className="flex justify-center items-center" id="kiri">
           <div id="side-kiri">
             <div className="flex justify-center py-3">
@@ -108,11 +109,11 @@ const Login = () => {
               </p>
             </div>
 
-            <form onSubmit={handleLogin} className="py-3">
+            <form onSubmit={handleLogin} className="text-center">
               <label htmlFor="username">Username:</label>
               <br />
               <input
-                className="border-2 w-[27vh] rounded-sm"
+                className="border-2 w-[50vh] rounded-sm p-2"
                 type="text"
                 onChange={(e) => setUsername(e.target.value)}
               ></input>
@@ -121,9 +122,15 @@ const Login = () => {
                 <label htmlFor="password">Password :</label> <br />
                 <input
                   type="password"
-                  className="border-2 w-[27vh] rounded-sm"
+                  className="border-2 w-[50vh] rounded-sm p-2"
                   onChange={(e) => setPassword(e.target.value)}
                 />
+                <span
+                  onClick={() => setShowpassword((prev) => !prev)}
+                  className="absolute right-3 top-[38px] cursor-pointer text-gray-500 hover:text-black select-none"
+                >
+                  {showpassword ? "A" : "B"}
+                </span>
               </div>
 
               <div id="forgot Password" className="flex justify-center">
@@ -142,7 +149,7 @@ const Login = () => {
           </div>
         </div>
         <div
-          className="bg-sky-400 w-[50vw] h-[100vh] flex justify-center items-center rounded-s-full"
+          className="bg-sky-400 flex justify-center items-center rounded-l-full h-[100vh]"
           id="kanan"
         >
           <div className="" id="sidebar Container">

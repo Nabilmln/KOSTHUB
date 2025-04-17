@@ -108,7 +108,10 @@ const LandingPage = () => {
             <h1 className="font-bold text-[4rem]">Best Reviews</h1>
             <p className="font-light">Properti dengan review terbaik!</p>
           </div>
-          <div className="grid grid-cols-4 grid-rows-1 gap-4 pl-[2rem] pt-[2rem] pb-[3rem]">
+          <div
+            className="grid grid-cols-4 grid-rows-1 gap-4 pl-[2rem] pt-[2rem] pb-[3rem]"
+            data-aos="zoom-out-up"
+          >
             {bestReviewData.map((item, index) => (
               <BestRewiew
                 key={index}

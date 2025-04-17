@@ -22,7 +22,7 @@ const NavbarHome: React.FC = () => {
       </Link>
       <div className="flex border-2 rounded-sm items-center w-[20vw] justify-around">
         <form action="">
-          <input type="text" placeholder="Search" className="" />
+          <input type="text" placeholder="Search" className="outline-none" />
         </form>
         <Search />
       </div>

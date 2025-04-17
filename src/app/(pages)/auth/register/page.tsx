@@ -64,7 +64,7 @@ const Register = () => {
           confirmButtonColor: "#3572EF",
           onClose: () => {
             setModalData(null);
-            router.push("/Login");
+            router.push("/auth/login");
           },
         });
       })
@@ -87,7 +87,7 @@ const Register = () => {
   };
   return (
     <div className="w-screen h-screen flex justify-center items-center rounded-tl-lg">
-      <div className="grid grid-cols-[1.4fr_2fr] grid-rows-1 gap-4">
+      <div className="grid grid-cols-[1fr_2fr] grid-rows-1 gap-4">
         <div
           className="bg-sky-400 flex justify-center items-center rounded-r-full h-[100vh]"
           id="kanan"
@@ -155,37 +155,31 @@ const Register = () => {
             </div>
 
             <form onSubmit={handleRegister} className="text-center">
-              <label htmlFor="username">
-                Nama Lengkap: (4 to 8 characters)
-              </label>
+              <label htmlFor="username">Nama Lengkap:</label>
               <br />
               <input
                 className="border-2 w-[70vh] rounded-sm p-2"
                 type="text"
-                minLength={4}
-                maxLength={8}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => setFullname(e.target.value)}
               ></input>
 
               <div className="text-center">
-                <label htmlFor="password">Email : (4 to 8 characters)</label>{" "}
-                <br />
+                <label htmlFor="email">Email :</label> <br />
                 <input
-                  type="password"
+                  type="text"
                   className="border-2 w-[70vh] rounded-sm p-2"
-                  minLength={4}
-                  maxLength={8}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div className="grid grid-cols-2 grid-rows-1 gap-x-12">
+
+              <div className="grid grid-cols-2 grid-rows-1">
                 <div className="text-center">
                   <label htmlFor="email">Username :</label> <br />
                   <input
                     type="email"
-                    className="border-2 w-[22.8vw] rounded-sm p-2"
+                    className="border-2 w-[12vw] rounded-sm p-2"
                     placeholder="KostHub@example.com"
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
 
@@ -193,25 +187,25 @@ const Register = () => {
                   <label htmlFor="Tanggal Lahir">Tanggal Lahir :</label> <br />
                   <input
                     type="date"
-                    className="border-2 w-[22.8vw] rounded-sm p-2"
+                    className="border-2 w-[12vw] rounded-sm p-2"
                     value={tanggal_lahir}
                     onChange={(e) => setTanggal_lahir(e.target.value)}
                   />
                 </div>
                 <div className="text-center">
-                  <label htmlFor="Nama Lengkap">Nama Lengkap :</label>
+                  <label htmlFor="Nama Lengkap">Password :</label>
                   <br />
                   <input
-                    type="text"
-                    className="border-2 w-[22.8vw] rounded-sm p-2"
-                    onChange={(e) => setFullname(e.target.value)}
+                    type="password"
+                    className="border-2 w-[12vw] rounded-sm p-2"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div>
                   <label htmlFor="NomorHp">Nomor Hp :</label> <br />
                   <input
                     type="text"
-                    className="border-2 w-[22.8vw] rounded-sm p-2"
+                    className="border-2 w-[12vw] rounded-sm p-2"
                     placeholder="+62"
                     onChange={(e) => setNomor(e.target.value)}
                   />
@@ -221,7 +215,7 @@ const Register = () => {
                   <label htmlFor="Alamat">Alamat :</label> <br />
                   <input
                     type="text"
-                    className="border-2 w-[22.8vw] rounded-sm p-2"
+                    className="border-2 w-[12vw] rounded-sm p-2"
                     placeholder="ACEH"
                     onChange={(e) => setAlamat(e.target.value)}
                   />
