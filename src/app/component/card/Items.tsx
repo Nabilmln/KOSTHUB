@@ -24,10 +24,10 @@ const items = ({
         <h1 className="font-light text-[1rem]">{harga}</h1>
       </div>
       <div className="flex justify-center gap-x-2">
-        <div className="bg-sky-300 rounded-md">
+        <div className="bg-sky-300 rounded-md p-1">
           <h1 className="font-bold">{hargabulan}</h1>
         </div>
-        <div className="bg-sky-300 rounded-md">
+        <div className="bg-sky-300 rounded-md p-1">
           <h1 className="font-bold">{hargatahun}</h1>
         </div>
       </div>
@@ -38,7 +38,7 @@ const items = ({
         <MapPin />
         <h1 className="font-light">{lokasi}</h1>
       </div>
-      <div className="grid grid-cols-4 grid-rows-1 gap-4 border-2 rounded-full p-1 w-[20vw]">
+      <div className="grid grid-cols-4 grid-rows-1 gap-x-4 border-2 rounded-md p-2 w-[20vw] text-center">
         <div className="flex">
           <BedDouble />
           <h1 className="font-bold">{kamar}</h1>
@@ -62,7 +62,7 @@ const items = ({
           <Image src={fotofrofil} alt="" width={30} height={0}></Image>
           <h1 className="font-bold">{username}</h1>
         </div>
-        <div className="flex border-2 rounded-md">
+        <div className="flex border-2 rounded-md p-1">
           <Phone />
           <h1 className="font-light">{nomorhp}</h1>
         </div>

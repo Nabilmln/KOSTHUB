@@ -15,18 +15,20 @@ const Home = () => {
       <NavbarHome />
       <div className="w-screen h-screen pt-[1rem]">
         <div className="flex justify-around">
-          <div className="">
-            <button className="border-2 rounded-full w-[5vw] hover:bg-sky-400 duration-[1s]">
-              All
-            </button>
-            <button className="border-2 rounded-full w-[5vw] hover:bg-sky-400 duration-[1s]">
-              Top Kost
-            </button>
-          </div>
-
-          <div className="flex">
-            <div className="flex">
-              <form action="" className="border-2 rounded-sm flex">
+          <div className="grid grid-cols-2 gap-x-100">
+            <div title="side-kana" className="flex space-x-4 ">
+              <button className="border-2 rounded-md w-[5vw] hover:bg-sky-400 duration-[1s]">
+                All
+              </button>
+              <button className="border-2 rounded-md w-[5vw] hover:bg-sky-400 duration-[1s]">
+                Top Kost
+              </button>
+            </div>
+            <div title="side-kiri" className="flex space-x-4">
+              <form
+                action=""
+                className="border-2 rounded-sm flex items-center space-x-2 p-1"
+              >
                 <Funnel />
                 <h1 className="">Filter</h1>
                 <select
@@ -37,41 +39,18 @@ const Home = () => {
                   <option value="-" className="text-black font-bold">
                     Pilih
                   </option>
-                  <option value="diminati" className="text-black font-bold">
-                    diminati
+                  <option value="diminati" className="text-black font-semibold">
+                    Diminati
                   </option>
                   <option
                     value="paling-diminati"
-                    className="text-black font-bold"
+                    className="text-black font-semibold"
                   >
-                    paling diminati
+                    Paling diminati
                   </option>
                 </select>
               </form>
             </div>
-            <form
-              action=""
-              className="border-2 rounded-full w-[14vw] flex items-center"
-            >
-              <h1 className="">
-                <span className="font-light">Short By:</span> Highest Price
-              </h1>
-              <select
-                value={short}
-                className="outline-none"
-                onChange={(e) => setShort(e.target.value)}
-              >
-                <option value="-" className="text-black font-bold">
-                  pilih
-                </option>
-                <option value="terbaik" className="text-black font-bold">
-                  Terbaik
-                </option>
-                <option value="terburuk" className="text-black font-bold">
-                  Terburuk
-                </option>
-              </select>
-            </form>
           </div>
         </div>
         <div className="grid grid-cols-4 grid-rows-1 gap-4 p-[1rem]">
