@@ -5,7 +5,7 @@ import Image from "next/image";
 import profilehd from "../../../../public/asset/prfilhd.png";
 import Sidebar from "@/app/component/sidebar/Sidebar";
 import { useHook } from "@/app/component/hooks/Kontex";
-import getGenderString from "../helper/helper";
+import getGenderString from "@/app/helper/helper";
 
 const profil = () => {
   const { currentUser, isLoading } = useHook();
@@ -30,7 +30,7 @@ const profil = () => {
                 className=""
               />
               <Link href="/profile/editProfile">
-                <h1 className="border-2 p-2 mt-2 rounded-md bg-sky-400 hover:bg-sky-600 duration-[0.3s] hover:scale-105 ">
+                <h1 className="border-2 p-2 mt-5 rounded-md bg-sky-400 hover:bg-sky-600 duration-[0.3s] hover:scale-105 ">
                   Edit Foto
                 </h1>
               </Link>

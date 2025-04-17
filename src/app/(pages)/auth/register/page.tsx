@@ -6,7 +6,7 @@ import GogleIcon from "../../../../../public/asset/GogleIcon.png";
 import FacebookIcon from "../../../../../public/asset/Facebook.png";
 import LinkIn from "../../../../../public/asset/Linkin.png";
 import Github from "../../../../../public/asset/GitHub.png";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import Modal from "@/app/component/modal/Modal";
 import { useRouter } from "next/navigation";

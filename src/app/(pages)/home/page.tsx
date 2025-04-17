@@ -53,6 +53,9 @@ const Home = () => {
             </div>
           </div>
         </div>
+        <div className=" flex justify-center items-center">
+          <h1 className="font-bold text-[3rem]">Top picks for you</h1>
+        </div>
         <div className="grid grid-cols-4 grid-rows-1 gap-4 p-[1rem]">
           {itemsData.map((item, index) => (
             <Items
@@ -72,6 +75,12 @@ const Home = () => {
               nomorhp={item.nomorhp}
             />
           ))}
+        </div>
+        <div className="flex justify-center items-center">
+          <h1 className="font-bold text-[3rem]">More Recommendation</h1>
+        </div>
+        <div className="grid grid-cols-4 grid-rows-1 gap-4 p-[1rem]">
+          <h1>Ini Data</h1>
         </div>
       </div>
       <FooterLanding />
