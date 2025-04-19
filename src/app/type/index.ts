@@ -1,3 +1,5 @@
+import { ReactElement } from "react";
+
 export interface userType {
   token: string;
   _id: string;
@@ -57,4 +59,10 @@ export interface ModalProps {
   confirmButtonText?: string;
   confirmButtonColor?: string;
   onClose?: () => void;
+}
+
+export interface PropertyType {
+  Icon: any;
+  title: string;
+  index: string;
 }

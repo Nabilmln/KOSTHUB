@@ -7,11 +7,25 @@ import image4 from "../../../../public/asset/image5.svg";
 import facebook from "../../../../public/asset/facebook.svg";
 import twitter from "../../../../public/asset/twiter.svg";
 import instagram from "../../../../public/asset/instagram.svg";
-import { Hotel, Star, Phone, Mail } from "lucide-react";
+import Property from "@/app/component/card/Property";
+import { PropertyData } from "@/app/data/card";
+import NabvarItem from "@/app/component/navbar/NavbarItem";
+import {
+  Hotel,
+  Star,
+  Phone,
+  Mail,
+  Heart,
+  Forward,
+  Bookmark,
+} from "lucide-react";
 
 const SelectItems = () => {
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen relative">
+      <div className=" inset-x-0 top-0 h-16">
+        <NabvarItem />
+      </div>
       <div className="grid grid-cols-2 grid-rows-1 gap-x-2 ">
         <div className="h-[60vh] p-2 " title="ini kiri">
           <div className="shadow-2xl rounded-md flex justify-center items-center border-1">
@@ -37,6 +51,40 @@ const SelectItems = () => {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div className="flex items-center justify-between mt-2">
+            <h1 className="font-bold text-[2rem]">Serenity III</h1>
+            <div className="flex gap-x-4">
+              <Heart className="hover:text-red-500 duration-[0.4s]" />
+              <Forward />
+              <Bookmark className="hover:text-yellow-300 duration-[0.4s]" />
+            </div>
+          </div>
+          <div>
+            <h1 className="font-light">Lamgugob, Banda Aceh</h1>
+          </div>
+          <div className="w-full rounded-md h-[10vh] bg-sky-500 flex justify-center items-center shadow-lg border-1">
+            <div className=" grid grid-cols-4 grid-rows-1 gap-x-16 ">
+              {PropertyData.map((item, index) => (
+                <Property
+                  key={index}
+                  Icon={item.Icon}
+                  title={item.title}
+                  index={item.index}
+                />
+              ))}
+            </div>
+          </div>
+          <div className="mt-1 w-full rounded-md h-[12vh] bg-sky-500 border-1 p-2 flex-col">
+            <h1 className="font-bold text-[1rem]">Description</h1>
+            <div className="rounded-md shadow-lg bg-white p-2">
+              <h1 className="font-semibold">
+                For rent: A comfortable house featuring an air-conditioned
+                bedroom, a fully equipped kitchen with a refrigerator and stove.
+                Please note that electricity, water, and Wi-Fi bills are the
+                tenant's responsibility!
+              </h1>
             </div>
           </div>
         </div>

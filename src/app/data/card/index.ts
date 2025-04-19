@@ -3,6 +3,7 @@ import {
   bestPropertyType,
   itemsType,
   bestReviewType,
+  PropertyType,
 } from "@/app/type";
 import HomeSecure from "../../../../public/asset/Home Secure.png";
 import Secure from "../../../../public/asset//Secured.png";
@@ -13,7 +14,7 @@ import Kost2 from "../../../../public/asset/kost2.png";
 import photofrofil from "../../../../public/asset/porfil.png";
 import kost3 from "../../../../public/asset/kost3.png";
 import account from "../../../../public/asset/account.png";
-import { title } from "process";
+import { BedDouble } from "lucide-react";
 
 export const ourServicesData: ourServicesType[] = [
   {
@@ -83,5 +84,28 @@ export const bestReviewData: bestReviewType[] = [
     gambar: kost3.src,
     deskripsi:
       "Lingkungan ternyaman selama ngekos. Tetangganya super ramah dan suka menolong. Kamarnya juga luas, betah banget di kos ini",
+  },
+];
+
+export const PropertyData: PropertyType[] = [
+  {
+    Icon: BedDouble,
+    title: "Bedroom",
+    index: "3",
+  },
+  {
+    Icon: BedDouble,
+    title: "Bedroom",
+    index: "3",
+  },
+  {
+    Icon: BedDouble,
+    title: "Bedroom",
+    index: "3",
+  },
+  {
+    Icon: BedDouble,
+    title: "Bedroom",
+    index: "3",
   },
 ];

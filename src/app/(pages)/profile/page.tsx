@@ -29,7 +29,7 @@ const profil = () => {
                 height={300}
                 className=""
               />
-              <Link href="/profile/editProfile">
+              <Link href="/profile/edit-profile">
                 <h1 className="border-2 p-2 mt-5 rounded-md bg-sky-400 hover:bg-sky-600 duration-[0.3s] hover:scale-105 ">
                   Edit Foto
                 </h1>
@@ -87,7 +87,7 @@ const profil = () => {
                     <h1 className="border-2 rounded-md py-2 w-[31vw] h-[10vh] px-2"></h1>
                   </div>
                   <div className="mx-2">
-                    <Link href="/profile/editProfile">
+                    <Link href="/profile/edit-profile">
                       <button
                         className="border-2 rounded-md p-1 w-[31vw] hover:bg-sky-500 duration-[0.3s]"
                         type="submit"

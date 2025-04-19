@@ -18,20 +18,20 @@ const Sidebar: React.FC = () => {
             <h1 className="font-light">Profile</h1>
           </div>
         </Link>
-        <Link href="/profile/dataKost">
+        <Link href="/profile/data-kost">
           <div className="flex gap-x-2 hover:text-sky-600 duration-[0.5s] items-center text-[1.8rem]">
             <File width="16" hanging="16" className="w-[3vw] h-[3vh]" />
             <h1 className="font-light">Data Kost</h1>
           </div>
         </Link>
 
-        <Link href="/profile/simpanKost">
+        <Link href="/profile/simpan-kost">
           <div className="flex gap-x-2 hover:text-sky-600 duration-[0.5s] items-center text-[1.8rem]">
             <Bookmark width="16" hanging="16" className="w-[3vw] h-[3vh]" />
             <h1 className="font-light">Simpan Kost</h1>
           </div>
         </Link>
-        <Link href="/profile/riwayatTransaksi">
+        <Link href="/profile/riwayat-transaksi">
           <div className="flex gap-x-2 hover:text-sky-600 duration-[0.5s] items-center text-[1.8rem]">
             <HandCoins width="16" hanging="16" className="w-[3vw] h-[3vh]" />
             <h1 className="font-light">Riwayat Transaksi</h1>
@@ -39,14 +39,14 @@ const Sidebar: React.FC = () => {
         </Link>
       </div>
       <div title="/side-bot">
-        <Link href="/ubahpassword">
+        <Link href="/ubah-password">
           <div className="flex gap-x-2 hover:text-sky-600 duration-[0.5s] items-center text-[1.8rem]">
             <KeyRound width="16" hanging="16" className="w-[3vw] h-[3vh]" />
             <h1 className="font-light">Ubah Password</h1>
           </div>
         </Link>
 
-        <Link href="/landingpage">
+        <Link href="/landing-page">
           <div className="flex gap-x-2 text-red-600 items-center text-[1.8rem]">
             <DoorClosed width="16" hanging="16" className="w-[3vw] h-[3vh] " />
             <h1 className="font-light ">Log out</h1>
