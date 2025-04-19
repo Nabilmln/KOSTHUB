@@ -60,6 +60,7 @@ const Home = () => {
           {itemsData.map((item, index) => (
             <Items
               key={index}
+              _id={item._id}
               image={item.image}
               harga={item.harga}
               hargabulan={item.hargabulan}

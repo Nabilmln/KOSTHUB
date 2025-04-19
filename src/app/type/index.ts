@@ -29,6 +29,7 @@ export interface bestPropertyType {
 }
 
 export interface itemsType {
+  _id: string;
   image: string;
   harga: string;
   hargabulan: string;

@@ -1,8 +1,10 @@
 import Image from "next/image";
 import { BedDouble, ShowerHead, Map, Wifi, Phone, MapPin } from "lucide-react";
+import Link from "next/link";
 import { itemsType } from "@/app/type";
 
 const items = ({
+  _id,
   image,
   harga,
   hargabulan,
@@ -18,8 +20,11 @@ const items = ({
   nomorhp,
 }: itemsType) => {
   return (
-    <div className="border-2 rounded-md flex flex-col items-center p-[1rem]">
-      <Image src={image} alt="" width={400} height={10}></Image>
+    <Link
+      href={`/kost/${_id}`}
+      className="border-2 rounded-md flex flex-col items-center p-[1rem]"
+    >
+      <Image src={image} alt="test" width={400} height={10}></Image>
       <div className="">
         <h1 className="font-light text-[1rem]">{harga}</h1>
       </div>
@@ -67,7 +72,7 @@ const items = ({
           <h1 className="font-light">{nomorhp}</h1>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 export default items;

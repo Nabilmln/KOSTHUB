@@ -1,15 +1,18 @@
+"use client";
 import Image from "next/image";
-import image from "../../../../public/asset/image1.svg";
-import image1 from "../../../../public/asset/image2.svg";
-import image2 from "../../../../public/asset/image3.svg";
-import image3 from "../../../../public/asset//image4.svg";
-import image4 from "../../../../public/asset/image5.svg";
-import facebook from "../../../../public/asset/facebook.svg";
-import twitter from "../../../../public/asset/twiter.svg";
-import instagram from "../../../../public/asset/instagram.svg";
+import image from "../../../../../public/asset/image1.svg";
+import image1 from "../../../../../public/asset/image2.svg";
+import image2 from "../../../../../public/asset/image3.svg";
+import image3 from "../../../../../public/asset//image4.svg";
+import image4 from "../../../../../public/asset/image5.svg";
+import facebook from "../../../../../public/asset/facebook.svg";
+import twitter from "../../../../../public/asset/twiter.svg";
+import instagram from "../../../../../public/asset/instagram.svg";
 import Property from "@/app/component/card/Property";
 import { PropertyData } from "@/app/data/card";
 import NabvarItem from "@/app/component/navbar/NavbarItem";
+import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 import {
   Hotel,
   Star,
@@ -21,6 +24,15 @@ import {
 } from "lucide-react";
 
 const SelectItems = () => {
+  const [kostId, setKostId] = useState<string>("");
+
+  useEffect(() => {
+    setKostId(() => {
+      const pathName = usePathname().split("/");
+      const id = pathName[pathName.length - 1];
+      return id;
+    });
+  }, []);
   return (
     <div className="h-screen w-screen relative">
       <div className=" inset-x-0 top-0 h-16">

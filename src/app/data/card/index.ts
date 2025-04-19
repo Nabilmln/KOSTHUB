@@ -59,6 +59,7 @@ export const bestProperyData: bestPropertyType[] = [
 
 export const itemsData: itemsType[] = [
   {
+    _id: "1",
     image: Kost2.src,
     harga: "Rp.2.000.000/Tahun",
     hargabulan: "Rp.6.500.000/Bulan",
