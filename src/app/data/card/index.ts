@@ -70,7 +70,7 @@ export const itemsData: itemsType[] = [
     kamar: "3",
     toilet: "3",
     map: "300M",
-    wifi: "Wifi",
+
     fotofrofil: photofrofil.src,
     username: "Serenity III",
     nomorhp: "+62 98765432",

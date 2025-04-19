@@ -63,111 +63,115 @@ const EditProfile = () => {
   };
   return (
     <>
-      <NavbarProfil />
+      <div className="h-screen w-screen">
+        <div className=" inset-x-0 top-0 h-16">
+          <NavbarProfil />
+        </div>
 
-      <div className="grid grid-cols-[0.4fr_2fr] grid-rows-1 gap-1 pt-[3vh] border-t-1 h-screen w-screen">
-        <Sidebar />
-        <div className="border-2">
-          <div
-            className="grid grid-cols-[1fr_2fr] grid-rows-1 gap-1 h-full w-full"
-            title="side-kanan"
-          >
-            <div className="border-2 flex flex-col justify-center items-center">
-              <Image
-                src={profilehd}
-                alt="profil"
-                width={300}
-                height={300}
-                className=""
-              />
-              <input
-                type="file"
-                className="border-2 p-2 mt-2 rounded-md bg-gray-400 w-[11vw] hover:bg-gray-600 duration-[0.3s]"
-              />
-            </div>
+        <div className="grid grid-cols-[0.4fr_2fr] grid-rows-1 gap-1 pt-[3vh] border-t-1 h-[93vh]">
+          <Sidebar />
+          <div className="border-2">
+            <div
+              className="grid grid-cols-[1fr_2fr] grid-rows-1 gap-1 h-full w-full"
+              title="side-kanan"
+            >
+              <div className="border-2 flex flex-col justify-center items-center">
+                <Image
+                  src={profilehd}
+                  alt="profil"
+                  width={300}
+                  height={300}
+                  className=""
+                />
+                <input
+                  type="file"
+                  className="border-2 p-2 mt-2 rounded-md bg-gray-400 w-[11vw] hover:bg-gray-600 duration-[0.3s]"
+                />
+              </div>
 
-            <div className="border-2 flex justify-center items-center">
-              <form onSubmit={handleEditProfile}>
-                <div className="grid grid-cols-1 grid-rows-2 gap-2">
-                  <div className="flex items-center">
+              <div className="border-2 flex justify-center items-center">
+                <form onSubmit={handleEditProfile}>
+                  <div className="grid grid-cols-1 grid-rows-2 gap-2">
+                    <div className="flex items-center">
+                      <div className="mx-2">
+                        <label htmlFor="Username">Nama :</label> <br />
+                        <input
+                          type="text"
+                          className="border-2 rounded-md py-2 w-[15vw] px-4"
+                          onChange={(e) => setNama(e.target.value)}
+                        />
+                      </div>
+                      <div className="mx-2">
+                        <label htmlFor="Tanggal Lahir"> Tanggal Lahir:</label>{" "}
+                        <br />
+                        <div className="flex border-2 rounded-md py-2 w-[15vw]">
+                          <input
+                            type="date"
+                            className=" px-4 w-[15vw]"
+                            onChange={(e) => setTanggal(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    </div>
                     <div className="mx-2">
-                      <label htmlFor="Username">Nama :</label> <br />
+                      <label htmlFor="Email">Email :</label> <br />
                       <input
                         type="text"
-                        className="border-2 rounded-md py-2 w-[15vw] px-4"
-                        onChange={(e) => setNama(e.target.value)}
+                        className="border-2 rounded-md py-2 w-[31vw] px-2"
+                        placeholder="Koshut@example.com"
+                        onChange={(e) => setEmail(e.target.value)}
                       />
                     </div>
                     <div className="mx-2">
-                      <label htmlFor="Tanggal Lahir"> Tanggal Lahir:</label>{" "}
+                      <label htmlFor="nohp">Nomor Hp:</label> <br />
+                      <input
+                        type="text"
+                        className="border-2 rounded-md py-2 w-[31vw] px-2"
+                        placeholder="+62"
+                        onChange={(e) => setNomorHp(e.target.value)}
+                      />
+                    </div>
+
+                    <div className="mx-2">
+                      <label htmlFor="Gender">Jenis Kelamin:</label> <br />
+                      <select
+                        value={gender}
+                        className="border-2 rounded-md py-2 w-[31vw] px-2"
+                        onChange={(e) => setGender(e.target.value)}
+                      >
+                        <option value="-" className="text-black">
+                          -
+                        </option>
+                        <option value="Laki" className="text-black">
+                          Laki-Laki
+                        </option>
+                        <option value="Perempuan" className="text-black">
+                          Perempuan
+                        </option>
+                      </select>
+                    </div>
+
+                    <div className="mx-2">
+                      <label htmlFor="">Bio :</label>
                       <br />
-                      <div className="flex border-2 rounded-md py-2 w-[15vw]">
-                        <input
-                          type="date"
-                          className=" px-4 w-[15vw]"
-                          onChange={(e) => setTanggal(e.target.value)}
-                        />
-                      </div>
+                      <input
+                        type="text"
+                        className="border-2 rounded-md w-[31vw] h-[10vh]"
+                      />
+                    </div>
+                    <div className="mx-2">
+                      <button
+                        className="border-2 rounded-md p-1 w-[31vw] hover:bg-sky-500 duration-[0.3s]"
+                        type="submit"
+                      >
+                        Done
+                      </button>
                     </div>
                   </div>
-                  <div className="mx-2">
-                    <label htmlFor="Email">Email :</label> <br />
-                    <input
-                      type="text"
-                      className="border-2 rounded-md py-2 w-[31vw] px-2"
-                      placeholder="Koshut@example.com"
-                      onChange={(e) => setEmail(e.target.value)}
-                    />
-                  </div>
-                  <div className="mx-2">
-                    <label htmlFor="nohp">Nomor Hp:</label> <br />
-                    <input
-                      type="text"
-                      className="border-2 rounded-md py-2 w-[31vw] px-2"
-                      placeholder="+62"
-                      onChange={(e) => setNomorHp(e.target.value)}
-                    />
-                  </div>
-
-                  <div className="mx-2">
-                    <label htmlFor="Gender">Jenis Kelamin:</label> <br />
-                    <select
-                      value={gender}
-                      className="border-2 rounded-md py-2 w-[31vw] px-2"
-                      onChange={(e) => setGender(e.target.value)}
-                    >
-                      <option value="-" className="text-black">
-                        -
-                      </option>
-                      <option value="Laki" className="text-black">
-                        Laki-Laki
-                      </option>
-                      <option value="Perempuan" className="text-black">
-                        Perempuan
-                      </option>
-                    </select>
-                  </div>
-
-                  <div className="mx-2">
-                    <label htmlFor="">Bio :</label>
-                    <br />
-                    <input
-                      type="text"
-                      className="border-2 rounded-md w-[31vw] h-[10vh]"
-                    />
-                  </div>
-                  <div className="mx-2">
-                    <button
-                      className="border-2 rounded-md p-1 w-[31vw] hover:bg-sky-500 duration-[0.3s]"
-                      type="submit"
-                    >
-                      Done
-                    </button>
-                  </div>
-                </div>
-              </form>
+                </form>
+              </div>
+              {modalData && <Modal {...modalData} />}
             </div>
-            {modalData && <Modal {...modalData} />}
           </div>
         </div>
       </div>

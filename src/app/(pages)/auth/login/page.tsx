@@ -43,6 +43,7 @@ const Login = () => {
     })
       .then((res) => {
         console.log(res.data.user);
+
         setCurrentUser(res.data.user);
         localStorage.setItem("current", JSON.stringify(res.data.user));
         setModalData({

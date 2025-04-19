@@ -25,6 +25,7 @@ import {
 
 const SelectItems = () => {
   const [kostId, setKostId] = useState<string>("");
+  const [ratingStar, setRatingStar] = useState<number>(0);
 
   useEffect(() => {
     setKostId(() => {
@@ -33,6 +34,7 @@ const SelectItems = () => {
       return id;
     });
   }, []);
+
   return (
     <div className="h-screen w-screen relative">
       <div className=" inset-x-0 top-0 h-16">
@@ -109,12 +111,52 @@ const SelectItems = () => {
                   Ie Masen Kaye Adang, Syiah Kuala, Banda Aceh
                 </p>
                 <p className="font-light">IDR.30.000.000/year</p>
-                <div className="flex">
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
-                  <Star />
+                <div className="flex items-center gap-3">
+                  <div
+                    onMouseOver={() => setRatingStar(1)}
+                    onMouseOut={() => setRatingStar(0)}
+                  >
+                    <Star
+                      color={ratingStar >= 1 ? "#FFFF00" : "#000000"}
+                      className="duration-[0.2s]"
+                    />
+                  </div>
+                  <div
+                    onMouseOver={() => setRatingStar(2)}
+                    onMouseOut={() => setRatingStar(0)}
+                  >
+                    <Star
+                      color={ratingStar >= 2 ? "#FFFF00" : "#000000"}
+                      className="duration-[0.2s]"
+                    />
+                  </div>
+                  <div
+                    onMouseOver={() => setRatingStar(3)}
+                    onMouseOut={() => setRatingStar(0)}
+                  >
+                    <Star
+                      color={ratingStar >= 3 ? "#FFFF00" : "#000000"}
+                      className="duration-[0.2s]"
+                    />
+                  </div>
+                  <div
+                    onMouseOver={() => setRatingStar(4)}
+                    onMouseOut={() => setRatingStar(0)}
+                  >
+                    <Star
+                      color={ratingStar >= 4 ? "#FFFF00" : "#000000"}
+                      className="duration-[0.2s]"
+                    />
+                  </div>
+                  <div
+                    onMouseOver={() => setRatingStar(5)}
+                    onMouseOut={() => setRatingStar(0)}
+                  >
+                    <Star
+                      color={ratingStar >= 5 ? "#FFFF00" : "#000000"}
+                      className="duration-[0.2s]"
+                    />
+                  </div>
                 </div>
               </div>
               <div className=" h-[28vh] w-[30vw] rounded-md bg-white flex-col p-2 mt-[10rem] border-1">

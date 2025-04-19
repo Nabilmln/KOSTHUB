@@ -10,7 +10,7 @@ import {
 
 const Sidebar: React.FC = () => {
   return (
-    <div className="border-2" title="side-kiri">
+    <div className="border-2 flex flex-col justify-between" title="side-kiri">
       <div title="side-top">
         <Link href="/profile">
           <div className="flex gap-x-2 hover:text-sky-600 duration-[0.5s] text-[1.8rem] items-center">
@@ -38,8 +38,9 @@ const Sidebar: React.FC = () => {
           </div>
         </Link>
       </div>
-      <div title="/side-bot">
-        <Link href="/ubah-password">
+
+      <div title="side-bot ">
+        <Link href="/profile/ubah-password">
           <div className="flex gap-x-2 hover:text-sky-600 duration-[0.5s] items-center text-[1.8rem]">
             <KeyRound width="16" hanging="16" className="w-[3vw] h-[3vh]" />
             <h1 className="font-light">Ubah Password</h1>

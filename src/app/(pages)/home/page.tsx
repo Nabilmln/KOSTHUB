@@ -70,7 +70,6 @@ const Home = () => {
               kamar={item.kamar}
               toilet={item.toilet}
               map={item.map}
-              wifi={item.wifi}
               fotofrofil={item.fotofrofil}
               username={item.username}
               nomorhp={item.nomorhp}

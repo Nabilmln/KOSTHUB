@@ -39,7 +39,6 @@ export interface itemsType {
   kamar: string;
   toilet: string;
   map: string;
-  wifi: string;
   fotofrofil: string;
   username: string;
   nomorhp: string;
