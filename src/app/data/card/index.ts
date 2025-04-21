@@ -65,7 +65,7 @@ export const itemsData: itemsType[] = [
     hargabulan: "Rp.6.500.000/Bulan",
     hargatahun: "Rp.30.000.000/Tahun",
     deskripsi:
-      "Kost elite anak orang kaya 7 turunan dan uang nya ga abis-abis ...",
+      "Kost elite anak orang kaya 7 turu1 nan dan uang nya ga abis-abis ...",
     lokasi: "Lamgugob, Banda Aceh",
     kamar: "3",
     toilet: "3",

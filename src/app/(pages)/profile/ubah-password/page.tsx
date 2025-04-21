@@ -14,19 +14,19 @@ const UbahPassword = () => {
         <div className="grid grid-cols-[0.4fr_2fr] grid-rows-1 gap-1 pt-[3vh] border-t-1 h-[93vh]">
           <Sidebar />
           <div className="border-2 flex justify-center items-center">
-            <div className="grid grid-cols-[0.6fr_2fr] grid-rows-1 gap-x-2 h-full">
-              <div className="border-2 rounded-md flex justify-center  items-center ">
+            <div className="grid grid-cols-[1fr_2fr] grid-rows-1 gap-x-4 h-full">
+              <div className=" rounded-md flex justify-center  items-center ">
                 <div className="">
                   <Image
                     src={profile}
                     alt="profil"
-                    width={400}
-                    height={0}
+                    width={300}
+                    height={100}
                     className=""
                   />
                 </div>
               </div>
-              <div className="border-2 rounded-md h-full flex justify-center items-center">
+              <div className=" rounded-md h-full flex justify-center items-center">
                 <div className="">
                   <form className="flex-col">
                     <div>
