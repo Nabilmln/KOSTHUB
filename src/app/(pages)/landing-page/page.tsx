@@ -67,12 +67,7 @@ const LandingPage = () => {
           className="grid grid-cols-4 grid-rows-1 gap-4 pl-[2rem] pt-[6rem]"
         >
           {ourServicesData.map((item, index) => (
-            <OurServices
-              key={index}
-              image={item.image}
-              title={item.title}
-              deskripsi={item.deskripsi}
-            />
+            <OurServices key={index} data={item} />
           ))}
         </div>
 
@@ -91,15 +86,7 @@ const LandingPage = () => {
           className="grid grid-cols-4 grid-rows-1 gap-4 pl-[2rem] pt-[6rem] pb-[3rem]"
         >
           {bestProperyData.map((item, index) => (
-            <BestProperty
-              key={index}
-              image={item.image}
-              title={item.title}
-              deskripsi={item.deskripsi}
-              lokasi={item.lokasi}
-              toilet={item.toilet}
-              kamar={item.kamar}
-            />
+            <BestProperty key={index} data={item} />
           ))}
         </div>
 
@@ -113,14 +100,7 @@ const LandingPage = () => {
             data-aos="zoom-out-up"
           >
             {bestReviewData.map((item, index) => (
-              <BestRewiew
-                key={index}
-                image={item.image}
-                title={item.title}
-                date={item.date}
-                gambar={item.gambar}
-                deskripsi={item.deskripsi}
-              />
+              <BestRewiew key={index} data={item} />
             ))}
           </div>
         </div>

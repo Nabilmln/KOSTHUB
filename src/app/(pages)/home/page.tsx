@@ -58,22 +58,7 @@ const Home = () => {
         </div>
         <div className="grid grid-cols-4 grid-rows-1 gap-4 p-[1rem]">
           {itemsData.map((item, index) => (
-            <Items
-              key={index}
-              _id={item._id}
-              image={item.image}
-              harga={item.harga}
-              hargabulan={item.hargabulan}
-              hargatahun={item.hargatahun}
-              deskripsi={item.deskripsi}
-              lokasi={item.lokasi}
-              kamar={item.kamar}
-              toilet={item.toilet}
-              map={item.map}
-              fotofrofil={item.fotofrofil}
-              username={item.username}
-              nomorhp={item.nomorhp}
-            />
+            <Items key={index} data={item} />
           ))}
         </div>
         <div className="flex justify-center items-center">
