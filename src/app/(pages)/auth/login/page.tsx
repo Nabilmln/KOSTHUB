@@ -9,7 +9,7 @@ import Github from "../../../../../public/asset/GitHub.png";
 import { useState } from "react";
 import Image from "next/image";
 import Modal from "@/app/component/modal/Modal";
-import { ModalProps } from "@/app/type";
+import { ModalProps, userType } from "@/app/type";
 import API from "@/app/util/API";
 import { useHook } from "@/app/component/hooks/Kontex";
 
@@ -42,10 +42,20 @@ const Login = () => {
       password,
     })
       .then((res) => {
-        console.log(res.data.user);
-
-        setCurrentUser(res.data.user);
-        localStorage.setItem("current", JSON.stringify(res.data.user));
+        const data: userType = {
+          token: res.data.token,
+          user: {
+            _id: res.data.user._id,
+            username: res.data.user.username,
+            email: res.data.user.email,
+            fullname: res.data.user.fullname,
+            tanggal_lahir: res.data.user.tanggal_lahir,
+            nomor: res.data.user.nomor,
+            gender: res.data.user.gender,
+            alamat: res.data.user.alamat,
+          },
+        };
+        setCurrentUser(data);
         setModalData({
           title: "Berhasil Login",
           icon: "success",

@@ -2,15 +2,16 @@ import { ReactElement } from "react";
 
 export interface userType {
   token: string;
-  _id: string;
-  username: string;
-  password: string;
-  email: string;
-  fullname?: string;
-  tanggal_lahir?: string;
-  nomor?: string;
-  gender?: any;
-  alamat?: string;
+  user: {
+    _id: string;
+    username: string;
+    email: string;
+    fullname?: string;
+    tanggal_lahir?: string;
+    nomor?: string;
+    gender?: any;
+    alamat?: string;
+  };
 }
 
 export interface ourServicesType {

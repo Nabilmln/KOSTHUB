@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useHook } from "../hooks/Kontex";
 
 const NavbarProfil: React.FC = () => {
-  const { currentUser, isLoading } = useHook();
+  const { currentUser } = useHook();
 
   return (
     <div className="flex justify-around pt-[1rem] pb-[1rem] border-b-1">
@@ -29,9 +29,7 @@ const NavbarProfil: React.FC = () => {
             alt="profil"
             className="w-[2vw] h-[3.8vh]"
           ></Image>
-          <h1 className="font-bold">
-            {isLoading ? "Loading..." : currentUser?.username ?? "Guest"}
-          </h1>
+          <h1 className="font-bold">{currentUser?.user.username}</h1>
         </div>
       </Link>
     </div>

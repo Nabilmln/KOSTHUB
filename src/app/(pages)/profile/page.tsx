@@ -8,7 +8,7 @@ import { useHook } from "@/app/component/hooks/Kontex";
 import getGenderString from "@/app/helper/helper";
 
 const profil = () => {
-  const { currentUser, isLoading } = useHook();
+  const { currentUser } = useHook();
 
   return (
     <>
@@ -19,12 +19,12 @@ const profil = () => {
 
         <div className="grid grid-cols-[0.4fr_2fr] grid-rows-1 gap-1 pt-[3vh] border-t-1 h-[93vh]">
           <Sidebar />
-          <div className="border-2">
+          <div className="">
             <div
               className="grid grid-cols-[1fr_2fr] grid-rows-1 gap-1 h-full w-full"
               title="side-kanan"
             >
-              <div className="border-2 flex-col flex justify-center items-center">
+              <div className="flex-col flex justify-center items-center">
                 <Image
                   src={profilehd}
                   alt="profil"
@@ -33,47 +33,51 @@ const profil = () => {
                   className=""
                 />
                 <Link href="/profile/edit-profile">
-                  <h1 className="border-2 p-2 mt-5 rounded-md bg-sky-400 hover:bg-sky-600 duration-[0.3s] hover:scale-105 ">
+                  <h1 className="border-1 p-2 mt-5 rounded-md bg-sky-400 hover:bg-sky-600 duration-[0.3s] hover:scale-105 ">
                     Edit Foto
                   </h1>
                 </Link>
               </div>
-              <div className="border-2 flex justify-center items-center">
+              <div className=" flex justify-center items-center">
                 <form className="">
                   <div className="grid grid-cols-1 grid-rows-2 gap-2">
                     <div className="flex items-center">
                       <div className="mx-2">
                         <label htmlFor="Username">Nama :</label> <br />
                         <h1 className="border-2 rounded-md py-2 w-[15vw] px-2">
-                          {isLoading
+                          {/* {isLoading
                             ? "loading..."
-                            : currentUser?.fullname ?? "guest"}
+                            : currentUser?.fullname ?? "guest"} */}
+                          {currentUser?.user.fullname}
                         </h1>
                       </div>
                       <div className="mx-2">
                         <label htmlFor="Tanggal Lahir"> Tanggal Lahir:</label>{" "}
                         <br />
                         <h1 className="border-2 rounded-md py-2 w-[15vw] px-2">
-                          {isLoading
+                          {/* {isLoading
                             ? "loading..."
-                            : currentUser?.tanggal_lahir ?? "00/00/0000"}
+                            : currentUser?.tanggal_lahir ?? "00/00/0000"} */}
+                          {currentUser?.user.tanggal_lahir}
                         </h1>
                       </div>
                     </div>
                     <div className="mx-2">
                       <label htmlFor="Email">Email :</label> <br />
                       <h1 className="border-2 rounded-md py-2 w-[31vw] px-2">
-                        {isLoading
+                        {/* {isLoading
                           ? "loading..."
-                          : currentUser?.email ?? "Koshub@gmail.com"}
+                          : currentUser?.email ?? "Koshub@gmail.com"} */}
+                        {currentUser?.user.email}
                       </h1>
                     </div>
                     <div className="mx-2">
                       <label htmlFor="nohp">Nomor Hp:</label> <br />
                       <h1 className="border-2 rounded-md py-2 w-[31vw] px-2">
-                        {isLoading
+                        {/* {isLoading
                           ? "loading..."
-                          : currentUser?.nomor ?? "0811111111"}
+                          : currentUser?.nomor ?? "0811111111"} */}
+                        {currentUser?.user.nomor}
                       </h1>
                     </div>
 
@@ -81,7 +85,8 @@ const profil = () => {
                       <label htmlFor="Jenis Kelamin">Jenis Kelamin:</label>{" "}
                       <br />
                       <h1 className="border-2 rounded-md py-2 w-[31vw] px-2">
-                        {getGenderString(currentUser?.gender)}
+                        {/* {getGenderString(currentUser?.gender)} */}
+                        {getGenderString(currentUser?.user.gender)}
                       </h1>
                     </div>
 

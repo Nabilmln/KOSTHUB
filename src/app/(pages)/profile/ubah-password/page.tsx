@@ -3,7 +3,62 @@ import NavbarProfil from "@/app/component/navbar/NavbarProfil";
 import Sidebar from "@/app/component/sidebar/Sidebar";
 import Image from "next/image";
 import profile from "../../../../../public/asset/prfilhd.png";
+import { useState } from "react";
+import API from "@/app/util/API";
+import { ModalProps } from "@/app/type";
+import Modal from "@/app/component/modal/Modal";
+import { useHook } from "@/app/component/hooks/Kontex";
+import { useRouter } from "next/router";
+
 const UbahPassword = () => {
+  const { currentUser } = useHook();
+  const [oldPassword, setOldPassword] = useState<string>("");
+  const [newPassword, setNewPassword] = useState<string>("");
+  const [modalData, setModalData] = useState<ModalProps | null>(null);
+  const router = useRouter();
+
+  const handlePassword = (e: React.FormEvent) => {
+    e.preventDefault();
+    API.put(
+      "/api/auth/change-password",
+      {
+        oldPassword,
+        newPassword,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${currentUser?.token}`,
+        },
+      }
+    )
+      .then((res) => {
+        console.log(res.data);
+        setOldPassword("");
+        setNewPassword("");
+        setModalData({
+          title: "Berhasil ganti password",
+          deskripsi: "Selamat Password Anda Berubah",
+          icon: "success",
+          confirmButtonColor: "#3572EF",
+          confirmButtonText: "lanjut",
+          onClose: () => {
+            setModalData(null), router.push("/home");
+          },
+        });
+      })
+      .catch((err) => {
+        setModalData({
+          title: "Gagal ganti password",
+          deskripsi: "Gagal mohon coba lagi",
+          icon: "error",
+          confirmButtonColor: "#3572EF",
+          confirmButtonText: "Try again ",
+          onClose: () => {
+            setModalData(null);
+          },
+        });
+      });
+  };
   return (
     <>
       <div className="h-screen w-screen">
@@ -28,13 +83,15 @@ const UbahPassword = () => {
               </div>
               <div className=" rounded-md h-full flex justify-center items-center">
                 <div className="">
-                  <form className="flex-col">
+                  <div className="flex-col">
                     <div>
                       <label htmlFor="">Password Lama :</label>
                       <br />
                       <input
                         type="password"
+                        value={oldPassword}
                         className="border-2 w-[30vw] rounded-md p-2"
+                        onChange={(e) => setOldPassword(e.target.value)}
                       />
                     </div>
                     <div>
@@ -43,19 +100,19 @@ const UbahPassword = () => {
                       <input
                         type="password"
                         className="border-2 w-[30vw] rounded-md p-2"
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
                       />
                     </div>
-                    <div>
-                      <label htmlFor="">Konfirmasi Password:</label> <br />
-                      <input
-                        type="password"
-                        className="border-2 w-[30vw] rounded-md p-2"
-                      />
-                    </div>
-                    <button className="border-2 w-[30vw] rounded-md p-2 bg-sky-600 mt-4">
+
+                    <button
+                      className="border-2 w-[30vw] rounded-md p-2 bg-sky-600 mt-4"
+                      onClick={(e) => handlePassword(e)}
+                    >
                       Ubah
                     </button>
-                  </form>
+                  </div>
+                  {modalData && <Modal {...modalData} />}
                 </div>
               </div>
             </div>
