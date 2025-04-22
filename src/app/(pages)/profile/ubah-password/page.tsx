@@ -8,14 +8,12 @@ import API from "@/app/util/API";
 import { ModalProps } from "@/app/type";
 import Modal from "@/app/component/modal/Modal";
 import { useHook } from "@/app/component/hooks/Kontex";
-import { useRouter } from "next/router";
 
 const UbahPassword = () => {
   const { currentUser } = useHook();
   const [oldPassword, setOldPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [modalData, setModalData] = useState<ModalProps | null>(null);
-  const router = useRouter();
 
   const handlePassword = (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,9 +30,6 @@ const UbahPassword = () => {
       }
     )
       .then((res) => {
-        console.log(res.data);
-        setOldPassword("");
-        setNewPassword("");
         setModalData({
           title: "Berhasil ganti password",
           deskripsi: "Selamat Password Anda Berubah",
@@ -42,7 +37,10 @@ const UbahPassword = () => {
           confirmButtonColor: "#3572EF",
           confirmButtonText: "lanjut",
           onClose: () => {
-            setModalData(null), router.push("/home");
+            setModalData(null);
+            console.log(res.data);
+            setOldPassword("");
+            setNewPassword("");
           },
         });
       })

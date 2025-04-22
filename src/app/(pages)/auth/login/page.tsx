@@ -56,6 +56,8 @@ const Login = () => {
           },
         };
         setCurrentUser(data);
+        setUsername("");
+        setPassword("");
         setModalData({
           title: "Berhasil Login",
           icon: "success",
@@ -127,6 +129,7 @@ const Login = () => {
                 className="border-2 w-[50vh] rounded-sm p-2"
                 type="text"
                 onChange={(e) => setUsername(e.target.value)}
+                value={username}
               ></input>
 
               <div className="pb-3">
@@ -136,6 +139,7 @@ const Login = () => {
                     type={showpassword ? "text" : "password"}
                     className="w-[48vh] outline-none"
                     onChange={(e) => setPassword(e.target.value)}
+                    value={password}
                   />
                   <span
                     onClick={() => setShowpassword((prev) => !prev)}
