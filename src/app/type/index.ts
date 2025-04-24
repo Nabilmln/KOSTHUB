@@ -11,6 +11,7 @@ export interface userType {
     nomor?: string;
     gender?: any;
     alamat?: string;
+    bio?: string;
   };
 }
 

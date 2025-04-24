@@ -8,12 +8,14 @@ import API from "@/app/util/API";
 import { ModalProps } from "@/app/type";
 import Modal from "@/app/component/modal/Modal";
 import { useHook } from "@/app/component/hooks/Kontex";
+import { useRouter } from "next/navigation";
 
 const UbahPassword = () => {
   const { currentUser } = useHook();
   const [oldPassword, setOldPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [modalData, setModalData] = useState<ModalProps | null>(null);
+  const router = useRouter();
 
   const handlePassword = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,6 +43,7 @@ const UbahPassword = () => {
             console.log(res.data);
             setOldPassword("");
             setNewPassword("");
+            router.push("/profile");
           },
         });
       })
@@ -53,6 +56,7 @@ const UbahPassword = () => {
           confirmButtonText: "Try again ",
           onClose: () => {
             setModalData(null);
+            console.log("Gagal Ubah password", err);
           },
         });
       });

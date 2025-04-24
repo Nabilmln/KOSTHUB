@@ -64,7 +64,7 @@ const profil = () => {
                         </h1>
                       </div>
                       <div className="mx-2">
-                        <label htmlFor="Tanggal Lahir"> Gender :</label> <br />
+                        <label htmlFor="Gender"> Gender :</label> <br />
                         <h1 className="border-2 rounded-md py-2 w-[15vw] px-2">
                           {getGenderString(currentUser?.user.gender)}
                         </h1>
@@ -72,16 +72,26 @@ const profil = () => {
                     </div>
 
                     <div className="mx-2">
-                      <label htmlFor="Jenis Kelamin">Email :</label> <br />
+                      <label htmlFor="Email">Email :</label> <br />
                       <h1 className="border-2 rounded-md py-2 w-[31vw] px-2">
                         {currentUser?.user.email}
                       </h1>
                     </div>
 
                     <div className="mx-2">
+                      <label htmlFor="Alamat">Alamat :</label> <br />
+                      <h1 className="border-2 rounded-md py-2 w-[31vw] px-2">
+                        {currentUser?.user.alamat}
+                      </h1>
+                    </div>
+
+                    <div className="mx-2">
                       <label htmlFor="">Bio :</label>
                       <br />
-                      <h1 className="border-2 rounded-md py-2 w-[31vw] h-[10vh] px-2"></h1>
+                      <h1 className="border-2 rounded-md py-2 w-[31vw] h-[10vh] px-2">
+                        {currentUser?.user.bio ??
+                          "Ayo Isi Biodata Kamu Disini!"}
+                      </h1>
                     </div>
                     <div className="mx-2">
                       <Link href="/profile/edit-profile">

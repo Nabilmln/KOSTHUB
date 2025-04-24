@@ -12,7 +12,6 @@ import API from "@/app/util/API";
 
 const EditProfile = () => {
   const { setCurrentUser, currentUser } = useHook();
-  const [username, setUsername] = useState<string>("");
   const [fullname, setFullName] = useState<string>("");
   const [tanggal_lahir, setTanggal_Lahir] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -27,6 +26,7 @@ const EditProfile = () => {
     fullname,
     tanggal_lahir,
     nomor,
+    email,
     gender,
     bio,
     alamat,
