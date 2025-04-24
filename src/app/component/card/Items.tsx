@@ -1,27 +1,38 @@
-import { useState } from "react";
-import { Star } from "lucide-react";
-import Image from "next/image";
+import { JSXElementConstructor, useState } from "react";
+import { Snowflake, Star } from "lucide-react";
 import { BedDouble, ShowerHead, Map, Wifi, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
 import { itemsTypeProps } from "../props";
+import Image from "next/image";
 
-const items: React.FC<itemsTypeProps> = ({ data }) => {
+const Items: React.FC<itemsTypeProps> = ({ data }) => {
   const [ratingStar, setRatingStar] = useState<number>(0);
+
+  // const Icon: Record<string, JSX.Element> = {
+  //   "AC": <Snowflake size={16} />,
+  //   "Kasur": <BedDouble size={16} />,
+  //   "Kamar Mandi Dalam": <ShowerHead size={16} />,
+  //   "WiFi": <Wifi size={16} />,
+  // };
+
   return (
     <Link
-      href={`/kost/${data._id}`}
+      href={`/kost/${data.id_kos}`}
       className="border-2 rounded-md flex flex-col items-center p-[1rem]"
     >
-      <Image src={data.image} alt="test" width={400} height={10}></Image>
-      <div className="">
-        <h1 className="font-light text-[1rem]">{data.harga}</h1>
-      </div>
-      <div className="flex justify-center gap-x-2">
+      <Image
+        src={data?.image?.find((img) => img.isThumbnail)?.url ?? "/kost2.png"}
+        alt="Gambar"
+        width={1078}
+        height={123}
+      />
+
+      <div className="flex justify-center gap-x-2 p-2">
         <div className="bg-sky-300 rounded-md p-1">
-          <h1 className="font-bold">{data.hargabulan}</h1>
+          <h1 className="font-bold">Rp.{data.harga_pertahun}/Bulan</h1>
         </div>
         <div className="bg-sky-300 rounded-md p-1">
-          <h1 className="font-bold">{data.hargatahun}</h1>
+          <h1 className="font-bold"> Rp.{data.harga_pertahun}/Tahun</h1>
         </div>
       </div>
       <div className="">
@@ -29,25 +40,15 @@ const items: React.FC<itemsTypeProps> = ({ data }) => {
       </div>
       <div className="flex">
         <MapPin />
-        <h1 className="font-light">{data.lokasi}</h1>
+        <h1 className="font-light">{data.alamat}</h1>
       </div>
       <div className="flex items-center gap-x-3">
-        <div className="grid grid-cols-4 grid-rows-1 gap-x-2 border-1 rounded-md p-1 w-[13vw] text-center">
-          <div className="flex">
-            <BedDouble />
-            <h1 className="font-bold">{data.kamar}</h1>
-          </div>
-          <div className="flex">
-            <ShowerHead />
-            <h1>{data.toilet}</h1>
-          </div>
-          <div className="flex">
-            <Map />
-            <h1>{data.map}</h1>
-          </div>
-          <div className="flex">
-            <Wifi />
-          </div>
+        <div className="grid grid-cols-4 grid-rows-1 gap-x-1 border-1 rounded-md p-1 w-[14vw] text-center">
+          {data.fasilitas.map((item, index) => (
+            <div key={index}>
+              <h1>{item}</h1>
+            </div>
+          ))}
         </div>
         <div className=" flex gap-x-2" title="Rating">
           <div
@@ -100,15 +101,14 @@ const items: React.FC<itemsTypeProps> = ({ data }) => {
 
       <div className="flex gap-x-[4rem] pt-[1rem] ">
         <div className="flex items-center gap-x-1">
-          <Image src={data.fotofrofil} alt="" width={30} height={0}></Image>
-          <h1 className="font-bold">{data.username}</h1>
+          <h1 className="font-bold">{data?.nama_kos}</h1>
         </div>
         <div className="flex border-2 rounded-md p-1">
           <Phone />
-          <h1 className="font-light">{data.nomorhp}</h1>
+          <h1 className="font-light">{data?.kontak?.nomor}</h1>
         </div>
       </div>
     </Link>
   );
 };
-export default items;
+export default Items;

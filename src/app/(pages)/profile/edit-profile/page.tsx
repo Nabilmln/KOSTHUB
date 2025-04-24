@@ -8,20 +8,23 @@ import Modal from "@/app/component/modal/Modal";
 import { ModalProps } from "@/app/type";
 import { useRouter } from "next/navigation";
 import { useHook } from "@/app/component/hooks/Kontex";
+import API from "@/app/util/API";
 
 const EditProfile = () => {
   const { setCurrentUser } = useHook();
-  const [nama, setNama] = useState<string>("");
-  const [tanggal, setTanggal] = useState<string>("");
+  const [fullname, setFullName] = useState<string>("");
+  const [tanggal_lahir, setTanggal_Lahir] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [nomorHp, setNomorHp] = useState<string>("");
+  const [nomor, setNomor] = useState<string>("");
   const [gender, setGender] = useState<string>("");
   const [bio, setBio] = useState<string>("");
+  const [alamat, setAlamat] = useState<string>("");
   const [modalData, setModalData] = useState<ModalProps | null>(null);
   const router = useRouter();
 
   const handleEditProfile = (e: React.FormEvent) => {
     e.preventDefault();
+    API.put("/api/auth/update-profile", {});
     // if (!nama || !tanggal || !email || !nomorHp || !gender) {
     //   setModalData({
     //     title: "Edit Profile Gagal",
@@ -98,7 +101,7 @@ const EditProfile = () => {
                         <input
                           type="text"
                           className="border-2 rounded-md py-2 w-[15vw] px-4"
-                          onChange={(e) => setNama(e.target.value)}
+                          onChange={(e) => setFullName(e.target.value)}
                         />
                       </div>
                       <div className="mx-2">
@@ -108,47 +111,48 @@ const EditProfile = () => {
                           <input
                             type="date"
                             className=" px-4 w-[15vw]"
-                            onChange={(e) => setTanggal(e.target.value)}
+                            onChange={(e) => setTanggal_Lahir(e.target.value)}
                           />
                         </div>
                       </div>
                     </div>
-                    <div className="mx-2">
-                      <label htmlFor="Email">Email :</label> <br />
-                      <input
-                        type="text"
-                        className="border-2 rounded-md py-2 w-[31vw] px-2"
-                        placeholder="Koshut@example.com"
-                        onChange={(e) => setEmail(e.target.value)}
-                      />
-                    </div>
-                    <div className="mx-2">
-                      <label htmlFor="nohp">Nomor Hp:</label> <br />
-                      <input
-                        type="text"
-                        className="border-2 rounded-md py-2 w-[31vw] px-2"
-                        placeholder="+62"
-                        onChange={(e) => setNomorHp(e.target.value)}
-                      />
+                    <div className="flex items-center">
+                      <div className="mx-2">
+                        <label htmlFor="NomorHp">NomorHP :</label> <br />
+                        <input
+                          type="text"
+                          className="border-2 rounded-md py-2 w-[15vw] px-4"
+                          onChange={(e) => setNomor(e.target.value)}
+                        />
+                      </div>
+                      <div className="mx-2">
+                        <label htmlFor="Gender">Gender:</label> <br />
+                        <select
+                          value={gender}
+                          className="border-2 rounded-md py-2 w-[15vw] px-2"
+                          onChange={(e) => setGender(e.target.value)}
+                        >
+                          <option value="-" className="text-black">
+                            -
+                          </option>
+                          <option value="Laki" className="text-black">
+                            Laki-Laki
+                          </option>
+                          <option value="Perempuan" className="text-black">
+                            Perempuan
+                          </option>
+                        </select>
+                      </div>
                     </div>
 
                     <div className="mx-2">
-                      <label htmlFor="Gender">Jenis Kelamin:</label> <br />
-                      <select
-                        value={gender}
-                        className="border-2 rounded-md py-2 w-[31vw] px-2"
-                        onChange={(e) => setGender(e.target.value)}
-                      >
-                        <option value="-" className="text-black">
-                          -
-                        </option>
-                        <option value="Laki" className="text-black">
-                          Laki-Laki
-                        </option>
-                        <option value="Perempuan" className="text-black">
-                          Perempuan
-                        </option>
-                      </select>
+                      <label htmlFor="">Email :</label>
+                      <br />
+                      <input
+                        type="text"
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="border-2 rounded-md w-[31vw] py-2"
+                      />
                     </div>
 
                     <div className="mx-2">

@@ -1,19 +1,34 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavbarHome from "@/app/component/navbar/NavbarHome";
 import Items from "@/app/component/card/Items";
-import { itemsData } from "@/app/data/card";
 import FooterLanding from "@/app/component/footer/FooterLanding";
 import { Funnel } from "lucide-react";
+
+import API from "@/app/util/API";
 
 const Home = () => {
   const [filter, setFilter] = useState<string>("");
   const [short, setShort] = useState<string>("");
+  const [items, setItems] = useState<any[]>([]);
+
+  useEffect(() => {
+    API.get("/api/kos/", {})
+      .then((res) => {
+        setItems(res.data);
+      })
+
+      .catch((err) => {
+        console.log("Gagal Melakukan Fecth", err);
+      });
+  }, []);
 
   return (
     <>
-      <NavbarHome />
-      <div className="w-screen h-screen pt-[1rem]">
+      <div className="w-screen h-full pb-[1rem]">
+        <div className="m-2">
+          <NavbarHome />
+        </div>
         <div className="flex justify-around">
           <div className="grid grid-cols-2 gap-x-100">
             <div title="side-kana" className="flex space-x-4 ">
@@ -53,19 +68,23 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <div className=" flex justify-center items-center">
-          <h1 className="font-bold text-[3rem]">Top picks for you</h1>
-        </div>
-        <div className="grid grid-cols-4 grid-rows-1 gap-4 p-[1rem]">
-          {itemsData.map((item, index) => (
-            <Items key={index} data={item} />
-          ))}
-        </div>
-        <div className="flex justify-center items-center">
-          <h1 className="font-bold text-[3rem]">More Recommendation</h1>
-        </div>
-        <div className="grid grid-cols-4 grid-rows-1 gap-4 p-[1rem]">
-          <h1>Ini Data</h1>
+        <div className="w-full h-full ">
+          <div className=" flex justify-center items-center">
+            <h1 className="font-bold text-[3rem]">Top picks for you</h1>
+          </div>
+          <div className="grid grid-cols-4 grid-rows-1 gap-4 p-[1rem]">
+            {items.slice(0, 4).map((item, index) => (
+              <Items key={index} data={item} />
+            ))}
+          </div>
+          <div className="flex justify-center items-center">
+            <h1 className="font-bold text-[3rem]">More Recommendation</h1>
+          </div>
+          <div className="grid grid-cols-4 grid-rows-1 gap-4 p-[1rem]">
+            {items.slice(4, 50).map((item, index) => (
+              <Items key={index} data={item} />
+            ))}
+          </div>
         </div>
       </div>
       <FooterLanding />

@@ -1,10 +1,12 @@
 "use client";
 import { createContext, useContext } from "react";
-import { userType } from "../../type";
+import { itemsType, userType } from "../../type";
 
 const contex = createContext<{
   currentUser: userType | null;
   setCurrentUser: React.Dispatch<React.SetStateAction<userType | null>>;
+  // items: itemsType | null;
+  // setItems: React.Dispatch<React.SetStateAction<itemsType | null>>;
   isLoading: boolean;
 } | null>(null);
 

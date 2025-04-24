@@ -1,9 +1,12 @@
+"use client";
 import icon from "../../../../public/asset/icon.png";
 import profile from "../../../../public/asset/prfilhd.png";
 import Image from "next/image";
 import Link from "next/link";
+import { useHook } from "../hooks/Kontex";
 
 const NabvarItem: React.FC = () => {
+  const { currentUser } = useHook();
   return (
     <div className="flex justify-center mt-2">
       <div className="w-[90vw] bg-[#0C106B] rounded-md h-[7vh] flex justify-around items-center">
@@ -22,6 +25,9 @@ const NabvarItem: React.FC = () => {
               <Image src={profile} alt="Profile" width={36} height={36} />
             </div>
           </Link>
+          <div className="text-white font-bold">
+            {currentUser?.user.username}
+          </div>
         </div>
       </div>
     </div>

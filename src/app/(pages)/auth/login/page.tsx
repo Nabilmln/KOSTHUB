@@ -20,12 +20,13 @@ const Login = () => {
   const [modalData, setModalData] = useState<ModalProps | null>(null);
   const router = useRouter();
   const [showpassword, setShowpassword] = useState<boolean>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (!username || !password) {
       setModalData({
-        title: "Edit Profile Gagal",
+        title: "Mohon Isi Semua Field",
         icon: "warning",
         deskripsi: "Field Tidak Boleh Kosong!",
         confirmButtonColor: "#3572EF",
@@ -79,6 +80,12 @@ const Login = () => {
           confirmButtonText: "try again!",
           onClose: () => {
             setModalData(null);
+            const handleAnimation = () => {
+              setLoading(true);
+              setTimeout(() => {
+                setLoading(false);
+              }, 2000);
+            };
           },
         });
       });
@@ -157,9 +164,14 @@ const Login = () => {
               <div id="button SignIn" className="flex justify-center py-3">
                 <button
                   type="submit"
+                  disabled={loading}
                   className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg"
                 >
-                  Sign In
+                  {loading ? (
+                    <div className="border-4 border-white border-t-transparent w-4 h-4 rounded-full animate-spin"></div>
+                  ) : (
+                    "Sign In"
+                  )}
                 </button>
               </div>
             </form>

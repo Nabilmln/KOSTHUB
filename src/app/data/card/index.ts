@@ -57,25 +57,25 @@ export const bestProperyData: bestPropertyType[] = [
   },
 ];
 
-export const itemsData: itemsType[] = [
-  {
-    _id: "1",
-    image: Kost2.src,
-    harga: "Rp.2.000.000/Tahun",
-    hargabulan: "Rp.6.500.000/Bulan",
-    hargatahun: "Rp.30.000.000/Tahun",
-    deskripsi:
-      "Kost elite anak orang kaya 7 turu1 nan dan uang nya ga abis-abis ...",
-    lokasi: "Lamgugob, Banda Aceh",
-    kamar: "3",
-    toilet: "3",
-    map: "300M",
+// export const itemsData: itemsType[] = [
+//   {
+//     _id: "1",
+//     image: Kost2.src,
+//     harga: "Rp.2.000.000/Tahun",
+//     hargabulan: "Rp.6.500.000/Bulan",
+//     hargatahun: "Rp.30.000.000/Tahun",
+//     deskripsi:
+//       "Kost elite anak orang kaya 7 turu1 nan dan uang nya ga abis-abis ...",
+//     lokasi: "Lamgugob, Banda Aceh",
+//     kamar: "3",
+//     toilet: "3",
+//     map: "300M",
 
-    fotofrofil: photofrofil.src,
-    username: "Serenity III",
-    nomorhp: "+62 98765432",
-  },
-];
+//     fotofrofil: photofrofil.src,
+//     username: "Serenity III",
+//     nomorhp: "+62 98765432",
+//   },
+// ];
 
 export const bestReviewData: bestReviewType[] = [
   {

@@ -30,19 +30,26 @@ export interface bestPropertyType {
 }
 
 export interface itemsType {
-  _id: string;
-  image: string;
-  harga: string;
-  hargabulan: string;
-  hargatahun: string;
+  id_kos: number;
+  nama_kos: string;
+  alamat: string;
+  fasilitas: string[];
+  harga_perbulan: number;
+  harga_pertahun: number;
+  kontak: {
+    email: string;
+    nomor: string;
+  };
+  ulasan: {
+    nama: string;
+    bintang: number;
+    komentar: string;
+  }[];
+  image: {
+    url: string;
+    isThumbnail: boolean;
+  }[];
   deskripsi: string;
-  lokasi: string;
-  kamar: string;
-  toilet: string;
-  map: string;
-  fotofrofil: string;
-  username: string;
-  nomorhp: string;
 }
 
 export interface bestReviewType {

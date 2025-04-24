@@ -1,4 +1,5 @@
 import { PropertyType } from "@/app/type";
+
 const Property = ({ Icon, index, title }: PropertyType) => {
   return (
     <div className="flex-col bg-white p-1 rounded-md shadow-lg border-1">

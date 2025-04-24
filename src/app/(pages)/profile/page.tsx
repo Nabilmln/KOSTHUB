@@ -5,7 +5,7 @@ import Image from "next/image";
 import profilehd from "../../../../public/asset/prfilhd.png";
 import Sidebar from "@/app/component/sidebar/Sidebar";
 import { useHook } from "@/app/component/hooks/Kontex";
-import getGenderString from "@/app/helper/helper";
+import { getGenderString } from "@/app/helper/helper";
 
 const profil = () => {
   const { currentUser } = useHook();
@@ -45,48 +45,36 @@ const profil = () => {
                       <div className="mx-2">
                         <label htmlFor="Username">Nama :</label> <br />
                         <h1 className="border-2 rounded-md py-2 w-[15vw] px-2">
-                          {/* {isLoading
-                            ? "loading..."
-                            : currentUser?.fullname ?? "guest"} */}
                           {currentUser?.user.fullname}
                         </h1>
                       </div>
                       <div className="mx-2">
-                        <label htmlFor="Tanggal Lahir"> Tanggal Lahir:</label>{" "}
+                        <label htmlFor="Tanggal Lahir"> Tanggal Lahir :</label>{" "}
                         <br />
                         <h1 className="border-2 rounded-md py-2 w-[15vw] px-2">
-                          {/* {isLoading
-                            ? "loading..."
-                            : currentUser?.tanggal_lahir ?? "00/00/0000"} */}
                           {currentUser?.user.tanggal_lahir}
                         </h1>
                       </div>
                     </div>
-                    <div className="mx-2">
-                      <label htmlFor="Email">Email :</label> <br />
-                      <h1 className="border-2 rounded-md py-2 w-[31vw] px-2">
-                        {/* {isLoading
-                          ? "loading..."
-                          : currentUser?.email ?? "Koshub@gmail.com"} */}
-                        {currentUser?.user.email}
-                      </h1>
-                    </div>
-                    <div className="mx-2">
-                      <label htmlFor="nohp">Nomor Hp:</label> <br />
-                      <h1 className="border-2 rounded-md py-2 w-[31vw] px-2">
-                        {/* {isLoading
-                          ? "loading..."
-                          : currentUser?.nomor ?? "0811111111"} */}
-                        {currentUser?.user.nomor}
-                      </h1>
+                    <div className="flex items-center">
+                      <div className="mx-2">
+                        <label htmlFor="Username">Nomor HP:</label> <br />
+                        <h1 className="border-2 rounded-md py-2 w-[15vw] px-2">
+                          {currentUser?.user.nomor}
+                        </h1>
+                      </div>
+                      <div className="mx-2">
+                        <label htmlFor="Tanggal Lahir"> Gender :</label> <br />
+                        <h1 className="border-2 rounded-md py-2 w-[15vw] px-2">
+                          {getGenderString(currentUser?.user.gender)}
+                        </h1>
+                      </div>
                     </div>
 
                     <div className="mx-2">
-                      <label htmlFor="Jenis Kelamin">Jenis Kelamin:</label>{" "}
-                      <br />
+                      <label htmlFor="Jenis Kelamin">Email :</label> <br />
                       <h1 className="border-2 rounded-md py-2 w-[31vw] px-2">
-                        {/* {getGenderString(currentUser?.gender)} */}
-                        {getGenderString(currentUser?.user.gender)}
+                        {currentUser?.user.email}
                       </h1>
                     </div>
 
