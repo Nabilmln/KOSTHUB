@@ -9,14 +9,16 @@ import { ModalProps } from "@/app/type";
 import { useRouter } from "next/navigation";
 import { useHook } from "@/app/component/hooks/Kontex";
 import API from "@/app/util/API";
+import { getGenderBoolean, getGenderString } from "@/app/helper/helper";
 
 const EditProfile = () => {
-  const { setCurrentUser } = useHook();
+  const { setCurrentUser, currentUser } = useHook();
+  const [username, setUsername] = useState<string>("");
   const [fullname, setFullName] = useState<string>("");
   const [tanggal_lahir, setTanggal_Lahir] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [nomor, setNomor] = useState<string>("");
-  const [gender, setGender] = useState<string>("");
+  const [gender, setGender] = useState<boolean | undefined>(undefined);
   const [bio, setBio] = useState<string>("");
   const [alamat, setAlamat] = useState<string>("");
   const [modalData, setModalData] = useState<ModalProps | null>(null);
@@ -24,7 +26,48 @@ const EditProfile = () => {
 
   const handleEditProfile = (e: React.FormEvent) => {
     e.preventDefault();
-    API.put("/api/auth/update-profile", {});
+    API.put(
+      "/api/auth/update-profile",
+      {
+        username: currentUser?.user.username,
+        fullname,
+        tanggal_lahir,
+        email: currentUser?.user.email,
+        nomor,
+        gender,
+        bio,
+        alamat,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${currentUser?.token}`,
+        },
+      }
+    )
+      .then((res) => {
+        setModalData({
+          title: "Behasil Update Profile",
+          icon: "success",
+          deskripsi: "Selamat Profile Anda Sudah Berubah",
+          confirmButtonColor: "#3572EF",
+          confirmButtonText: "Lanjut",
+          onClose: () => {
+            setModalData(null);
+            console.log(res.data.user);
+            setCurrentUser(res.data);
+            setAlamat("");
+            setBio("");
+            setEmail("");
+            setFullName("");
+            setNomor("");
+            router.push("/profile");
+          },
+        });
+      })
+      .catch((err) => {
+        console.log("gagal Update", err);
+      });
+
     // if (!nama || !tanggal || !email || !nomorHp || !gender) {
     //   setModalData({
     //     title: "Edit Profile Gagal",
@@ -102,6 +145,7 @@ const EditProfile = () => {
                           type="text"
                           className="border-2 rounded-md py-2 w-[15vw] px-4"
                           onChange={(e) => setFullName(e.target.value)}
+                          value={fullname}
                         />
                       </div>
                       <div className="mx-2">
@@ -112,6 +156,7 @@ const EditProfile = () => {
                             type="date"
                             className=" px-4 w-[15vw]"
                             onChange={(e) => setTanggal_Lahir(e.target.value)}
+                            value={tanggal_lahir}
                           />
                         </div>
                       </div>
@@ -123,22 +168,36 @@ const EditProfile = () => {
                           type="text"
                           className="border-2 rounded-md py-2 w-[15vw] px-4"
                           onChange={(e) => setNomor(e.target.value)}
+                          value={nomor}
                         />
                       </div>
                       <div className="mx-2">
                         <label htmlFor="Gender">Gender:</label> <br />
                         <select
-                          value={gender}
+                          value={
+                            gender === undefined
+                              ? "-"
+                              : gender
+                              ? "true"
+                              : "false"
+                          }
                           className="border-2 rounded-md py-2 w-[15vw] px-2"
-                          onChange={(e) => setGender(e.target.value)}
+                          onChange={(e) => {
+                            const value = e.target.value;
+                            if (value === "-") {
+                              setGender(undefined);
+                            } else {
+                              setGender(value === "true");
+                            }
+                          }}
                         >
                           <option value="-" className="text-black">
                             -
                           </option>
-                          <option value="Laki" className="text-black">
+                          <option value="true" className="text-black">
                             Laki-Laki
                           </option>
-                          <option value="Perempuan" className="text-black">
+                          <option value="false" className="text-black">
                             Perempuan
                           </option>
                         </select>
@@ -146,21 +205,35 @@ const EditProfile = () => {
                     </div>
 
                     <div className="mx-2">
-                      <label htmlFor="">Email :</label>
+                      <label htmlFor="Email">Email :</label>
                       <br />
                       <input
                         type="text"
                         onChange={(e) => setEmail(e.target.value)}
                         className="border-2 rounded-md w-[31vw] py-2"
+                        value={email}
                       />
                     </div>
 
                     <div className="mx-2">
-                      <label htmlFor="">Bio :</label>
+                      <label htmlFor="Alamat">Alamat :</label>
+                      <br />
+                      <input
+                        type="text"
+                        onChange={(e) => setAlamat(e.target.value)}
+                        className="border-2 rounded-md w-[31vw] py-2"
+                        value={alamat}
+                      />
+                    </div>
+
+                    <div className="mx-2">
+                      <label htmlFor="Bio">Bio :</label>
                       <br />
                       <input
                         type="text"
                         className="border-2 rounded-md w-[31vw] h-[10vh]"
+                        onChange={(e) => setBio(e.target.value)}
+                        value={bio}
                       />
                     </div>
                     <div className="mx-2">
