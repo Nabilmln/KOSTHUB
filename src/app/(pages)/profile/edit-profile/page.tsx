@@ -9,7 +9,6 @@ import { ModalProps } from "@/app/type";
 import { useRouter } from "next/navigation";
 import { useHook } from "@/app/component/hooks/Kontex";
 import API from "@/app/util/API";
-import { getGenderBoolean, getGenderString } from "@/app/helper/helper";
 
 const EditProfile = () => {
   const { setCurrentUser, currentUser } = useHook();
@@ -24,19 +23,29 @@ const EditProfile = () => {
   const [modalData, setModalData] = useState<ModalProps | null>(null);
   const router = useRouter();
 
+  const data = {
+    fullname,
+    tanggal_lahir,
+    nomor,
+    gender,
+    bio,
+    alamat,
+  };
+
+  const filter = Object.fromEntries(
+    Object.entries(data).filter(
+      ([_, v]) => v !== undefined && v !== null && v !== ""
+    )
+  );
+
   const handleEditProfile = (e: React.FormEvent) => {
     e.preventDefault();
     API.put(
       "/api/auth/update-profile",
       {
         username: currentUser?.user.username,
-        fullname,
-        tanggal_lahir,
+        ...filter,
         email: currentUser?.user.email,
-        nomor,
-        gender,
-        bio,
-        alamat,
       },
       {
         headers: {
@@ -67,45 +76,6 @@ const EditProfile = () => {
       .catch((err) => {
         console.log("gagal Update", err);
       });
-
-    // if (!nama || !tanggal || !email || !nomorHp || !gender) {
-    //   setModalData({
-    //     title: "Edit Profile Gagal",
-    //     icon: "warning",
-    //     deskripsi: "Field Tidak Boleh Kosong!",
-    //     confirmButtonColor: "#3572EF",
-    //     confirmButtonText: "try again!",
-    //     onClose: () => {
-    //       setModalData(null);
-    //     },
-    //   });
-    // }
-    // const updateProfile = {
-    //   nama: nama,
-    //   date: tanggal,
-    //   gender: gender,
-    //   contact: nomorHp,
-    // };
-    // setCurrentUser((prev) => {
-    //   const newUpdate = [...prev];
-    //   const index = newUpdate.length - 1;
-    //   newUpdate[index] = {
-    //     ...newUpdate[index],
-    //     ...updateProfile,
-    //   };
-    //   setModalData({
-    //     title: "Berhasil",
-    //     icon: "success",
-    //     deskripsi: "Selamat Biodata Kamu Sudah Di Update",
-    //     confirmButtonColor: "#3572EF",
-    //     confirmButtonText: "Oke",
-    //     onClose: () => {
-    //       setModalData(null);
-    //       router.push("/Profile");
-    //     },
-    //   });
-    //   return newUpdate;
-    // });
   };
   return (
     <>
