@@ -86,12 +86,12 @@ const EditProfile = () => {
 
         <div className="grid grid-cols-[0.4fr_2fr] grid-rows-1 gap-1 pt-[3vh] border-t-1 h-[93vh]">
           <Sidebar />
-          <div className="border-2">
+          <div className="">
             <div
               className="grid grid-cols-[1fr_2fr] grid-rows-1 gap-1 h-full w-full"
               title="side-kanan"
             >
-              <div className="border-2 flex flex-col justify-center items-center">
+              <div className="flex flex-col justify-center items-center">
                 <Image
                   src={profilehd}
                   alt="profil"
@@ -105,7 +105,7 @@ const EditProfile = () => {
                 />
               </div>
 
-              <div className="border-2 flex justify-center items-center">
+              <div className=" flex justify-center items-center">
                 <form onSubmit={handleEditProfile}>
                   <div className="grid grid-cols-1 grid-rows-2 gap-2">
                     <div className="flex items-center">
@@ -180,7 +180,7 @@ const EditProfile = () => {
                       <input
                         type="text"
                         onChange={(e) => setEmail(e.target.value)}
-                        className="border-2 rounded-md w-[31vw] py-2"
+                        className="border-2 rounded-md w-[31vw] py-2 px-4"
                         value={email}
                       />
                     </div>
@@ -191,7 +191,7 @@ const EditProfile = () => {
                       <input
                         type="text"
                         onChange={(e) => setAlamat(e.target.value)}
-                        className="border-2 rounded-md w-[31vw] py-2"
+                        className="border-2 rounded-md w-[31vw] py-2 px-4"
                         value={alamat}
                       />
                     </div>
@@ -199,13 +199,13 @@ const EditProfile = () => {
                     <div className="mx-2">
                       <label htmlFor="Bio">Bio :</label>
                       <br />
-                      <input
-                        type="text"
-                        className="border-2 rounded-md w-[31vw] h-[10vh]"
+                      <textarea
+                        className="border-2 rounded-md w-[31vw] h-[10vh] py-2 px-4  "
                         onChange={(e) => setBio(e.target.value)}
                         value={bio}
                       />
                     </div>
+
                     <div className="mx-2">
                       <button
                         className="border-2 rounded-md p-1 w-[31vw] hover:bg-sky-500 duration-[0.3s]"

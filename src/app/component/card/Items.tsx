@@ -1,4 +1,4 @@
-import { JSXElementConstructor, useState } from "react";
+import { useState } from "react";
 import { Snowflake, Star } from "lucide-react";
 import { BedDouble, ShowerHead, Map, Wifi, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
@@ -7,13 +7,6 @@ import Image from "next/image";
 
 const Items: React.FC<itemsTypeProps> = ({ data }) => {
   const [ratingStar, setRatingStar] = useState<number>(0);
-
-  // const Icon: Record<string, JSX.Element> = {
-  //   "AC": <Snowflake size={16} />,
-  //   "Kasur": <BedDouble size={16} />,
-  //   "Kamar Mandi Dalam": <ShowerHead size={16} />,
-  //   "WiFi": <Wifi size={16} />,
-  // };
 
   return (
     <Link

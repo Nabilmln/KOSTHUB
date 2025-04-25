@@ -1,5 +1,3 @@
-import { ReactElement } from "react";
-
 export interface userType {
   token: string;
   user: {
@@ -53,14 +51,6 @@ export interface itemsType {
   deskripsi: string;
 }
 
-export interface bestReviewType {
-  image: string;
-  title: string;
-  date: string;
-  gambar: string;
-  deskripsi: string;
-}
-
 export interface ModalProps {
   title: string;
   icon: "success" | "error" | "warning" | "info" | "question";
@@ -71,7 +61,12 @@ export interface ModalProps {
 }
 
 export interface PropertyType {
-  Icon: any;
   title: string;
-  index: string;
+  // index: number;
+}
+
+export interface ReviewType {
+  // _id: string;
+  nama: string;
+  komentar: string;
 }
