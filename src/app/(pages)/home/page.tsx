@@ -4,14 +4,14 @@ import NavbarHome from "@/app/component/navbar/NavbarHome";
 import Items from "@/app/component/card/Items";
 import FooterLanding from "@/app/component/footer/FooterLanding";
 import { Funnel } from "lucide-react";
-
+import { itemsTypeProps } from "@/app/component/props";
 import API from "@/app/util/API";
 
 const Home = () => {
   const [filter, setFilter] = useState<string>("");
-  const [short, setShort] = useState<string>("");
   const [items, setItems] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
 
   const handleFetch = async () => {
     try {
@@ -27,6 +27,8 @@ const Home = () => {
   useEffect(() => {
     handleFetch();
   }, []);
+
+
 
   return (
     <div>
