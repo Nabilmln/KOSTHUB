@@ -50,6 +50,7 @@ const Login = () => {
             username: res.data.user.username,
             email: res.data.user.email,
             fullname: res.data.user.fullname,
+            fotoProfile: res.data.user.fotoProfile,
             tanggal_lahir: res.data.user.tanggal_lahir,
             nomor: res.data.user.nomor,
             gender: res.data.user.gender,
@@ -178,7 +179,7 @@ const Login = () => {
           </div>
         </div>
         <div
-          className="bg-sky-400 flex justify-center items-center rounded-l-full h-[100vh]"
+          className="bg-[#3572EF] flex justify-center items-center rounded-l-full h-[100vh]"
           id="kanan"
         >
           <div className="" id="sidebar Container">
