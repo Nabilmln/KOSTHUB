@@ -89,7 +89,7 @@ const Register = () => {
     <div className="w-screen h-screen flex justify-center items-center rounded-tl-lg">
       <div className="grid grid-cols-[1fr_2fr] grid-rows-1 gap-4">
         <div
-          className="bg-sky-400 flex justify-center items-center rounded-r-full h-[100vh]"
+          className="bg-[#3572EF] flex justify-center items-center rounded-r-full h-[100vh]"
           id="kanan"
         >
           <div className="" id="sidebar kiri">
