@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, AxiosError } from "axios";
 
 const API = axios.create({
-  baseURL: "https://kosthub.vercel.app",
+  baseURL: "http://localhost:5000/",
 });
 
 API.interceptors.request.use(
