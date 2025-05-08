@@ -1,31 +1,42 @@
-import { useState } from "react";
-import { Snowflake, Star } from "lucide-react";
-import { BedDouble, ShowerHead, Map, Wifi, Phone, MapPin } from "lucide-react";
+"use client";
+import { Star, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
 import { itemsTypeProps } from "../props";
 import Image from "next/image";
+import { getFasilitas } from "@/app/helper/faslitasHelper";
+import kostDummy from "../../../../public/kost2.png";
 
 const Items: React.FC<itemsTypeProps> = ({ data }) => {
-  const [ratingStar, setRatingStar] = useState<number>(0);
-
   return (
     <Link
       href={`/kost/${data.id_kos}`}
-      className="border-2 rounded-md flex flex-col items-center p-[1rem]"
+      className="shadow-lg border-1 rounded-lg flex flex-col items-center p-[1rem]"
     >
+      {/* Thumnail Belum fix */}
       <Image
-        src={data?.image?.find((img) => img.isThumbnail)?.url ?? "/kost2.png"}
-        alt="Gambar"
-        width={1078}
-        height={123}
+        src={
+          `http://localhost:5000/${data.image.thumbnail}`
+            ? `http://localhost:5000/${data.image.thumbnail}`
+            : kostDummy
+        }
+        alt="thumbnail"
+        width={300}
+        height={200}
+        className="w-full h-48 object-cover rounded-lg"
       />
 
-      <div className="flex justify-center gap-x-2 p-2">
-        <div className="bg-sky-300 rounded-md p-1">
+      <div className="flex justify-center gap-x-2 p-2 items-center">
+        <div className="bg-[#A7E6FF] rounded-md p-2 ">
           <h1 className="font-bold">Rp.{data.harga_pertahun}/Bulan</h1>
         </div>
-        <div className="bg-sky-300 rounded-md p-1">
-          <h1 className="font-bold"> Rp.{data.harga_pertahun}/Tahun</h1>
+        <div className="bg-[#A7E6FF] rounded-md p-2">
+          <h1 className="font-bold">
+            {" "}
+            Rp.{data.harga_pertahun} /Tahun{" "}
+            <span className=" bg-[#2DE79D] rounded-md p-1 text-white">
+              Best Deal
+            </span>
+          </h1>
         </div>
       </div>
       <div className="">
@@ -37,58 +48,20 @@ const Items: React.FC<itemsTypeProps> = ({ data }) => {
       </div>
       <div className="flex items-center gap-x-3">
         <div className="grid grid-cols-4 grid-rows-1 gap-x-1 border-1 rounded-md p-1 w-[14vw] text-center">
-          {data.fasilitas.map((item, index) => (
-            <div key={index}>
-              <h1>{item}</h1>
-            </div>
-          ))}
+          <div className="flex">
+            {data.fasilitas.map((items, key) => (
+              <div key={key} className="flex justify-center items-center">
+                <div className="flex justify-center items-center mx-1">
+                  {getFasilitas(items.nama)}
+                  <span className="font-light">{items.jumlah}</span>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className=" flex gap-x-2" title="Rating">
-          <div
-            onMouseOver={() => setRatingStar(1)}
-            onMouseOut={() => setRatingStar(0)}
-          >
-            <Star
-              color={ratingStar >= 1 ? "#FFFF00" : "#000000"}
-              className="duration-[0.2s]"
-            />
-          </div>
-          <div
-            onMouseOver={() => setRatingStar(2)}
-            onMouseOut={() => setRatingStar(0)}
-          >
-            <Star
-              color={ratingStar >= 2 ? "#FFFF00" : "#000000"}
-              className="duration-[0.2s]"
-            />
-          </div>
-          <div
-            onMouseOver={() => setRatingStar(3)}
-            onMouseOut={() => setRatingStar(0)}
-          >
-            <Star
-              color={ratingStar >= 3 ? "#FFFF00" : "#000000"}
-              className="duration-[0.2s]"
-            />
-          </div>
-          <div
-            onMouseOver={() => setRatingStar(4)}
-            onMouseOut={() => setRatingStar(0)}
-          >
-            <Star
-              color={ratingStar >= 4 ? "#FFFF00" : "#000000"}
-              className="duration-[0.2s]"
-            />
-          </div>
-          <div
-            onMouseOver={() => setRatingStar(5)}
-            onMouseOut={() => setRatingStar(0)}
-          >
-            <Star
-              color={ratingStar >= 5 ? "#FFFF00" : "#000000"}
-              className="duration-[0.2s]"
-            />
-          </div>
+        <div className=" flex gap-1" title="Rating">
+          <Star />
+          <h1>/{data.avgBintang}</h1>
         </div>
       </div>
 
