@@ -89,8 +89,8 @@ const Reserve = () => {
                   </div>
                 </div>
               </div>
-              <div className="mt-1 w-[38vh] rounded-md h-[30vh] bg-[#3572EF] border-1 p-2 flex-col">
-                <div className="flex-col">
+              <div className="mt-1 w-[38vh] rounded-md h-[30vh] bg-[#3572EF] border-1 p-4 m-2 flex-col">
+                <div className="flex-col ">
                   <h1 className="text-white">Furniture :</h1>
 
                   <div className="flex-col bg-white rounded-md">
@@ -155,7 +155,7 @@ const Reserve = () => {
                     <br />
                     <input
                       type="text"
-                      className="border-2 rounded-md w-[17vw] h-[4vh]"
+                      className="border-2 rounded-md w-[17vw] h-[4vh] py-2 px-2"
                     />
                   </div>
                 </div>

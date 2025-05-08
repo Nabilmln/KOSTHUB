@@ -20,9 +20,11 @@ const EditProfile = () => {
   const [bio, setBio] = useState<string>("");
   const [alamat, setAlamat] = useState<string>("");
   const [modalData, setModalData] = useState<ModalProps | null>(null);
+  const [fotoProfile, setFotoProfile] = useState<string>("");
   const router = useRouter();
 
   const data = {
+    fotoProfile,
     fullname,
     tanggal_lahir,
     nomor,
@@ -45,7 +47,6 @@ const EditProfile = () => {
       {
         username: currentUser?.user.username,
         ...filter,
-        email: currentUser?.user.email,
       },
       {
         headers: {
@@ -102,6 +103,7 @@ const EditProfile = () => {
                 <input
                   type="file"
                   className="border-2 p-2 mt-2 rounded-md bg-gray-400 w-[11vw] hover:bg-gray-600 duration-[0.3s]"
+                  onChange={(e) => setFotoProfile(e.target.value)}
                 />
               </div>
 

@@ -223,6 +223,7 @@ const Register = () => {
                 <fieldset>
                   <label htmlFor="Role">Gender:</label> <br />
                   <div className="flex gap-x-1 text-[1rem] items-center justify-center">
+                    <label htmlFor="">Laki-Laki</label>
                     <input
                       type="radio"
                       className="w-[2vw] h-[2vh]"
@@ -230,7 +231,7 @@ const Register = () => {
                       onChange={() => handleChange("Laki")}
                       checked={gender === "laki"}
                     />
-                    <label htmlFor="">Laki-Laki</label>
+
                     <input
                       type="radio"
                       className="w-[2vw] h-[2vh]"

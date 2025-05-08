@@ -4,18 +4,39 @@ import NavbarHome from "@/app/component/navbar/NavbarHome";
 import Items from "@/app/component/card/Items";
 import FooterLanding from "@/app/component/footer/FooterLanding";
 import { Funnel } from "lucide-react";
-import { itemsTypeProps } from "@/app/component/props";
 import API from "@/app/util/API";
+import { itemsType } from "@/app/type";
 
 const Home = () => {
-  const [filter, setFilter] = useState<string>("");
-  const [items, setItems] = useState<any[]>([]);
+  const [filter, setFilter] = useState<any>({
+    fasilitas: [],
+    minHarga: "",
+    maxHarga: "",
+    rating: "",
+    tipeHarga: "",
+    harga: "",
+  });
+  const [items, setItems] = useState<itemsType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [selectedField, setSelectedField] = useState<any>();
 
-
+  const FilterOption = [
+    "fasilitas",
+    "minHarga",
+    "maxHarga",
+    "rating",
+    "tipeHarga",
+    "harga",
+  ];
   const handleFetch = async () => {
     try {
-      const res = await API.get("/api/kos/", {});
+      const res = await API.get("/api/kos/", {
+        headers: {
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      });
       setItems(res.data);
     } catch (err) {
       console.log("gagal fetch", err);
@@ -24,11 +45,27 @@ const Home = () => {
     }
   };
 
+  const handleFilterFetch = async () => {
+    try {
+      const res = await API.get("/api/kos/filter", {
+        params: filter,
+      });
+      setItems(res.data);
+      console.log("ini data filter", filter);
+    } catch (err) {
+      console.log("data filter gagal", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleButtonFilter = () => {
+    handleFilterFetch();
+  };
+
   useEffect(() => {
     handleFetch();
   }, []);
-
-
 
   return (
     <div>
@@ -58,32 +95,53 @@ const Home = () => {
                 </div>
                 <div title="side-kiri" className="flex space-x-4">
                   <form
-                    action=""
+                    action={handleButtonFilter}
                     className="border-2 rounded-sm flex items-center space-x-2 p-1"
                   >
                     <Funnel />
                     <h1 className="">Filter</h1>
                     <select
-                      value={filter}
+                      name=""
+                      value={selectedField}
                       className="outline-none"
-                      onChange={(e) => setFilter(e.target.value)}
+                      onChange={(e) => {
+                        const field = e.target.value;
+                        setSelectedField(field);
+                      }}
                     >
-                      <option value="-" className="text-black font-bold">
-                        Pilih
+                      <option value="" className="text-black font-bold">
+                        Pilih Filter
                       </option>
-                      <option
-                        value="diminati"
-                        className="text-black font-semibold"
-                      >
-                        Diminati
-                      </option>
-                      <option
-                        value="paling-diminati"
-                        className="text-black font-semibold"
-                      >
-                        Paling diminati
-                      </option>
+                      {FilterOption.map((e) => (
+                        <option key={e} value={e}>
+                          {e}
+                        </option>
+                      ))}
                     </select>
+
+                    {selectedField && (
+                      <input
+                        type="text"
+                        placeholder="Saya ingin:"
+                        className="border p-1 rounded-lg "
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          setFilter((prev: any) => ({
+                            ...prev,
+                            [selectedField]: value,
+                          }));
+                        }}
+                      />
+                    )}
+
+                    {selectedField && (
+                      <button
+                        type="submit"
+                        className="border-2 px-2 rounded-lg"
+                      >
+                        Filter
+                      </button>
+                    )}
                   </form>
                 </div>
               </div>

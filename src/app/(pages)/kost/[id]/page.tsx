@@ -8,7 +8,6 @@ import image4 from "../../../../../public/asset/image5.svg";
 import facebook from "../../../../../public/asset/facebook.svg";
 import twiter from "../../../../../public/asset/twiter.svg";
 import instagram from "../../../../../public/asset/instagram.svg";
-import Property from "@/app/component/card/Property";
 import NavbarItem from "@/app/component/navbar/NavbarItem";
 import { usePathname } from "next/navigation";
 import Reviews from "@/app/component/card/Reviews";
@@ -16,8 +15,10 @@ import { useState, useEffect } from "react";
 import { Hotel, Star, Phone, Mail, Forward, Bookmark } from "lucide-react";
 import API from "@/app/util/API";
 import { itemsType } from "@/app/type";
+import { useHook } from "@/app/component/hooks/Kontex";
 
 const SelectItems = () => {
+  const { currentUser, setCurrentUser } = useHook();
   const [kostId, setKostId] = useState<string>("");
   const [kostData, setKostData] = useState<itemsType | null>(null);
   const [ratingStar, setRatingStar] = useState<number>(0);
@@ -41,6 +42,25 @@ const SelectItems = () => {
           console.log("Gagal Mengambil Data", err);
           setIsLoading(false);
         });
+    }
+  };
+
+  const handleSaveKost = async () => {
+    try {
+      const res = await API.post(
+        `/api/auth/save-kos/${kostData?.id_kos}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser?.token}`,
+          },
+        }
+      );
+      setCurrentUser(res.data);
+    } catch (err) {
+      console.log("Gagal Simpan Kost", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -98,7 +118,9 @@ const SelectItems = () => {
                 <h1 className="font-bold text-[2rem]">{kostData.nama_kos}</h1>
                 <div className="flex gap-x-4">
                   <Forward />
-                  <Bookmark className="hover:text-yellow-300 duration-[0.4s]" />
+                  <button onClick={handleSaveKost}>
+                    <Bookmark className="hover:text-yellow-300 duration-[0.4s]" />
+                  </button>
                 </div>
               </div>
               <div className="pb-1">
@@ -106,9 +128,9 @@ const SelectItems = () => {
               </div>
               <div className="w-full rounded-md h-[10vh] bg-[#3572EF] flex justify-center items-center shadow-lg border-1">
                 <div className="grid grid-cols-4 grid-rows-1 gap-x-16">
-                  {kostData.fasilitas.map((item, index) => (
+                  {/* {kostData.fasilitas.map((item, index) => (
                     <Property key={index} title={item} />
-                  ))}
+                  ))} */}
                 </div>
               </div>
               <div className="mt-1 w-full rounded-md h-[12vh] bg-[#3572EF] border-1 p-2 flex-col">
@@ -175,7 +197,7 @@ const SelectItems = () => {
               <div className="flex text-center">
                 {/* <Link href={`/reservase/${kostData.id_kos}`}> */}
                 <div className="w-[35vw] h-[5vh] bg-green-500 mt-2 border-1 rounded-md hover:bg-green-700 flex justify-center duration-[0.4s]">
-                  <button className="text-white font-bold text-[1rem]">
+                  <button className="text-white font-bold text-[2rem]">
                     Reserve
                   </button>
                 </div>
@@ -184,7 +206,9 @@ const SelectItems = () => {
             </div>
           </div>
           <div className="flex-col pl-4">
-            <h1 className="font-bold text-[2rem]">2 Reviews</h1>
+            <h1 className="font-bold text-[2rem]">
+              {kostData.ulasan && kostData.ulasan.length} Reviews
+            </h1>
             {kostData.ulasan.map((items, index) => (
               <Reviews key={index} data={items} />
             ))}

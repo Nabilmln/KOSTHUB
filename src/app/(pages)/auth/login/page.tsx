@@ -81,12 +81,6 @@ const Login = () => {
           confirmButtonText: "try again!",
           onClose: () => {
             setModalData(null);
-            const handleAnimation = () => {
-              setLoading(true);
-              setTimeout(() => {
-                setLoading(false);
-              }, 2000);
-            };
           },
         });
       });
@@ -134,7 +128,7 @@ const Login = () => {
               <label htmlFor="username">Username:</label>
               <br />
               <input
-                className="border-2 w-[50vh] rounded-sm p-2"
+                className="border-2 w-[50vh] rounded-sm p-2 outline-none"
                 type="text"
                 onChange={(e) => setUsername(e.target.value)}
                 value={username}

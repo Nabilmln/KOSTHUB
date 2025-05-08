@@ -1,12 +1,12 @@
 "use client";
 import NavbarProfil from "@/app/component/navbar/NavbarProfil";
 import Link from "next/link";
-import Image from "next/image";
-import profilehd from "../../../../public/asset/prfilhd.png";
+import Profile from "../../../../public/asset/prfilhd.png";
 import Sidebar from "@/app/component/sidebar/Sidebar";
 import { useHook } from "@/app/component/hooks/Kontex";
 import { getGenderString } from "@/app/helper/helper";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const profil = () => {
   const { currentUser } = useHook();
@@ -26,11 +26,14 @@ const profil = () => {
           >
             <div className="flex-col flex justify-center items-center">
               <Image
-                src={profilehd}
-                alt="profil"
+                src={
+                  currentUser?.user.fotoProfile
+                    ? currentUser?.user.fotoProfile
+                    : Profile
+                }
+                alt="profile"
                 width={300}
-                height={300}
-                className=""
+                height={100}
               />
               <Link href="/profile/edit-profile">
                 <h1 className="border-1 p-2 mt-5 rounded-md bg-sky-400 hover:bg-sky-600 duration-[0.3s] hover:scale-105 ">

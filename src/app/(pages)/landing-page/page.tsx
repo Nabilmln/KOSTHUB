@@ -1,5 +1,5 @@
 "use client";
-import LandingPageIcon from "../../../../public/asset/LandingPageIcon.png";
+import IconLanding from "@/app/component/svg/IconLanding";
 import NavbarLanding from "@/app/component/navbar/NavbarLanding";
 import OurServices from "@/app/component/card/OurServices";
 import {
@@ -7,7 +7,6 @@ import {
   bestProperyData,
   bestReviewData,
 } from "@/app/data/card";
-import Image from "next/image";
 import FooterLanding from "@/app/component/footer/FooterLanding";
 import BestProperty from "@/app/component/card/BestProperty";
 import BestRewiew from "@/app/component/card/BestReview";
@@ -30,23 +29,23 @@ const LandingPage = () => {
             </p>
 
             <div className="grid grid-cols-3 grid-rows-1 gap-4 h-[10vh]">
-              <div className="border-2 rounded-md flex justify-center items-center flex-col bg-slate-200">
-                <h1 className="text-sky-500 font-bold">7K+</h1>
-                <p className="font-light">Pengguna</p>
+              <div className="rounded-md flex justify-center items-center flex-col bg-[#D9D9D9]">
+                <h1 className="text-sky-500 font-bold text-[2rem]">7K+</h1>
+                <p className="font-semibold">Pengguna</p>
               </div>
-              <div className="border-2 rounded-md flex justify-center items-center flex-col bg-slate-200">
-                <h1 className="text-sky-500 font-bold">9K+</h1>
-                <p className="font-light">Properti</p>
+              <div className=" rounded-md flex justify-center items-center flex-col bg-[#A7E6FF]">
+                <h1 className="text-sky-500 font-bold text-[2rem]">9K+</h1>
+                <p className="font-semibold">Properti</p>
               </div>
-              <div className="border-2 rounded-md flex justify-center items-center flex-col bg-slate-200">
-                <h1 className="text-sky-500 font-bold">5K+</h1>
-                <p className="font-light">Ulasan</p>
+              <div className=" rounded-md flex justify-center items-center flex-col bg-[#D9D9D9]">
+                <h1 className="text-sky-500 font-bold text-[2rem]">5K+</h1>
+                <p className="font-semibold">Ulasan</p>
               </div>
             </div>
           </div>
 
           <div className="">
-            <Image src={LandingPageIcon} alt="icon" height={700} width={700} />
+            <IconLanding />
           </div>
         </div>
       </div>
@@ -96,7 +95,7 @@ const LandingPage = () => {
             <p className="font-light">Properti dengan review terbaik!</p>
           </div>
           <div
-            className="grid grid-cols-4 grid-rows-1 gap-4 pl-[2rem] pt-[2rem] pb-[3rem]"
+            className="grid grid-cols-4 grid-rows-1 gap-6  pt-[2rem] pb-[3rem]"
             data-aos="zoom-out-up"
           >
             {bestReviewData.map((item, index) => (
