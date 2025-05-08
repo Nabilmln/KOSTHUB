@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
 const FooterLanding: React.FC = () => {
   return (
-    <div className="w-full h-[50vh] bg-sky-800 gap-3 " title="Footer">
+    <div className="w-full h-[50vh] bg-[#0C106B] gap-3 " title="Footer">
       <div className="grid grid-cols-4 grid-rows-1 gap-4">
         <div className="flex flex-col pt-[10vh] pl-[5vw]">
           <div className="flex items-center gap-[1rem]">
