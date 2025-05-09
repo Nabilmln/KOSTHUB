@@ -69,6 +69,7 @@ const Register = () => {
         });
       })
       .catch((err) => {
+        console.log("Gagal register akun:", err);
         setModalData({
           title: "Gagal Daftar",
           icon: "error",
@@ -228,8 +229,8 @@ const Register = () => {
                       type="radio"
                       className="w-[2vw] h-[2vh]"
                       name="gender"
+                      checked={gender === "Laki"}
                       onChange={() => handleChange("Laki")}
-                      checked={gender === "laki"}
                     />
 
                     <input
