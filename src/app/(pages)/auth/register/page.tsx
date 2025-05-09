@@ -156,36 +156,35 @@ const Register = () => {
             </div>
 
             <form onSubmit={handleRegister} className="text-center">
-              <label htmlFor="username">Nama Lengkap:</label>
-              <br />
-              <input
-                className="border-2 w-[70vh] rounded-sm p-2"
-                type="text"
-                onChange={(e) => setFullname(e.target.value)}
-              ></input>
+              <div className="my-1 w-full">
+                <input
+                  className="border-2 w-full rounded-sm p-2"
+                  type="text"
+                  onChange={(e) => setFullname(e.target.value)}
+                  placeholder="nama lengkap"
+                />
+              </div>
 
-              <div className="text-center">
-                <label htmlFor="email">Email :</label> <br />
+              <div className="w-full my-1">
                 <input
                   type="text"
-                  className="border-2 w-[70vh] rounded-sm p-2"
-                  placeholder="KostHub@example.com"
+                  className="border-2 w-full rounded-sm p-2"
+                  placeholder="kostHub@example.com"
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
               <div className="grid grid-cols-2 grid-rows-1">
-                <div className="text-center">
-                  <label htmlFor="email">Username :</label> <br />
+                <div className="w-full my-1">
                   <input
                     type="email"
                     className="border-2 w-[12vw] rounded-sm p-2"
                     onChange={(e) => setUsername(e.target.value)}
+                    placeholder="username"
                   />
                 </div>
 
-                <div className="text-center">
-                  <label htmlFor="Tanggal Lahir">Tanggal Lahir :</label> <br />
+                <div className="w-full my-1">
                   <input
                     type="date"
                     className="border-2 w-[12vw] rounded-sm p-2"
@@ -193,17 +192,15 @@ const Register = () => {
                     onChange={(e) => setTanggal_lahir(e.target.value)}
                   />
                 </div>
-                <div className="text-center">
-                  <label htmlFor="Nama Lengkap">Password :</label>
-                  <br />
+                <div className="w-full my-1">
                   <input
                     type="password"
                     className="border-2 w-[12vw] rounded-sm p-2"
                     onChange={(e) => setPassword(e.target.value)}
+                    placeholder="password"
                   />
                 </div>
                 <div>
-                  <label htmlFor="NomorHp">Nomor Hp :</label> <br />
                   <input
                     type="text"
                     className="border-2 w-[12vw] rounded-sm p-2"
@@ -213,11 +210,10 @@ const Register = () => {
                 </div>
 
                 <div className="text-center">
-                  <label htmlFor="Alamat">Alamat :</label> <br />
                   <input
                     type="text"
                     className="border-2 w-[12vw] rounded-sm p-2"
-                    placeholder="ACEH"
+                    placeholder="alamat"
                     onChange={(e) => setAlamat(e.target.value)}
                   />
                 </div>
