@@ -40,7 +40,6 @@ const SimpanKost = () => {
           <Sidebar />
           <div className="border-2">
             <div className="grid grid-cols-3 grid-rows-1 p-2 gap-2 ">
-              <div className="flex justify-center border-1"></div>
               {dataKost?.map((item, key) => (
                 <Items key={key} data={item} />
               ))}

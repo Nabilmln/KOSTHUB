@@ -93,23 +93,30 @@ const SelectItems = () => {
                 <div className="grid grid-cols-2 grid-rows-1 gap-x-1">
                   <div className="flex justify-center items-center">
                     <div className="flex justify-center items-center h-[50vh] w-[20vw] mt-6 ml-6 rounded-md">
-                      <Image src={image} width={360} height={90} alt="" />
+                      {kostData.image.gallery.slice(0, 1).map((item, key) => (
+                        <Image
+                          key={key}
+                          src={`http://localhost:5000/${item}`}
+                          alt="gallery"
+                          width={600}
+                          height={500}
+                          className="w-full h-[50vh] object-center rounded-md"
+                        />
+                      ))}
                     </div>
                   </div>
                   <div className="flex justify-center items-center h-[50vh] w-[24vw] mt-8 rounded-md">
                     <div className="grid grid-cols-2 grid-rows-2 gap-2 h-[47vh] w-[23vw]">
-                      <div className="rounded-md flex justify-center items-center">
-                        <Image src={image1} alt="" width={180} height={46} />
-                      </div>
-                      <div className="rounded-md flex justify-center items-center">
-                        <Image src={image2} alt="" width={180} height={46} />
-                      </div>
-                      <div className="rounded-md flex justify-center items-center">
-                        <Image src={image3} alt="" width={180} height={46} />
-                      </div>
-                      <div className="rounded-md flex justify-center items-center">
-                        <Image src={image4} alt="" width={180} height={46} />
-                      </div>
+                      {kostData.image.gallery.slice(1, 5).map((item, key) => (
+                        <Image
+                          key={key}
+                          src={`http://localhost:5000/${item}`}
+                          alt="gallery"
+                          width={300}
+                          height={200}
+                          className="w-full h-48 object-center rounded-md"
+                        />
+                      ))}
                     </div>
                   </div>
                 </div>
