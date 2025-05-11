@@ -158,7 +158,7 @@ const Register = () => {
             <form onSubmit={handleRegister} className="text-center">
               <div className="my-1 w-full">
                 <input
-                  className="border-2 w-full rounded-sm p-2"
+                  className="border-2 w-full rounded-lg p-2"
                   type="text"
                   onChange={(e) => setFullname(e.target.value)}
                   placeholder="nama lengkap"
@@ -168,7 +168,7 @@ const Register = () => {
               <div className="w-full my-1">
                 <input
                   type="text"
-                  className="border-2 w-full rounded-sm p-2"
+                  className="border-2 w-full rounded-lg p-2"
                   placeholder="kostHub@example.com"
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -178,7 +178,7 @@ const Register = () => {
                 <div className="w-full my-1">
                   <input
                     type="email"
-                    className="border-2 w-[12vw] rounded-sm p-2"
+                    className="border-2 w-[12vw] rounded-lg p-2"
                     onChange={(e) => setUsername(e.target.value)}
                     placeholder="username"
                   />
@@ -187,7 +187,7 @@ const Register = () => {
                 <div className="w-full my-1">
                   <input
                     type="date"
-                    className="border-2 w-[12vw] rounded-sm p-2"
+                    className="border-2 w-[12vw] rounded-lg p-2"
                     value={tanggal_lahir}
                     onChange={(e) => setTanggal_lahir(e.target.value)}
                   />
@@ -195,7 +195,7 @@ const Register = () => {
                 <div className="w-full my-1">
                   <input
                     type="password"
-                    className="border-2 w-[12vw] rounded-sm p-2"
+                    className="border-2 w-[12vw] rounded-lg p-2"
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="password"
                   />
@@ -203,7 +203,7 @@ const Register = () => {
                 <div>
                   <input
                     type="text"
-                    className="border-2 w-[12vw] rounded-sm p-2"
+                    className="border-2 w-[12vw] rounded-lg p-2"
                     placeholder="+62"
                     onChange={(e) => setNomor(e.target.value)}
                   />
@@ -212,7 +212,7 @@ const Register = () => {
                 <div className="text-center">
                   <input
                     type="text"
-                    className="border-2 w-[12vw] rounded-sm p-2"
+                    className="border-2 w-[12vw] rounded-lg p-2"
                     placeholder="alamat"
                     onChange={(e) => setAlamat(e.target.value)}
                   />

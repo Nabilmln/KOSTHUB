@@ -1,10 +1,5 @@
 "use client";
 import Image from "next/image";
-import image from "../../../../../public/asset/image1.svg";
-import image1 from "../../../../../public/asset/image2.svg";
-import image2 from "../../../../../public/asset/image3.svg";
-import image3 from "../../../../../public/asset/image4.svg";
-import image4 from "../../../../../public/asset/image5.svg";
 import facebook from "../../../../../public/asset/facebook.svg";
 import twiter from "../../../../../public/asset/twiter.svg";
 import instagram from "../../../../../public/asset/instagram.svg";
@@ -16,12 +11,13 @@ import { Hotel, Star, Phone, Mail, Forward, Bookmark } from "lucide-react";
 import API from "@/app/util/API";
 import { itemsType } from "@/app/type";
 import { useHook } from "@/app/component/hooks/Kontex";
+import { getFasilitas } from "@/app/helper/faslitasHelper";
 
 const SelectItems = () => {
   const { currentUser, setCurrentUser } = useHook();
   const [kostId, setKostId] = useState<string>("");
   const [kostData, setKostData] = useState<itemsType | null>(null);
-  const [ratingStar, setRatingStar] = useState<number>(0);
+  const [ratingStar] = useState<number>(0);
   const pathname = usePathname();
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -45,7 +41,8 @@ const SelectItems = () => {
     }
   };
 
-  const handleSaveKost = async () => {
+  const handleSaveKost = async (e: React.FormEvent) => {
+    e.preventDefault();
     try {
       const res = await API.post(
         `/api/auth/save-kos/${kostData?.id_kos}`,
@@ -123,21 +120,32 @@ const SelectItems = () => {
               </div>
               <div className="flex items-center justify-between mt-2">
                 <h1 className="font-bold text-[2rem]">{kostData.nama_kos}</h1>
-                <div className="flex gap-x-4">
+                <form onSubmit={handleSaveKost} className="flex gap-x-4">
                   <Forward />
-                  <button onClick={handleSaveKost}>
+                  <button type="submit">
                     <Bookmark className="hover:text-yellow-300 duration-[0.4s]" />
                   </button>
-                </div>
+                </form>
               </div>
               <div className="pb-1">
                 <h1 className="font-light">{kostData.alamat}</h1>
               </div>
               <div className="w-full rounded-md h-[10vh] bg-[#3572EF] flex justify-center items-center shadow-lg border-1">
-                <div className="grid grid-cols-4 grid-rows-1 gap-x-16">
-                  {/* {kostData.fasilitas.map((item, index) => (
-                    <Property key={index} title={item} />
-                  ))} */}
+                <div className="flex gap-[8vw]">
+                  {kostData.fasilitas.map((item, key) => (
+                    <div
+                      key={key}
+                      className="flex flex-col w-full bg-white rounded-lg justify-center p-1 "
+                    >
+                      <div className="flex">
+                        {getFasilitas(item.nama)}
+                        <p className="">{item.jumlah}</p>
+                      </div>
+                      <div>
+                        <span className="font-bold">{item.nama}</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className="mt-1 w-full rounded-md h-[12vh] bg-[#3572EF] border-1 p-2 flex-col">
@@ -161,13 +169,13 @@ const SelectItems = () => {
 
                     <div className="flex items-center gap-3">
                       {[1, 2, 3, 4, 5].map((star) => (
-                        <div
-                          key={star}
-                          onMouseOver={() => setRatingStar(star)}
-                          onMouseOut={() => setRatingStar(0)}
-                        >
+                        <div key={star}>
                           <Star
-                            color={ratingStar >= star ? "#FFFF00" : "#000000"}
+                            color={
+                              ratingStar || kostData.avgBintang >= star
+                                ? "#FFFF00"
+                                : "#000000"
+                            }
                             className="duration-[0.2s]"
                           />
                         </div>
