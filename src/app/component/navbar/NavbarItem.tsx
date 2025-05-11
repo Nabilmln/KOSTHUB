@@ -26,7 +26,7 @@ const NabvarItem: React.FC = () => {
             </div>
           </Link>
           <div className="text-white font-bold">
-            {currentUser?.user.username}
+            {currentUser?.user?.username}
           </div>
         </div>
       </div>

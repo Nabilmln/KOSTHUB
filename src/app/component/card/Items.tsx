@@ -12,7 +12,6 @@ const Items: React.FC<itemsTypeProps> = ({ data }) => {
       href={`/kost/${data.id_kos}`}
       className="shadow-lg border-1 rounded-lg flex flex-col items-center p-[1rem]"
     >
-      {/* Thumnail Belum fix */}
       <Image
         src={
           `http://localhost:5000/${data.image.thumbnail}`
@@ -49,11 +48,11 @@ const Items: React.FC<itemsTypeProps> = ({ data }) => {
       <div className="flex items-center gap-x-3">
         <div className="grid grid-cols-4 grid-rows-1 gap-x-1 border-1 rounded-md p-1 w-[14vw] text-center">
           <div className="flex">
-            {data.fasilitas.map((items, key) => (
+            {data.fasilitas.map((item, key) => (
               <div key={key} className="flex justify-center items-center">
                 <div className="flex justify-center items-center mx-1">
-                  {getFasilitas(items.nama)}
-                  <span className="font-light">{items.jumlah}</span>
+                  {getFasilitas(item.nama)}
+                  <span className="font-light">{item.jumlah}</span>
                 </div>
               </div>
             ))}

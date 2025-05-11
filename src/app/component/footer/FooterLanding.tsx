@@ -1,98 +1,88 @@
-import icon from "../../../../public/asset/icon.png";
+"use client";
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, Phone } from "lucide-react";
+import { appFooterDatas } from "@/app/data/app";
+
 const FooterLanding: React.FC = () => {
   return (
     <div className="w-full h-[50vh] bg-[#0C106B] gap-3 " title="Footer">
       <div className="grid grid-cols-4 grid-rows-1 gap-4">
         <div className="flex flex-col pt-[10vh] pl-[5vw]">
-          <div className="flex items-center gap-[1rem]">
-            <Image src={icon} alt="icon" className="w-10 h-[5vh]"></Image>
-            <h1 className="font-bold text-white text-[3rem]">KostHub</h1>
+          {appFooterDatas.map((item, key) => (
+            <div key={key} className="flex flex-col items-center gap-[1rem]">
+              <div className="flex items-center justify-center gap-4">
+                <Image
+                  src={item.footerLeft.image}
+                  alt="Icon"
+                  width={100}
+                  height={100}
+                  className=""
+                />
+                <h1 className="font-bold text-white text-[3rem]">
+                  {item.footerLeft.title}
+                </h1>
+              </div>
+
+              <div>
+                <h1 className="font-light text-white">
+                  {item.footerLeft.desc}
+                </h1>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="w-[70vw] mt-[20vh]">
+          <div className="grid grid-cols-3 grid-rows-1 gap-4">
+            <div className="w-full flex justify-center items-center">
+              {appFooterDatas.map((item, key) => (
+                <div key={key} className="px-[vw]">
+                  {item.footerRight.slice(0, 4).map((item, key) => (
+                    <div key={key} className="">
+                      <Link href={item.href}>
+                        <h1 className="hover:underline duration-[1s] text-white pb-[3vh]">
+                          {item.title}
+                        </h1>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center items-center">
+              {appFooterDatas.map((item, key) => (
+                <div key={key}>
+                  {item.footerRight.slice(4, 8).map((item, key) => (
+                    <div key={key}>
+                      <Link href={item.href}>
+                        <h1 className="hover:underline duration-[1s] text-white pb-[3vh]">
+                          {item.title}
+                        </h1>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div className="flex justify-center items-center">
+              {appFooterDatas.map((item, key) => (
+                <div key={key}>
+                  {item.footerRight.slice(8, 12).map((item, key) => (
+                    <div key={key}>
+                      <Link href={item.href}>
+                        <h1 className="hover:underline duration-[1s] text-white pb-[3vh]">
+                          {item.title}
+                        </h1>
+                      </Link>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
-          <h1 className="font-light text-white">
-            KOSTHUB adalah platform digital yang mempermudah pemilik kos dalam
-            mengelola properti, penyewa, serta pembayaran sewa kos secara
-            otomatis. Sistem ini juga membantu pencari kos menemukan tempat
-            tinggal dengan fitur pencarian berbasis lokasi, harga, dan
-            fasilitas.
-          </h1>
-        </div>
-        <div className="flex flex-col pt-[17vh]">
-          <Link href="#">
-            <h1 className="hover:underline duration-[1s] text-white pb-[3vh]">
-              Perusahaan
-            </h1>
-          </Link>
-          <Link href="#">
-            <h1 className="hover:underline duration-[1s] text-white pb-[3vh] ">
-              About Us
-            </h1>
-          </Link>
-
-          <Link href="#">
-            <h1 className="hover:underline duration-[1s] text-white pb-[3vh] ">
-              {" "}
-              Produk & Layanan
-            </h1>
-          </Link>
-          <Link href="#">
-            <h1 className="hover:underline duration-[1s] text-white pb-[3vh] ">
-              Partner
-            </h1>
-          </Link>
-        </div>
-        <div className="flex flex-col pt-[17vh]">
-          <Link href="#">
-            <h1 className="hover:underline duration-[1s] text-white pb-[3vh]">
-              Dukungan
-            </h1>
-          </Link>
-
-          <Link href="#">
-            <h1 className="hover:underline duration-[1s] text-white pb-[3vh]">
-              Kebijakan Privasi
-            </h1>
-          </Link>
-
-          <Link href="#">
-            <h1 className="hover:underline duration-[1s] text-white pb-[3vh]">
-              Syarat Penggunaan
-            </h1>
-          </Link>
-          <Link href="#">
-            <h1 className="hover:underline duration-[1s] text-white pb-[3vh]">
-              Syarat Penggunaan Agen
-            </h1>
-          </Link>
-        </div>
-        <div className="flex flex-col pt-[17vh]">
-          <h1 className="duration-[1s] text-white pb-[3vh]">Hubungi Kami</h1>
-          <Link href="#">
-            <div className="flex gap-2">
-              <Mail className="text-white" />
-              <h1 className="hover:underline duration-[1s] text-white pb-[3vh]">
-                kosthub@gmail.com
-              </h1>
-            </div>
-          </Link>
-          <Link href="#">
-            <div className="flex gap-2">
-              <Phone className="text-white" />
-              <h1 className="hover:underline duration-[1s] text-white pb-[3vh]">
-                +62 11 34455666
-              </h1>
-            </div>
-          </Link>
-
-          <Link href="#">
-            <div className="flex gap-2">
-              <h1 className="hover:underline duration-[1s] text-white">
-                Creator
-              </h1>
-            </div>
-          </Link>
+          <div className="flex justify-center items-center border-t-2 border-white mt-2">
+            <h1 className="font-light text-white mt-2 ">Koshub(Kelompok 7)</h1>
+          </div>
         </div>
       </div>
     </div>

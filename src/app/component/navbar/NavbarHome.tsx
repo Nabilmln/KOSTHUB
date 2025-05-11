@@ -4,9 +4,24 @@ import profil from "../../../../public/asset/porfil.png";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import { useHook } from "../hooks/Kontex";
+import { useState } from "react";
+import { itemsTypeProps } from "../props";
 
 const NavbarHome: React.FC = () => {
   const { currentUser } = useHook();
+
+  // const [search, setSearch] = useState<itemsTypeProps[]>();
+  // const [typing, setTyping] = useState<string>("");
+
+  // const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const value = e.target.value;
+  //   setTyping(value);
+
+  //   const result = items.filter((item) => {
+  //     item.name.toLowerCase().includes(value);
+  //   });
+  //   setSearch(result);
+  // };
 
   return (
     <div className="flex justify-around pt-[1rem] pb-[1rem] border-b-1">
