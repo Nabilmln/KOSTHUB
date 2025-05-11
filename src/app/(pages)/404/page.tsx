@@ -1,20 +1,7 @@
-"use client";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import Costom404Component from "@/app/components/page/404/404";
 
-const Costom404 = () => {
-  const router = useRouter();
-  useEffect(() => {
-    setTimeout(() => {
-      router.push("/");
-    }, 3000);
-  }, []);
-  return (
-    <div className="container-notfound">
-      <h1 className="title-notfound">Ooooops...</h1>
-      <h1 className="title-notfound">Halaman yang Anda cari tidak ditemukan</h1>
-    </div>
-  );
+const Custom404 = () => {
+  return <Costom404Component />;
 };
 
-export default Costom404;
+export default Custom404;

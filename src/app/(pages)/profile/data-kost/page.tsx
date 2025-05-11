@@ -1,22 +1,7 @@
-"use client";
-import NavbarProfil from "@/app/component/navbar/NavbarProfil";
-import Sidebar from "@/app/component/sidebar/Sidebar";
-const DataKosh = () => {
-  return (
-    <>
-      <div className="h-screen w-screen">
-        <div className=" inset-x-0 top-0 h-16">
-          <NavbarProfil />
-        </div>
-        <div className="grid grid-cols-[0.4fr_2fr] grid-rows-1 gap-1 pt-[3vh] border-t-1 h-[93vh]">
-          <Sidebar />
-          <div className="border-2">
-            <h1 className="text-[1rem]">ini side kanan</h1>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+import DataKostComponent from "@/app/components/page/profile/data-kost/DataKost";
+
+const DataKost = () => {
+  return <DataKostComponent />;
 };
 
-export default DataKosh;
+export default DataKost;
