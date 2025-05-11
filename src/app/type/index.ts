@@ -1,6 +1,7 @@
 export interface userType {
   token: string;
   user: {
+    fotoProfile: any;
     _id: string;
     username: string;
     email: string;
@@ -10,6 +11,7 @@ export interface userType {
     gender?: any;
     alamat?: string;
     bio?: string;
+    savedKos?: string[];
   };
 }
 
@@ -32,22 +34,28 @@ export interface itemsType {
   id_kos: number;
   nama_kos: string;
   alamat: string;
-  fasilitas: string[];
+  fasilitas: [
+    {
+      nama: string;
+      jumlah: string;
+    }
+  ];
   harga_perbulan: number;
   harga_pertahun: number;
   kontak: {
     email: string;
     nomor: string;
   };
+  avgBintang: number;
   ulasan: {
     nama: string;
     bintang: number;
     komentar: string;
   }[];
   image: {
-    url: string;
-    isThumbnail: boolean;
-  }[];
+    thumbnail: any;
+    gallery: any[];
+  };
   deskripsi: string;
 }
 
@@ -60,13 +68,29 @@ export interface ModalProps {
   onClose?: () => void;
 }
 
-export interface PropertyType {
-  title: string;
-  // index: number;
-}
-
 export interface ReviewType {
-  // _id: string;
   nama: string;
   komentar: string;
+  bintang: any;
+}
+
+export interface bestReviewType {
+  image: string;
+  title: string;
+  date: string;
+  gambar: string;
+  deskripsi: string;
+}
+
+export interface appFooterType {
+  footerLeft: {
+    image: any;
+    title: string;
+    desc: string;
+  };
+
+  footerRight: {
+    title: string;
+    href: string;
+  }[];
 }
