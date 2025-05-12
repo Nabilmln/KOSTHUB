@@ -10,8 +10,11 @@ import {
 
 const Sidebar: React.FC = () => {
   return (
-    <div className="border-r-1 flex flex-col justify-between" title="side-kiri">
-      <div title="side-top">
+    <div
+      className="border-1 rounded-lg flex flex-col justify-between"
+      title="side-kiri"
+    >
+      <div title="side-top ">
         <Link href="/profile">
           <div className="flex gap-x-2 hover:text-sky-600 duration-[0.5s] text-[1.8rem] items-center">
             <User width="16" hanging="16" className="w-[3vw] h-[3vh]" />
@@ -34,7 +37,7 @@ const Sidebar: React.FC = () => {
         <Link href="/profile/riwayat-transaksi">
           <div className="flex gap-x-2 hover:text-sky-600 duration-[0.5s] items-center text-[1.8rem]">
             <HandCoins width="16" hanging="16" className="w-[3vw] h-[3vh]" />
-            <h1 className="font-light">Riwayat Transaksi</h1>
+            <h1 className="font-light">Penyewaan</h1>
           </div>
         </Link>
       </div>

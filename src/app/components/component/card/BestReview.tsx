@@ -5,10 +5,10 @@ import { useState } from "react";
 import { bestReviewTypeProps } from "../props";
 
 const BestRewiew: React.FC<bestReviewTypeProps> = ({ data }) => {
-  const [ratingStar, setRatingStar] = useState<number>(0);
+  const [ratingStar] = useState<number>(0);
 
   return (
-    <div className="border-2 h-[25vh] w-[25vw] rounded-md p-[1rem]">
+    <div className="shadow-lg h-[25vh] w-[23vw] rounded-md p-[1rem]">
       <div className="grid grid-cols-2 grid-rows-1 ">
         <div className="flex items-center gap-x-2">
           <Image src={data.image} width={36} alt="Accont" height={16} />
@@ -17,62 +17,24 @@ const BestRewiew: React.FC<bestReviewTypeProps> = ({ data }) => {
         <h1 className="font-light">{data.date}</h1>
       </div>
       <div className=" flex gap-x-4" title="Rating">
-        <div
-          onMouseOver={() => setRatingStar(1)}
-          onMouseOut={() => setRatingStar(0)}
-        >
-          <Star
-            color={ratingStar >= 1 ? "#FFFF00" : "#000000"}
-            className="duration-[0.2s]"
-          />
-        </div>
-        <div
-          onMouseOver={() => setRatingStar(2)}
-          onMouseOut={() => setRatingStar(0)}
-        >
-          <Star
-            color={ratingStar >= 2 ? "#FFFF00" : "#000000"}
-            className="duration-[0.2s]"
-          />
-        </div>
-        <div
-          onMouseOver={() => setRatingStar(3)}
-          onMouseOut={() => setRatingStar(0)}
-        >
-          <Star
-            color={ratingStar >= 3 ? "#FFFF00" : "#000000"}
-            className="duration-[0.2s]"
-          />
-        </div>
-        <div
-          onMouseOver={() => setRatingStar(4)}
-          onMouseOut={() => setRatingStar(0)}
-        >
-          <Star
-            color={ratingStar >= 4 ? "#FFFF00" : "#000000"}
-            className="duration-[0.2s]"
-          />
-        </div>
-        <div
-          onMouseOver={() => setRatingStar(5)}
-          onMouseOut={() => setRatingStar(0)}
-        >
-          <Star
-            color={ratingStar >= 5 ? "#FFFF00" : "#000000"}
-            className="duration-[0.2s]"
-          />
-        </div>
+        {[1, 2, 3, 4, 5].map((key) => (
+          <div key={key}>
+            <Star
+              color={
+                ratingStar || data.avgBintang >= key ? "#FFFF00" : "#000000"
+              }
+            />
+          </div>
+        ))}
       </div>
-      <div className="grid grid-cols-2 grid-rows-1 mt-2">
-        <div>
-          <Image
-            src={data.gambar}
-            alt="kost"
-            width={160}
-            height={46}
-            className="rounded-md"
-          />
-        </div>
+      <div className="mt-2 flex gap-4 ">
+        <Image
+          src={`http://localhost:5000/${data.gambar}`}
+          alt=""
+          width={200}
+          height={100}
+          className=" h-28 object-center rounded-md"
+        />
         <div>
           <p className="font-medium text-left">{data.deskripsi}</p>
         </div>

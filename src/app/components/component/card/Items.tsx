@@ -10,7 +10,7 @@ const Items: React.FC<itemsTypeProps> = ({ data }) => {
   return (
     <Link
       href={`/kost/${data.id_kos}`}
-      className="shadow-lg border-1 rounded-lg flex flex-col items-center p-[1rem]"
+      className="shadow-lg border-1 rounded-lg flex flex-col items-center p-[1rem] hover:scale-[103%] duration-[0.3s]"
     >
       <Image
         src={

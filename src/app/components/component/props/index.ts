@@ -1,11 +1,15 @@
 import {
-  ourServicesType,
-  bestPropertyType,
   itemsType,
   ReviewType,
+  ReservaseType,
+} from "@/app/components/type/API";
+
+import {
   bestReviewType,
   appFooterType,
-} from "@/app/components/type";
+  ourServicesType,
+  bestPropertyType,
+} from "@/app/components/type/components";
 
 export interface ourServicesTypeProps {
   data: ourServicesType;
@@ -26,4 +30,8 @@ export interface itemsTypeProps {
 
 export interface appFooterTypeProps {
   data: appFooterType;
+}
+
+export interface ReservaseTypeProps {
+  data: ReservaseType;
 }

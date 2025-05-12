@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext } from "react";
-import { userType } from "../../type";
+import { userType } from "../../type/API";
 
 const contex = createContext<{
   currentUser: userType | null;

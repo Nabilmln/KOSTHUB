@@ -27,11 +27,22 @@ const Reviews: React.FC<reviewTypeProps> = ({ data }) => {
             </div>
           </div>
         </div>
+        <div className="flex justify-center items-center">
+          <span className="font-light">{data.tanggal}</span>
+        </div>
       </div>
 
       <div className="pt-1 flex-col ">
         <p className="font-light">{data.komentar}</p>
-        <div className="pl-2 mt-2"></div>
+        <div className="pl-2 mt-2">
+          <Image
+            src={`http://localhost:5000/${data.imageUlasan}`}
+            alt="ImageUlasan"
+            width={100}
+            height={200}
+            className="w-30 h-20 object-center rounded-md"
+          />
+        </div>
       </div>
     </div>
   );
