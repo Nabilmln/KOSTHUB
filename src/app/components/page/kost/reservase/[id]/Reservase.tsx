@@ -18,8 +18,8 @@ const ReservaseComponent: React.FC = () => {
   const [kostData, setKostData] = useState<itemsType | null>(null);
   const [ratingStar] = useState<number>(0);
   const [nama, setNama] = useState<string>("");
-  const [tanggal_lahir, setTanggal_lahir] = useState<string>("");
-  const [nomor_hp, setNomor_hp] = useState<string>();
+  const [tanggal_lahir, setTanggal_Lahir] = useState<string>("");
+  const [nomor_hp, setNomor_Hp] = useState<string>();
   const [gender, setGender] = useState<boolean | null>(null);
   const [email, setEmail] = useState<string>("");
   const [periode_penyewaan, setPeriode_Penyewaan] = useState<string>("");
@@ -50,8 +50,7 @@ const ReservaseComponent: React.FC = () => {
     }
   };
 
-  const handleReservase = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleReservase = async () => {
     API.post(
       `/api/reservase/${currentUser?.user._id}/${kostData?.id_kos}`,
       {
@@ -67,7 +66,6 @@ const ReservaseComponent: React.FC = () => {
       {
         headers: {
           Authorization: `Bearer ${currentUser?.token}`,
-          "Content-Type": "application/json",
         },
       }
     )
@@ -75,7 +73,7 @@ const ReservaseComponent: React.FC = () => {
         console.log("Berhasil Melakukan Reservase", res);
       })
       .catch((err) => {
-        console.error("Gagal Melakukan Reservase", err);
+        console.log("Gagal Melakukan Reservase", err);
       });
   };
 
@@ -85,7 +83,7 @@ const ReservaseComponent: React.FC = () => {
 
   useEffect(() => {
     handleGetDataKos();
-    console.log("idKost", currentUser?.user._id);
+    console.log("idKost Object", kostData?._id);
   }, []);
 
   return (
@@ -185,7 +183,7 @@ const ReservaseComponent: React.FC = () => {
           </div>
           <div className="h-[90vh] rounded-md" title="ini kanan">
             <div className="flex justify-center items-center h-[70vh] w-[35vw] mt-8 bg-white rounded-md shadow-lg border">
-              <form onSubmit={handleReservase} className="w-full p-4 space-y-4">
+              <div className="w-full p-4 space-y-4">
                 <h2 className="font-bold text-2xl text-center">
                   Formulir Reservase
                 </h2>
@@ -212,22 +210,22 @@ const ReservaseComponent: React.FC = () => {
                       type="date"
                       className="border-2 rounded-md w-full h-10 px-2"
                       value={tanggal_lahir}
-                      onChange={(e) => setTanggal_lahir(e.target.value)}
+                      onChange={(e) => setTanggal_Lahir(e.target.value)}
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label htmlFor="nama" className="font-medium">
-                      Nomor Hp:
+                    <label htmlFor="nomor_hp" className="font-medium">
+                      Nomor Handphone:
                     </label>
                     <input
-                      id="nama"
+                      id="nomor_hp"
                       type="text"
                       className="border-2 rounded-md w-full h-10 px-2"
                       value={nomor_hp}
-                      onChange={(e) => setNomor_hp(e.target.value)}
+                      onChange={(e) => setNomor_Hp(e.target.value)}
                     />
                   </div>
                   <div>
@@ -242,6 +240,7 @@ const ReservaseComponent: React.FC = () => {
                         value="true"
                         checked={gender === true}
                         onChange={() => setGender(true)}
+                        className="w-[2vw] h-[2vh]"
                       />
                       <label htmlFor="Laki">Laki-Laki</label>
                     </div>
@@ -254,6 +253,7 @@ const ReservaseComponent: React.FC = () => {
                         value="false"
                         checked={gender === false}
                         onChange={() => setGender(false)}
+                        className="w-[2vw] h-[2vh]"
                       />
                       <label htmlFor="Perempuan">Perempuan</label>
                     </div>
@@ -287,9 +287,14 @@ const ReservaseComponent: React.FC = () => {
                     Unggah Kontrak:
                   </label>
                   <input
-                    type="text"
+                    type="file"
                     className="border-2 rounded-md w-full h-10 px-2"
-                    onChange={(e) => setKontrak(e.target.value)}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setKontrak(file.name);
+                      }
+                    }}
                   />
                 </div>
 
@@ -323,9 +328,14 @@ const ReservaseComponent: React.FC = () => {
                     Unggah Bukti Pembayaran:
                   </label>
                   <input
-                    type="text"
+                    type="file"
                     className="border-2 rounded-md w-full h-10 px-2"
-                    onChange={(e) => setBukti_Pembayaran(e.target.value)}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setBukti_Pembayaran(file.name);
+                      }
+                    }}
                   />
                 </div>
 
@@ -333,6 +343,7 @@ const ReservaseComponent: React.FC = () => {
                   <button
                     type="submit"
                     className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 rounded-md duration-300"
+                    onClick={() => handleReservase()}
                   >
                     Reserve
                   </button>
@@ -343,7 +354,7 @@ const ReservaseComponent: React.FC = () => {
                     Cancel
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
