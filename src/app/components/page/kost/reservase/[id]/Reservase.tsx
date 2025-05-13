@@ -1,29 +1,92 @@
 "use client";
 import Image from "next/image";
-import image from "../../../../public/asset/image1.svg";
-import image1 from "../../../../public/asset/image2.svg";
-import image2 from "../../../../public/asset/image3.svg";
-import image3 from "../../../../public/asset/image4.svg";
-import image4 from "../../../../public/asset/image5.svg";
 import NavbarItem from "@/app/components/component/navbar/NavbarItem";
-import { usePathname } from "next/navigation";
 import Reviews from "@/app/components/component/card/Reviews";
 import { useState, useEffect } from "react";
-import {
-  Hotel,
-  Star,
-  Phone,
-  Mail,
-  Forward,
-  Bookmark,
-  BedDouble,
-} from "lucide-react";
+import { Star, Phone, Mail } from "lucide-react";
 import API from "@/app/components/util/API";
-import { itemsType } from "@/app/components/type";
+import { useParams } from "next/navigation";
+import { useHook } from "@/app/components/component/hooks/Kontex";
+import { itemsType } from "@/app/components/type/API";
+
+import { getFasilitas } from "@/app/components/helper/faslitasHelper";
+
 const ReservaseComponent: React.FC = () => {
-  const handleReservase = (e: React.FormEvent) => {
-    e.preventDefault();
+  const [reservase, setReservase] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [selectedField, setSelectedField] = useState<any>();
+  const [kostData, setKostData] = useState<itemsType | null>(null);
+  const [ratingStar] = useState<number>(0);
+  const [nama, setNama] = useState<string>("");
+  const [tanggal_lahir, setTanggal_lahir] = useState<string>("");
+  const [nomor_hp, setNomor_hp] = useState<string>();
+  const [gender, setGender] = useState<boolean | null>(null);
+  const [email, setEmail] = useState<string>("");
+  const [periode_penyewaan, setPeriode_Penyewaan] = useState<string>("");
+  const [kontrak, setKontrak] = useState<string>("");
+  const [bukti_pembayaran, setBukti_Pembayaran] = useState<string>("");
+  const { currentUser } = useHook();
+  const { id } = useParams();
+
+  const PeriodeOption = ["Bulan", "Tahun"];
+
+  const handleGetDataKos = async () => {
+    if (id) {
+      setIsLoading(false);
+      API.get(`/api/kos/${id}`, {
+        headers: {
+          Authorization: `Bearer ${id}`,
+        },
+      })
+        .then((res) => {
+          setKostData(res.data);
+          console.log("Data kos berhasil diterima", res.data);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          console.log("Data kos gagal diambil", err);
+          setIsLoading(false);
+        });
+    }
   };
+
+  const handleReservase = async (e: React.FormEvent) => {
+    e.preventDefault();
+    API.post(
+      `/api/reservase/${currentUser?.user._id}/${kostData?.id_kos}`,
+      {
+        nama,
+        tanggal_lahir,
+        nomor_hp,
+        gender,
+        email,
+        periode_penyewaan: selectedField,
+        kontrak,
+        bukti_pembayaran,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${currentUser?.token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((res) => {
+        console.log("Berhasil Melakukan Reservase", res);
+      })
+      .catch((err) => {
+        console.error("Gagal Melakukan Reservase", err);
+      });
+  };
+
+  const handleChange = (value: any) => {
+    setGender((prev) => (prev === value ? "" : value));
+  };
+
+  useEffect(() => {
+    handleGetDataKos();
+    console.log("idKost", currentUser?.user._id);
+  }, []);
 
   return (
     <div>
@@ -37,24 +100,29 @@ const ReservaseComponent: React.FC = () => {
             <div className="rounded-md flex justify-center items-center ">
               <div className="grid grid-cols-2 grid-rows-1 gap-x-1">
                 <div className="flex justify-center items-center">
-                  <div className="flex justify-center items-center h-[50vh] w-[20vw] mt-6 ml-6 rounded-md">
-                    <Image src={image} width={360} height={90} alt="foto" />
-                  </div>
+                  {kostData?.image.gallery.slice(0, 1).map((item, key) => (
+                    <Image
+                      key={key}
+                      src={`http://localhost:5000/${item}`}
+                      alt="gallery"
+                      width={600}
+                      height={500}
+                      className="w-full h-[50vh] object-center rounded-md"
+                    />
+                  ))}
                 </div>
                 <div className="flex justify-center items-center h-[50vh] w-[24vw] mt-8 rounded-md">
                   <div className="grid grid-cols-2 grid-rows-2 gap-2 h-[47vh] w-[23vw]">
-                    <div className="rounded-md flex justify-center items-center">
-                      <Image src={image1} alt="foto" width={180} height={46} />
-                    </div>
-                    <div className="rounded-md flex justify-center items-center">
-                      <Image src={image2} alt="foto" width={180} height={46} />
-                    </div>
-                    <div className="rounded-md flex justify-center items-center">
-                      <Image src={image3} alt="foto" width={180} height={46} />
-                    </div>
-                    <div className="rounded-md flex justify-center items-center">
-                      <Image src={image4} alt="foto" width={180} height={46} />
-                    </div>
+                    {kostData?.image.gallery.slice(1, 5).map((item, key) => (
+                      <Image
+                        key={key}
+                        src={`http://localhost:5000/${item}`}
+                        alt="gallery"
+                        width={300}
+                        height={200}
+                        className="w-full h-48 object-center rounded-md"
+                      />
+                    ))}
                   </div>
                 </div>
               </div>
@@ -63,171 +131,222 @@ const ReservaseComponent: React.FC = () => {
             <div className="grid grid-cols-2 grid-rows-1 gap-2">
               <div className="mt-1 w-full rounded-md h-[30vh] bg-[#3572EF] flex justify-center items-center shadow-lg border-1">
                 <div className=" w-[25vw] bg-white h-[25vh] rounded-md flex-col px-6 ">
-                  <h1 className="text-[2rem] font-bold">Serenity III</h1>
-                  <p className="font-light">
-                    Ie Masen Kaye Adang, Syiah Kuala, Banda Aceh
-                  </p>
+                  <h1 className="text-[2rem] font-bold">
+                    {kostData?.nama_kos}
+                  </h1>
+                  <p className="font-light">{kostData?.alamat}</p>
                   <div className="flex-col pt-4">
-                    <h1 className="font-light">IDR.300.000.000/year</h1>
+                    <h1 className="font-light">{kostData?.harga_pertahun}</h1>
                     <div className="flex">
-                      <Star className="text-yellow-400" />
-                      <Star className="text-yellow-400" />
-                      <Star className="text-yellow-400" />
-                      <Star className="text-yellow-400" />
-                      <Star className="text-yellow-400" />
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <div key={star}>
+                          <Star
+                            color={
+                              ratingStar || kostData?.avgBintang >= star
+                                ? "#FFFF00"
+                                : "#000000"
+                            }
+                            className=""
+                          />
+                        </div>
+                      ))}
                     </div>
                   </div>
 
                   <div className="flex-col pt-4">
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 my-1">
                       <Phone />
-                      <h1 className=" font-light">012-3456-7890</h1>
+                      <h1 className=" font-light">{kostData?.kontak.nomor}</h1>
                     </div>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 my-1">
                       <Mail />
-                      <h1 className=" font-light">serenity@gmail.com</h1>
+                      <h1 className=" font-light">{kostData?.kontak.email}</h1>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="mt-1 w-[38vh] rounded-md h-[30vh] bg-[#3572EF] border-1 p-4 m-2 flex-col">
+              <div className="mt-1 w-[48vh] rounded-md h-[30vh] bg-[#3572EF] border-1 p-4 m-2 flex-col">
                 <div className="flex-col ">
-                  <h1 className="text-white">Furniture :</h1>
-
-                  <div className="flex-col bg-white rounded-md">
-                    <div className="flex h-[3vh] w-[10vw justify-between r">
-                      <div className="flex ">
-                        <BedDouble />
-                        <h1 className="font-light">Bedroom</h1>
+                  {kostData?.fasilitas.map((item, key) => (
+                    <div
+                      key={key}
+                      className="flex flex-col w-full bg-white rounded-lg justify-center p-1 my-4"
+                    >
+                      <div className=" flex">
+                        {getFasilitas(item.nama)}
+                        <p className="px-2">{item.jumlah}</p>
+                        <h1 className="px-2">{item.nama}</h1>
                       </div>
-                      <h1>4</h1>
                     </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
           <div className="h-[90vh] rounded-md" title="ini kanan">
-            <div className="flex justify-center items-center h-[70vh] w-[35vw] mt-8 bg-white rounded-md shadow-lx border-1">
-              {/* Ini side Kiri */}
-              <form>
-                <label htmlFor="Title" className="font-bold text-[2rem] ">
-                  Formulir Reservase :
-                </label>
-                <br />
-                <div className="grid grid-cols-2 grid-rows-1 gap-2 py-2 px-2">
+            <div className="flex justify-center items-center h-[70vh] w-[35vw] mt-8 bg-white rounded-md shadow-lg border">
+              <form onSubmit={handleReservase} className="w-full p-4 space-y-4">
+                <h2 className="font-bold text-2xl text-center">
+                  Formulir Reservase
+                </h2>
+
+                <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label htmlFor="" className="">
-                      Nama :
-                    </label>{" "}
-                    <br />
+                    <label htmlFor="nama" className="font-medium">
+                      Nama:
+                    </label>
                     <input
+                      id="nama"
                       type="text"
-                      className="border-2 rounded-md w-[17vw] h-[4vh] py-2 px-2 "
+                      className="border-2 rounded-md w-full h-10 px-2"
+                      value={nama}
+                      onChange={(e) => setNama(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label htmlFor="" className="font-bold ">
-                      Tanggal Lahir :
-                    </label>{" "}
-                    <br />
+                    <label htmlFor="tanggal_lahir" className="font-medium">
+                      Tanggal Lahir:
+                    </label>
                     <input
+                      id="tanggal_lahir"
                       type="date"
-                      className="border-2 rounded-md w-[17vw] h-[4vh] "
+                      className="border-2 rounded-md w-full h-10 px-2"
+                      value={tanggal_lahir}
+                      onChange={(e) => setTanggal_lahir(e.target.value)}
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 grid-rows-1 gap-2 py-2 px-2">
+                <div className="grid grid-cols-2 gap-2">
                   <div>
-                    <label htmlFor="" className="font-bold">
-                      Nomor Handphone :
-                    </label>{" "}
-                    <br />
+                    <label htmlFor="nama" className="font-medium">
+                      Nomor Hp:
+                    </label>
                     <input
+                      id="nama"
                       type="text"
-                      className="border-2 rounded-md w-[17vw] h-[4vh] py-2 px-2"
+                      className="border-2 rounded-md w-full h-10 px-2"
+                      value={nomor_hp}
+                      onChange={(e) => setNomor_hp(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label htmlFor="" className="font-bold">
-                      Gender :
-                    </label>{" "}
-                    <br />
-                    <input
-                      type="text"
-                      className="border-2 rounded-md w-[17vw] h-[4vh] py-2 px-2"
-                    />
+                    <label htmlFor="gender" className="font-medium">
+                      Gender:
+                    </label>
+                    <div className="flex items-center justify-around">
+                      <input
+                        type="radio"
+                        id="Laki"
+                        name="gender"
+                        value="true"
+                        checked={gender === true}
+                        onChange={() => setGender(true)}
+                      />
+                      <label htmlFor="Laki">Laki-Laki</label>
+                    </div>
+
+                    <div className="flex items-center space-x-2">
+                      <input
+                        type="radio"
+                        id="Perempuan"
+                        name="gender"
+                        value="false"
+                        checked={gender === false}
+                        onChange={() => setGender(false)}
+                      />
+                      <label htmlFor="Perempuan">Perempuan</label>
+                    </div>
                   </div>
                 </div>
 
-                <div className="py-2 px-2 flex-col">
-                  <label htmlFor="Email" className="font-bold">
-                    Email :
-                  </label>{" "}
-                  <br />
+                <div>
+                  <label htmlFor="email" className="font-medium">
+                    Email:
+                  </label>
                   <input
+                    id="email"
                     type="email"
-                    className="border-2 rounded-md h-[4vh] w-[34vw] py-2 px-2"
+                    className="border-2 rounded-md w-full h-10 px-2"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
-                  <p className="font-light">
+                  <p className="text-sm text-gray-600 mt-1">
                     Silakan unduh terlebih dahulu kontrak kos, tandatangani,
-                    lalu unggah kembali dokumen yang telah ditandatangani.{" "}
-                    <span className="text-sky-500">Unduh disini</span>
+                    lalu unggah kembali.
+                    <a href="/asset/Kontrak kos.png" download>
+                      <span className="text-sky-500 cursor-pointer">
+                        Unduh disini
+                      </span>
+                    </a>
                   </p>
                 </div>
 
-                <div className="py-2 px-2">
-                  <input
-                    type="file"
-                    className="border-2 rounded-md h-[4vh] w-[34vw] outline-none"
-                    placeholder="Unggah Dokument"
-                  />
-                </div>
-
-                <div className="py-2 px-2">
-                  <label htmlFor="" className="font-bold">
-                    Metode Pembayatan :
+                <div>
+                  <label htmlFor="kontrak" className="font-medium">
+                    Unggah Kontrak:
                   </label>
                   <input
                     type="text"
-                    className="border-2 rounded-md h-[4vh] w-[34vw] outline-none py-2 px-2"
+                    className="border-2 rounded-md w-full h-10 px-2"
+                    onChange={(e) => setKontrak(e.target.value)}
                   />
                 </div>
 
-                <div className="py-2 px-2">
-                  <label htmlFor="" className="font-bold">
-                    Unggah Bukti Pembayaran :
+                <div>
+                  <label htmlFor="pembayaran" className="font-medium">
+                    Periode Penyewaan:
+                  </label>{" "}
+                  <div className="border-2 rounded-md w-full h-10 px-2 flex items-center">
+                    <select
+                      value={selectedField}
+                      className="outline-none"
+                      onChange={(e) => {
+                        const field = e.target.value;
+                        setSelectedField(field);
+                      }}
+                    >
+                      <option value="" className="text-black font-bold ">
+                        Pilih Periode Penyewaan
+                      </option>
+                      {PeriodeOption.map((e) => (
+                        <option key={e} value={e}>
+                          {e}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label htmlFor="bukti_pembayaran" className="font-medium">
+                    Unggah Bukti Pembayaran:
                   </label>
                   <input
-                    type="file"
-                    className="border-2 rounded-md h-[4vh] w-[34vw] outline-none "
+                    type="text"
+                    className="border-2 rounded-md w-full h-10 px-2"
+                    onChange={(e) => setBukti_Pembayaran(e.target.value)}
                   />
                 </div>
 
-                <div className="grid grid-cols-2 grid-rows-1 gap-2 p-1">
-                  <div className="w-[17vw] h-[5vh] bg-green-500 mt-2 border-1 rounded-md hover:bg-green-700 flex justify-center duration-[0.4s] ">
-                    <button className="text-white font-bold text-[1rem]">
-                      Reserve
-                    </button>
-                  </div>
-
-                  <div className="w-[17vw] h-[5vh] bg-red-500 mt-2 border-1 rounded-md hover:bg-red-700 flex justify-center duration-[0.4s]">
-                    <button className="text-white font-bold text-[1rem]">
-                      Cancel
-                    </button>
-                  </div>
+                <div className="grid grid-cols-2 gap-2 pt-2">
+                  <button
+                    type="submit"
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 rounded-md duration-300"
+                  >
+                    Reserve
+                  </button>
+                  <button
+                    type="button"
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 rounded-md duration-300"
+                  >
+                    Cancel
+                  </button>
                 </div>
               </form>
             </div>
           </div>
         </div>
-        {/* <div className="flex-col pl-4">
-            <h1 className="font-bold text-[2rem]">2 Reviews</h1>
-            {kostData.ulasan.map((items, index) => (
-              <Reviews key={index} data={items} />
-            ))}
-          </div> */}
       </div>
     </div>
   );
