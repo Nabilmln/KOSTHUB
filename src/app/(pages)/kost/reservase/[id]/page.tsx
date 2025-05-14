@@ -1,7 +1,7 @@
-import ReserveComponent from "@/app/components/page/kost/reservase/[id]/Reservase";
+import ReservaseComponent from "@/app/components/page/kost/reservase/[id]/Reservase";
 
 const Reservase = () => {
-  return <ReserveComponent />;
+  return <ReservaseComponent />;
 };
 
 export default Reservase;
