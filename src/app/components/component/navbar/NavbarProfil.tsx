@@ -8,7 +8,7 @@ const NavbarProfil: React.FC = () => {
   const { currentUser } = useHook();
 
   return (
-    <div className="flex justify-around pt-[1rem] pb-[1rem] my-2 ">
+    <div className="flex justify-between p-6 pt-[1rem] pb-[1rem] my-2 border-b-1 ">
       <Link href="/home">
         <div className="flex">
           <Image
@@ -20,16 +20,14 @@ const NavbarProfil: React.FC = () => {
         </div>
       </Link>
       <Link href="/home">
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-8 items-center">
           <div className="rounded-full p-1">
             <h1 className="font-bold">Beranda</h1>
           </div>
-          <Image
-            src={profil}
-            alt="profil"
-            className="w-[2vw] h-[3.8vh]"
-          ></Image>
-          <h1 className="font-bold">{currentUser?.user.username}</h1>
+          <div className="flex justify-center items-center gap-4">
+            <Image src={profil} alt="profil" className="w-[2vw] h-[3.8vh]" />
+            <h1 className="font-bold">{currentUser?.user.username}</h1>
+          </div>
         </div>
       </Link>
     </div>

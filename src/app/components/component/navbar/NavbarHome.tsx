@@ -33,10 +33,9 @@ const NavbarHome: React.FC = () => {
           <h1 className="font-bold text-black text-[2rem]">Kosthub</h1>
         </div>
       </Link>
-      <div className="flex border-2 rounded-sm items-center w-[20vw] justify-around">
-        <form action="">
-          <input type="text" placeholder="Search" className="outline-none" />
-        </form>
+      <div className="flex border-2 rounded-full items-center w-[25vw] justify-between p-5">
+        <input type="text" placeholder="Search" className="outline-none " />
+
         <Search />
       </div>
       <Link href="/profile">

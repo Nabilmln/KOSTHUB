@@ -5,6 +5,7 @@ import { Target, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { reservasiType } from "@/app/components/type/API";
 import API from "@/app/components/util/API";
+import { getStatusString } from "@/app/components/helper/helper";
 import { useHook } from "@/app/components/component/hooks/Kontex";
 const RiwayatTransaksiComponent: React.FC = () => {
   const [month, setMonth] = useState<string>();
@@ -55,10 +56,10 @@ const RiwayatTransaksiComponent: React.FC = () => {
           <NavbarProfil />
         </div>
 
-        <div className="grid grid-cols-[0.4fr_2fr] grid-rows-1 gap-1 pt-[3vh] border-t-1 h-[93vh]">
+        <div className="grid grid-cols-[0.4fr_2fr] grid-rows-1 gap-1 pt-[3vh]  h-[93vh]">
           <Sidebar />
           <div className=" p-4">
-            <div className="bg-[#D9D9D9] h-full p-2 rounded-md">
+            <div className="bg-[#F4F4F4] h-full p-4 rounded-md">
               <h1 className="font-light text-[1rem]">Invoice</h1>
               <div className="flex justify-start items-start gap-4 my-4">
                 <select
@@ -97,7 +98,12 @@ const RiwayatTransaksiComponent: React.FC = () => {
                 <h1 title="Metode Pembayaran">
                   {dataReservase?.metode_pembayaran}
                 </h1>
-                <h1 title="Status">{dataReservase?.updatedAt}</h1>
+                <div className="border-2 rounded-md p-1 bg-[#00985B]">
+                  <h1 title="Status" className="text-white  ">
+                    {getStatusString(dataReservase?.kontrak)}
+                  </h1>
+                </div>
+
                 <h1 title="Nomor Kos">{dataReservase?.id_kos.id_kos}</h1>
               </div>
             </div>

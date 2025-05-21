@@ -11,19 +11,22 @@ import DataKostUser from "@/app/components/component/card/DataKosComponents";
 import ProfileParticial from "@/app/components/component/particial/Profile";
 import PopUp from "@/app/components/component/modal/PopUp";
 import { Star } from "lucide-react";
+import Modal from "@/app/components/component/modal/Modal";
+import { ModalProps } from "@/app/components/type/API";
 
 const DataKostComponent: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { currentUser } = useHook();
   const [dataReservase, setDataReservase] = useState<reservasiType[]>();
   const [idReservase, setIdReservase] = useState<reservasiType>();
-  const [openPopUp, setOpenPopUp] = useState<"Pengaduan" | "Review" | null>(
-    null
-  );
+  const [openPopUp, setOpenPopUp] = useState<
+    "Pengaduan" | "Review" | "Submit" | null
+  >(null);
   const [ratingStar, setRatingStar] = useState<number>(0);
   const [hoverStar, setHoverStar] = useState<number>(0);
   const [image, setImage] = useState<File | null>(null);
   const [komentar, setKomentar] = useState<string>("");
+  const [modal, setModal] = useState<ModalProps | null>();
 
   const handleDeleteReservase = async () => {
     try {
@@ -105,6 +108,7 @@ const DataKostComponent: React.FC = () => {
           <div className="flex-col">
             <div className="flex justify-center items-center h-screen w-screen gap-2">
               <div className="w-6 h-6 border-4 border-dashed rounded-full animate-spin border-sky-500 size-105"></div>
+
               <p className="text-[2rem] font-light">Loading...</p>
             </div>
           </div>
@@ -113,9 +117,10 @@ const DataKostComponent: React.FC = () => {
             <div className=" inset-x-0 top-0 h-16">
               <NavbarProfil />
             </div>
-            <div className="grid grid-cols-[0.4fr_2fr] grid-rows-1 gap-1 pt-[3vh] border-t-1 h-[93vh]">
+            <div className="grid grid-cols-[0.4fr_2fr] grid-rows-1 gap-1 pt-[3vh]  h-[93vh]">
               <Sidebar />
               <div className="flex justify-center items-center">
+                {modal && <Modal {...modal} />}
                 <div className="grid grid-cols-[1fr_0.7fr] grid-rows-1 gap-4">
                   {dataReservase?.map((item, key) => (
                     <DataKostUser key={key} data={item} />
@@ -131,20 +136,26 @@ const DataKostComponent: React.FC = () => {
                           <FasilitasParticial key={key} data={item} />
                         ))}
                       </div>
-                      <div className="flex justify-center items-center">
-                        <div className="flex justify-center items-center gap-2 = flex-col">
+                      <div className="flex items-center  ">
+                        <div className="flex justify-center items-center gap-2 w-full flex-col">
                           {dataReservase?.map((item, key) => (
                             <ProfileParticial key={key} data={item} />
                           ))}
 
                           <div className="border-2 bg-[#3572EF] rounded-lg p-2 w-full flex justify-center hover:scale-103 duration-[0.3s] mt-8">
-                            <button onClick={() => setOpenPopUp("Pengaduan")}>
+                            <button
+                              onClick={() => setOpenPopUp("Pengaduan")}
+                              className="text-white font-bold"
+                            >
                               Pengaduan
                             </button>
                           </div>
 
                           <div className="border-2 bg-[#3572EF] rounded-lg p-2 w-full flex justify-center hover:scale-103 duration-[0.3s]">
-                            <button onClick={() => setOpenPopUp("Review")}>
+                            <button
+                              onClick={() => setOpenPopUp("Review")}
+                              className="text-white font-bold"
+                            >
                               Review
                             </button>
                           </div>
@@ -229,7 +240,18 @@ const DataKostComponent: React.FC = () => {
                                   </div>
                                   <div className="mt-4 ">
                                     <button
-                                      onClick={() => handleAddReview()}
+                                      onClick={() => {
+                                        handleAddReview();
+                                        setModal({
+                                          title: "Berhasil Menambahakan Review",
+                                          icon: "success",
+                                          deskripsi: "",
+                                          onClose: () => {
+                                            setModal(null);
+                                            setOpenPopUp(null);
+                                          },
+                                        });
+                                      }}
                                       className="font-bold rounded-md bg-[#06BE37] p-2 text-white hover:scale-[103%] duration-[0.3s]"
                                     >
                                       Submit Review
@@ -241,8 +263,11 @@ const DataKostComponent: React.FC = () => {
                           </PopUp>
 
                           <div className="border-2 bg-[#3572EF] rounded-lg p-2 w-full flex justify-center hover:scale-103 duration-[0.3s]">
-                            <button onClick={() => handleDeleteReservase()}>
-                              Hapus Reservase
+                            <button
+                              onClick={() => handleDeleteReservase()}
+                              className="text-white font-bold"
+                            >
+                              Hapus Reservasi
                             </button>
                           </div>
                         </div>

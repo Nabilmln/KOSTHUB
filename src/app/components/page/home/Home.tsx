@@ -80,12 +80,12 @@ const HomeComponent: React.FC = () => {
         </div>
       ) : (
         <>
-          <div className="w-screen h-full pb-[1rem]">
+          <div className="w-screen h-full pb-[1rem] ">
             <div className="m-2">
               <NavbarHome />
             </div>
             <div className="flex justify-around">
-              <div className="grid grid-cols-2 gap-x-100">
+              <div className="flex w-full justify-around gap-[60rem]">
                 <div title="side-kana" className="flex space-x-4 ">
                   <button className="border-2 border-gray-300 rounded-md w-[5vw] hover:bg-sky-400 duration-[1s]">
                     All
@@ -148,18 +148,20 @@ const HomeComponent: React.FC = () => {
               </div>
             </div>
             <div className="w-full h-full ">
-              <div className=" flex justify-center items-center">
-                <h1 className="font-bold text-[3rem]">Top picks for you</h1>
+              <div className=" flex justify-center items-center my-8">
+                <h1 className="font-bold text-[3rem]">
+                  Pilihan Teratas Untuk Anda
+                </h1>
               </div>
-              <div className="grid grid-cols-4 grid-rows-1 gap-4 p-[1rem]">
+              <div className="w-full justify-center gap-8 flex p-[1rem]">
                 {items.slice(0, 4).map((item, index) => (
                   <Items key={index} data={item} />
                 ))}
               </div>
-              <div className="flex justify-center items-center">
-                <h1 className="font-bold text-[3rem]">More Recommendation</h1>
+              <div className="flex justify-center items-center my-10">
+                <h1 className="font-bold text-[3rem]">Rekomendasi Lainnya</h1>
               </div>
-              <div className="grid grid-cols-4 grid-rows-1 gap-4 p-[1rem]">
+              <div className="w-full justify-center flex flex-wrap overflow-x-hidden gap-8 p-[1rem] mb-[8vh]">
                 {items.slice(4, 40).map((item, index) => (
                   <Items key={index} data={item} />
                 ))}

@@ -55,6 +55,7 @@ export interface reservasiType {
   metode_pembayaran: string;
   tanggal_lahir: string;
   email: string;
+  kontrak: string;
   bukti_pembayaran: string;
   createdAt: string;
   updatedAt: string;

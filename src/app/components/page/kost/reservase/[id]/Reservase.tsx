@@ -9,6 +9,10 @@ import { useParams } from "next/navigation";
 import { useHook } from "@/app/components/component/hooks/Kontex";
 import { itemsType } from "@/app/components/type/API";
 import { getFasilitas } from "@/app/components/helper/faslitasHelper";
+import PopUp from "@/app/components/component/modal/PopUp";
+import Modal from "@/app/components/component/modal/Modal";
+import { ModalProps } from "@/app/components/type/API";
+import { useRouter } from "next/navigation";
 
 const ReservaseComponent: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -23,8 +27,11 @@ const ReservaseComponent: React.FC = () => {
   const [metode_pembayaran, setMetode_pembayaran] = useState<string>("");
   const [kontrak, setKontrak] = useState<string>("");
   const [bukti_pembayaran, setBukti_Pembayaran] = useState<string>("");
+  const [openPopUp, setOpenPopUp] = useState<"Reservase" | null>(null);
+  const [modal, setModal] = useState<ModalProps | null>(null);
   const { currentUser } = useHook();
   const { id } = useParams();
+  const router = useRouter();
 
   const MetodePembayaran = [
     "Bank Syariah Indonesia",
@@ -102,6 +109,7 @@ const ReservaseComponent: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <div className="lg:col-span-2 space-y-6">
+              {modal && <Modal {...modal} />}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="relative w-full h-[50vh] md:h-[60vh]">
                   {kostData?.image.gallery.slice(0, 1).map((item, key) => (
@@ -276,7 +284,7 @@ const ReservaseComponent: React.FC = () => {
                   />
                   <p className="text-sm text-gray-600 mt-1">
                     Silakan unduh terlebih dahulu kontrak kos, tandatangani,
-                    lalu unggah kembali.{" "}
+                    lalu unggah kembali.
                     <a href="/asset/Kontrak kos.png" download>
                       <span className="text-blue-500 cursor-pointer">
                         Unduh disini
@@ -342,8 +350,47 @@ const ReservaseComponent: React.FC = () => {
                   <button
                     type="button"
                     className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 rounded-md transition duration-300"
-                    onClick={() => handleReservase()}
+                    onClick={() => setOpenPopUp("Reservase")}
                   >
+                    <PopUp
+                      isOpen={openPopUp === "Reservase"}
+                      onClose={() => setOpenPopUp(null)}
+                    >
+                      <div className="flex justify-center items-center flex-col">
+                        <h1 className="text-black text-center w-80 text-[1.3rem]">
+                          Apakah anda yakin ingin mengajukan Reservasi?
+                        </h1>
+                        <div className="flex w-full justify-center my-2 gap-2">
+                          <button
+                            className="bg-red-600 border-2 p-3 rounded-md hover:scale-[105%] duration-[0.3s] "
+                            onClick={() => setOpenPopUp(null)}
+                          >
+                            Tidak
+                          </button>
+                          <button
+                            className="bg-[#58CC41] border-2 p-3 rounded-md hover:scale-[105%] duration-[0.3s]"
+                            onClick={() => {
+                              handleReservase();
+                              setModal({
+                                title: "Pengajuan reservasi anda berhasil",
+                                deskripsi:
+                                  "Kamu telah berhasil melakukan transaksi sewa kost, silahkan ke halaman Data Kost untuk melihat rincian dengan menekan tombol di bawah ini",
+                                icon: "success",
+                                confirmButtonText: "Click This",
+                                confirmButtonColor: "#58CC41",
+                                onClose: () => {
+                                  setModal(null);
+                                  router.push("/home");
+                                  setOpenPopUp(null);
+                                },
+                              });
+                            }}
+                          >
+                            Yakin
+                          </button>
+                        </div>
+                      </div>
+                    </PopUp>
                     Reserve
                   </button>
                   <button

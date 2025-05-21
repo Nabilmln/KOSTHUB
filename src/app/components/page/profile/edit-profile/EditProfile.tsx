@@ -85,7 +85,7 @@ const EditProfileComponent: React.FC = () => {
           <NavbarProfil />
         </div>
 
-        <div className="grid grid-cols-[0.4fr_2fr] grid-rows-1 gap-1 pt-[3vh] border-t-1 h-[93vh]">
+        <div className="grid grid-cols-[0.4fr_2fr] grid-rows-1 gap-1 pt-[3vh]  h-[93vh]">
           <Sidebar />
           <div className="">
             <div

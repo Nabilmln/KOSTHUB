@@ -8,7 +8,7 @@ const BestRewiew: React.FC<bestReviewTypeProps> = ({ data }) => {
   const [ratingStar] = useState<number>(0);
 
   return (
-    <div className="shadow-lg h-[25vh] w-[23vw] rounded-md p-[1rem]">
+    <div className="shadow-lg h-[25vh] w-[30vw] rounded-md p-[1rem]">
       <div className="grid grid-cols-2 grid-rows-1 ">
         <div className="flex items-center gap-x-2">
           <Image src={data.image} width={36} alt="Accont" height={16} />

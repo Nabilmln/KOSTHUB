@@ -14,21 +14,21 @@ import account from "../../../../../public/asset/account.png";
 export const ourServicesData: ourServicesType[] = [
   {
     image: HomeSecure.src,
-    title: "Easy & Secure Booking",
+    title: "Sewa Mudah & Aman",
     deskripsi:
       "Pesan kamar kos dengan mudah dan aman hanya dalam beberapa klik.",
   },
 
   {
     image: Secure.src,
-    title: "Verified listings",
+    title: "Product Terpercaya",
     deskripsi:
       "Semua kos yang terdaftar telah diverifikasi untuk memastikan kenyamanan dan keamanan Anda.",
   },
 
   {
     image: MoneyDolar.src,
-    title: "Affordable & Flexible Options",
+    title: "Nyaman Di Dompet",
     deskripsi:
       "Tersedia berbagai pilihan kos dengan harga terjangkau dan fleksibilitas pembayaran.",
   },

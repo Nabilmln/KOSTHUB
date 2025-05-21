@@ -9,9 +9,9 @@ const BestProperty: React.FC<bestPropertyTypeProps> = ({ data }) => {
         <Image
           src={`http://localhost:5000/${data.image}`}
           alt="Best Propersties"
-          width={300}
+          width={600}
           height={200}
-          className="w-50 h-40 object-center rounded-md"
+          className="w-100 h-80 object-center "
         />
       </div>
     </main>

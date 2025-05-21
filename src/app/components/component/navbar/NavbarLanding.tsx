@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const NavbarLanding: React.FC = () => {
   return (
-    <div className="flex justify-around items-center pt-[1rem]">
+    <div className="flex justify-around items-center w-full gap-170 pt-[1rem]">
       <div className="flex gap-x-6 items-center">
         <Link href="#">
           <Image src={IconHitam} alt="Icon" width={30} height={30}></Image>
@@ -17,21 +17,21 @@ const NavbarLanding: React.FC = () => {
           </h1>
         </Link>
 
-        <Link href="#">
+        <Link href="#service">
           <h1 className="font-bold text-[1.5rem] hover:underline duration-[2ms] ">
-            Service
+            Layanan
           </h1>
         </Link>
 
-        <Link href="#">
+        <Link href="#best">
           <h1 className="font-bold text-[1.5rem] hover:underline duration-[2ms] ">
-            Product
+            Produk
           </h1>
         </Link>
 
-        <Link href="#">
+        <Link href="#about">
           <h1 className="font-bold text-[1.5rem] hover:underline duration-[2ms]">
-            About US
+            Tentang Kami
           </h1>
         </Link>
       </div>
@@ -39,7 +39,7 @@ const NavbarLanding: React.FC = () => {
       <div title="Login">
         <Link href="/auth/login" className="flex gap-x-1 items-center">
           <CircleUserRound className="text-blue-500 w-[2vw] h-[3.3vh]" />
-          <h1 className="font-bold text-blue-500 text-[1.5rem]">Login</h1>
+          <h1 className="font-bold text-blue-500 text-[1.5rem]">Masuk</h1>
         </Link>
       </div>
     </div>
