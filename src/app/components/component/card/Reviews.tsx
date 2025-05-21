@@ -6,45 +6,52 @@ import { useState } from "react";
 
 const Reviews: React.FC<reviewTypeProps> = ({ data }) => {
   const [ratingStar] = useState<number>(0);
+
   return (
-    <div className="h-[20vh] w-[93vw] shadow-md border-1  rounded-md p-2 m-4 ">
-      <div className="flex justify-between items-center mx-6">
-        <div className="flex">
-          <Image src={profile} alt="" width={56} height={44} />
-          <div className="flex-col">
-            <h1 className="font-semibold">{data.nama}</h1>
-            <div className="flex items-center gap-3">
+    <div className="w-full max-w-4xl mx-auto bg-white shadow-md rounded-lg p-4 my-4 border border-gray-200">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="flex items-center gap-4">
+          <Image
+            src={profile}
+            alt="Profile"
+            width={48}
+            height={48}
+            className="rounded-full"
+          />
+          <div className="flex flex-col">
+            <h1 className="font-semibold text-lg">{data.nama}</h1>
+            <div className="flex items-center gap-1">
               {[1, 2, 3, 4, 5].map((star) => (
-                <div key={star}>
-                  <Star
-                    color={
-                      ratingStar || data.bintang >= star ? "#FFFF00" : "#000000"
-                    }
-                    className="duration-[0.2s]"
-                  />
-                </div>
+                <Star
+                  key={star}
+                  color={
+                    ratingStar || data.bintang >= star ? "#FFFF00" : "#000000"
+                  }
+                  className="w-5 h-5 transition duration-200"
+                />
               ))}
             </div>
           </div>
         </div>
-        <div className="flex justify-center items-center">
-          <span className="font-light">{data.tanggal}</span>
-        </div>
+        <span className="text-sm text-gray-500">{data.tanggal}</span>
       </div>
 
-      <div className="pt-1 flex-col ">
-        <p className="font-light">{data.komentar}</p>
-        <div className="pl-2 mt-2">
-          <Image
-            src={`http://localhost:5000/${data.imageUlasan}`}
-            alt="ImageUlasan"
-            width={100}
-            height={200}
-            className="w-30 h-20 object-center rounded-md"
-          />
-        </div>
+      <div className="mt-4">
+        <p className="text-gray-600 text-sm sm:text-base">{data.komentar}</p>
+        {data.imageUlasan && (
+          <div className="mt-4">
+            <Image
+              src={`http://localhost:5000/${data.imageUlasan}`}
+              alt="Review image"
+              width={120}
+              height={80}
+              className="rounded-md object-cover"
+            />
+          </div>
+        )}
       </div>
     </div>
   );
 };
+
 export default Reviews;

@@ -11,7 +11,7 @@ import {
 const Sidebar: React.FC = () => {
   return (
     <div
-      className="border-1 rounded-lg flex flex-col justify-between"
+      className="border-1 rounded-lg flex flex-col justify-between p-2"
       title="side-kiri"
     >
       <div title="side-top ">

@@ -4,12 +4,13 @@ import NavbarLanding from "@/app/components/component/navbar/NavbarLanding";
 import OurServices from "@/app/components/component/card/OurServices";
 import {
   ourServicesData,
-  bestProperyData,
   bestReviewData,
+  bestProperyData,
 } from "@/app/components/data/card";
 import FooterLanding from "@/app/components/component/footer/FooterLanding";
 import BestProperty from "@/app/components/component/card/BestProperty";
 import BestRewiew from "@/app/components/component/card/BestReview";
+import Marquee from "react-fast-marquee";
 
 const LandingPageComponent: React.FC = () => {
   return (
@@ -80,14 +81,15 @@ const LandingPageComponent: React.FC = () => {
             lokasi strategis sesuai dengan kebutuhan dan gaya hidup anda.
           </p>
         </div>
-        <div
+        <Marquee
+          direction="left"
           data-aos="zoom-out-up"
-          className="grid grid-cols-4 grid-rows-1 gap-4 pl-[2rem] pt-[6rem] pb-[3rem]"
+          className="grid grid-cols-4 grid-rows-1 pl-[2rem] pt-[6rem] pb-[3rem]"
         >
-          {bestProperyData.map((item, index) => (
-            <BestProperty key={index} data={item} />
+          {bestProperyData.map((item, key) => (
+            <BestProperty key={key} data={item} />
           ))}
-        </div>
+        </Marquee>
 
         <div className="flex justify-center flex-col text-center">
           <div data-aos="fade-left">
@@ -95,7 +97,7 @@ const LandingPageComponent: React.FC = () => {
             <p className="font-light">Properti dengan review terbaik!</p>
           </div>
           <div
-            className="grid grid-cols-4 grid-rows-1 gap-6  pt-[2rem] pb-[3rem]"
+            className="grid grid-cols-4 grid-rows-1 gap-6  pt-[2rem] pb-[3rem] pl-[1rem]"
             data-aos="zoom-out-up"
           >
             {bestReviewData.map((item, index) => (

@@ -5,7 +5,8 @@ import Items from "@/app/components/component/card/Items";
 import FooterLanding from "@/app/components/component/footer/FooterLanding";
 import { Funnel, Home } from "lucide-react";
 import API from "@/app/components/util/API";
-import { itemsType } from "@/app/components/type";
+import { itemsType } from "@/app/components/type/API";
+import { useHook } from "../../component/hooks/Kontex";
 
 const HomeComponent: React.FC = () => {
   const [filter, setFilter] = useState<any>({
@@ -86,17 +87,17 @@ const HomeComponent: React.FC = () => {
             <div className="flex justify-around">
               <div className="grid grid-cols-2 gap-x-100">
                 <div title="side-kana" className="flex space-x-4 ">
-                  <button className="border-2 rounded-md w-[5vw] hover:bg-sky-400 duration-[1s]">
+                  <button className="border-2 border-gray-300 rounded-md w-[5vw] hover:bg-sky-400 duration-[1s]">
                     All
                   </button>
-                  <button className="border-2 rounded-md w-[5vw] hover:bg-sky-400 duration-[1s]">
+                  <button className="border-2 border-gray-300 rounded-md w-[5vw] hover:bg-sky-400 duration-[1s]">
                     Top Kost
                   </button>
                 </div>
                 <div title="side-kiri" className="flex space-x-4">
                   <form
                     action={handleButtonFilter}
-                    className="border-2 rounded-sm flex items-center space-x-2 p-1"
+                    className="border-2  border-gray-300 rounded-sm flex items-center space-x-2 p-1"
                   >
                     <Funnel />
                     <h1 className="">Filter</h1>
@@ -123,7 +124,7 @@ const HomeComponent: React.FC = () => {
                       <input
                         type="text"
                         placeholder="Saya ingin:"
-                        className="border p-1 rounded-lg "
+                        className="border-2 border-gray-300 p-2 rounded-lg "
                         onChange={(e) => {
                           const value = e.target.value;
                           setFilter((prev: any) => ({
@@ -137,7 +138,7 @@ const HomeComponent: React.FC = () => {
                     {selectedField && (
                       <button
                         type="submit"
-                        className="border-2 px-2 rounded-lg"
+                        className="border-2 border-gray-300 p-2 rounded-lg"
                       >
                         Filter
                       </button>

@@ -9,42 +9,44 @@ import Reviews from "@/app/components/component/card/Reviews";
 import { useState, useEffect } from "react";
 import { Hotel, Star, Phone, Mail, Forward, Bookmark } from "lucide-react";
 import API from "@/app/components/util/API";
-import { itemsType } from "@/app/components/type";
+import { itemsType } from "@/app/components/type/API";
 import { useHook } from "@/app/components/component/hooks/Kontex";
 import { getFasilitas } from "@/app/components/helper/faslitasHelper";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import DataKost from "@/app/(pages)/profile/data-kost/page";
 
 const SelectItemsComponent: React.FC = () => {
-  const { currentUser, setCurrentUser } = useHook();
+  const { currentUser } = useHook();
   const [kostId, setKostId] = useState<string>("");
   const [kostData, setKostData] = useState<itemsType | null>(null);
   const [ratingStar] = useState<number>(0);
   const pathname = usePathname();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const { id } = useParams();
 
   const handleGetData = async () => {
-    if (kostId) {
+    if (id) {
       setIsLoading(true);
-      API.get(`/api/kos/${kostId}`, {
-        headers: {
-          Authorization: `Bearer ${kostId}`,
-        },
-      })
-        .then((res) => {
-          setKostData(res.data);
-          console.log("Data Berhasil Diterima:", res.data);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          console.log("Gagal Mengambil Data", err);
-          setIsLoading(false);
+      try {
+        const res = await API.get(`/api/kos/${id}`, {
+          headers: {
+            Authorization: `Bearer ${id}`,
+          },
         });
+        setKostData(res.data);
+        console.log("Data Berhasil Diterima:", res.data);
+        setIsLoading(false);
+      } catch (err) {
+        console.log("Gagal Mengambil Data", err);
+        setIsLoading(false);
+      }
     }
   };
 
-  const handleSaveKost = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSaveKost = async () => {
     try {
-      const res = await API.post(
+      await API.post(
         `/api/auth/save-kos/${kostData?.id_kos}`,
         {},
         {
@@ -53,7 +55,6 @@ const SelectItemsComponent: React.FC = () => {
           },
         }
       );
-      setCurrentUser(res.data);
     } catch (err) {
       console.log("Gagal Simpan Kost", err);
     } finally {
@@ -62,177 +63,195 @@ const SelectItemsComponent: React.FC = () => {
   };
 
   useEffect(() => {
-    const pathParts = pathname.split("/");
-    const id = pathParts[pathParts.length - 1];
-    setKostId(id);
     handleGetData();
+    console.log("Id Kost", kostData?.id_kos);
   }, [pathname, kostId]);
 
   return (
-    <div>
+    <div className="min-h-screen w-full bg-gray-100">
       {isLoading ? (
         <div className="flex-col">
-          <NavbarItem />
-          <div className="flex justify-center items-center h-screen w-screen gap-2">
-            <div className="w-6 h-6 border-4 border-dashed rounded-full animate-spin border-sky-500"></div>
-            <p className="text-[2rem] font-light">Loading..</p>
+          <div className="fixed inset-x-0 top-0 h-16 z-10">
+            <NavbarItem />
+          </div>
+          <div className="flex justify-center items-center h-screen">
+            <div className="w-6 h-6 border-4 border-dashed rounded-full animate-spin border-blue-500 mr-2"></div>
+            <p className="text-xl">Loading...</p>
           </div>
         </div>
       ) : kostData ? (
-        <div className="h-screen w-screen relative">
-          <div className="inset-x-0 top-0 h-16">
+        <div className="pt-20">
+          <div className="fixed inset-x-0 top-0 h-16 z-10">
             <NavbarItem />
           </div>
-
-          <div className="grid grid-cols-[1.1fr_0.8fr] grid-rows-1 gap-x-4">
-            <div className="h-[60vh] p-2" title="ini kiri">
-              <div className="shadow-2xl rounded-md flex justify-center items-center border-1">
-                <div className="grid grid-cols-2 grid-rows-1 gap-x-1">
-                  <div className="flex justify-center items-center">
-                    <div className="flex justify-center items-center h-[50vh] w-[20vw] mt-6 ml-6 rounded-md">
-                      {kostData.image.gallery.slice(0, 1).map((item, key) => (
-                        <Image
-                          key={key}
-                          src={`http://localhost:5000/${item}`}
-                          alt="gallery"
-                          width={600}
-                          height={500}
-                          className="w-full h-[50vh] object-center rounded-md"
-                        />
-                      ))}
-                    </div>
+          <div className="container mx-auto px-4 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="relative w-full h-[50vh] md:h-[60vh]">
+                    {kostData.image.gallery.slice(0, 1).map((item, key) => (
+                      <Image
+                        key={key}
+                        src={`http://localhost:5000/${item}`}
+                        alt="Main gallery image"
+                        fill
+                        className="object-cover rounded-lg"
+                        priority
+                      />
+                    ))}
                   </div>
-                  <div className="flex justify-center items-center h-[50vh] w-[24vw] mt-8 rounded-md">
-                    <div className="grid grid-cols-2 grid-rows-2 gap-2 h-[47vh] w-[23vw]">
-                      {kostData.image.gallery.slice(1, 5).map((item, key) => (
+                  <div className="grid grid-cols-2 gap-2 h-[50vh] md:h-[60vh]">
+                    {kostData.image.gallery.slice(1, 5).map((item, key) => (
+                      <div key={key} className="relative w-full h-full">
                         <Image
-                          key={key}
                           src={`http://localhost:5000/${item}`}
-                          alt="gallery"
-                          width={300}
-                          height={200}
-                          className="w-full h-48 object-center rounded-md"
+                          alt="Gallery image"
+                          fill
+                          className="object-cover rounded-lg"
                         />
-                      ))}
-                    </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center justify-between mt-2">
-                <h1 className="font-bold text-[2rem]">{kostData.nama_kos}</h1>
-                <form onSubmit={handleSaveKost} className="flex gap-x-4">
-                  <Forward />
-                  <button type="submit">
-                    <Bookmark className="hover:text-yellow-300 duration-[0.4s]" />
-                  </button>
-                </form>
-              </div>
-              <div className="pb-1">
-                <h1 className="font-light">{kostData.alamat}</h1>
-              </div>
-              <div className="w-full rounded-md h-[10vh] bg-[#3572EF] flex justify-center items-center shadow-lg border-1">
-                <div className="flex gap-[8vw]">
-                  {kostData.fasilitas.map((item, key) => (
-                    <div
-                      key={key}
-                      className="flex flex-col w-full bg-white rounded-lg justify-center p-1 "
-                    >
-                      <div className="flex">
-                        {getFasilitas(item.nama)}
-                        <p className="">{item.jumlah}</p>
-                      </div>
-                      <div>
+
+                <div className="flex items-center justify-between">
+                  <h1 className="text-3xl font-bold">{kostData.nama_kos}</h1>
+                  <div className="flex gap-4">
+                    <Forward className="w-6 h-6 cursor-pointer hover:text-blue-500 transition" />
+                    <button onClick={handleSaveKost}>
+                      <Bookmark className="w-6 h-6 cursor-pointer hover:text-yellow-300 transition" />
+                    </button>
+                  </div>
+                </div>
+                <p className="text-gray-600">{kostData.alamat}</p>
+
+                <div className="bg-blue-600 p-6 rounded-lg shadow-lg">
+                  <div className="flex flex-wrap gap-4">
+                    {kostData.fasilitas.map((item, key) => (
+                      <div
+                        key={key}
+                        className="flex flex-col bg-white rounded-lg p-3 min-w-[120px]"
+                      >
+                        <div className="flex items-center">
+                          {getFasilitas(item.nama)}
+                          <p className="ml-2">{item.jumlah}</p>
+                        </div>
                         <span className="font-bold">{item.nama}</span>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-              <div className="mt-1 w-full rounded-md h-[12vh] bg-[#3572EF] border-1 p-2 flex-col">
-                <h1 className="font-bold text-[1rem] pl-1">Description</h1>
-                <div className="rounded-md shadow-lg bg-white p-2">
-                  <h1 className="">{kostData.deskripsi}</h1>
-                </div>
-              </div>
-            </div>
-            <div className="h-[90vh] rounded-md" title="ini kanan">
-              <div className="flex justify-center items-center h-[70vh] w-[35vw] mt-8 bg-[#3572EF] rounded-md shadow-lx border-1">
-                <div className="flex-col">
-                  <div className="border-1 h-[15vh] w-[30vw] rounded-md bg-white flex-col p-2">
-                    <h1 className="font-bold text-[2rem]">
-                      {kostData.nama_kos}
-                    </h1>
-                    <p className="font-light">{kostData.alamat}</p>
-                    <p className="font-bold">
-                      IDR.{kostData.harga_pertahun}/Year
-                    </p>
 
-                    <div className="flex items-center gap-3">
+                <div className="bg-blue-600 p-6 rounded-lg shadow-lg">
+                  <h2 className="text-xl font-bold text-white mb-2">
+                    Description
+                  </h2>
+                  <div className="bg-white p-4 rounded-md">
+                    <p>{kostData.deskripsi}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="space-y-6">
+                <div className="bg-blue-600 p-6 rounded-lg shadow-lg">
+                  <div className="bg-white p-6 rounded-md space-y-4">
+                    <h1 className="text-3xl font-bold">{kostData.nama_kos}</h1>
+                    <p className="text-gray-600">{kostData.alamat}</p>
+                    <p className="font-bold text-lg">
+                      IDR {kostData.harga_pertahun}/Year
+                    </p>
+                    <div className="flex items-center gap-2">
                       {[1, 2, 3, 4, 5].map((star) => (
-                        <div key={star}>
-                          <Star
-                            color={
-                              ratingStar || kostData.avgBintang >= star
-                                ? "#FFFF00"
-                                : "#000000"
-                            }
-                            className="duration-[0.2s]"
-                          />
-                        </div>
+                        <Star
+                          key={star}
+                          color={
+                            ratingStar || kostData.avgBintang >= star
+                              ? "#FFFF00"
+                              : "#000000"
+                          }
+                          className="w-5 h-5 transition"
+                        />
                       ))}
                     </div>
-                  </div>
-                  <div className="h-[28vh] w-[30vw] rounded-md bg-white flex-col p-2 mt-[10rem] border-1">
-                    <h1 className="font-semibold w-[14vw] text-6">
-                      Are you interested? Please contact us!
-                    </h1>
-                    <p className="font-light mt-2">Contact</p>
-                    <div className="flex gap-x-2 mt-2">
-                      <Hotel />
-                      <p className="font-light">{kostData.alamat}</p>
-                    </div>
-                    <div className="flex gap-x-2 mt-2">
-                      <Phone />
-                      <p className="font-light">{kostData.kontak.nomor}</p>
-                    </div>
-                    <div className="flex gap-x-2 mt-2">
-                      <Mail />
-                      <p className="font-light">{kostData.kontak.email}</p>
-                    </div>
-                    <p className="font-bold text-2">Sosial Media</p>
-                    <div className="flex gap-x-2 mt-2">
-                      <Image src={facebook} alt="" />
-                      <Image src={twiter} alt="" />
-                      <Image src={instagram} alt="" />
-                      <p className="font-light">{kostData.nama_kos}</p>
+                    <div className="space-y-2">
+                      <p className="font-semibold">
+                        Are you interested? Please contact us!
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <Hotel className="w-5 h-5" />
+                        <p>{kostData.alamat}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Phone className="w-5 h-5" />
+                        <p>{kostData.kontak.nomor}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Mail className="w-5 h-5" />
+                        <p>{kostData.kontak.email}</p>
+                      </div>
+                      <p className="font-semibold">Social Media</p>
+                      <div className="flex items-center gap-2">
+                        <Image
+                          src={facebook}
+                          alt="Facebook"
+                          width={24}
+                          height={24}
+                        />
+                        <Image
+                          src={twiter}
+                          alt="Twitter"
+                          width={24}
+                          height={24}
+                        />
+                        <Image
+                          src={instagram}
+                          alt="Instagram"
+                          width={24}
+                          height={24}
+                        />
+                        <p>{kostData.nama_kos}</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex text-center">
-                {/* <Link href={`/reservase/${kostData.id_kos}`}> */}
-                <div className="w-[35vw] h-[5vh] bg-green-500 mt-2 border-1 rounded-md hover:bg-green-700 flex justify-center duration-[0.4s]">
-                  <button className="text-white font-bold text-[2rem]">
+                <Link href={`/kost/reservase/${kostData.id_kos}`}>
+                  <button className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 rounded-md transition">
                     Reserve
                   </button>
-                </div>
-                {/* </Link> */}
+                </Link>
               </div>
             </div>
-          </div>
-          <div className="flex-col pl-4">
-            <h1 className="font-bold text-[2rem]">
-              {kostData.ulasan && kostData.ulasan.length} Reviews
-            </h1>
-            {kostData.ulasan.map((items, index) => (
-              <Reviews key={index} data={items} />
-            ))}
+
+            {/* Reviews Section */}
+            <div className="mt-8">
+              <h2 className="text-2xl font-bold mb-4">
+                {kostData.ulasan?.length || 0} Reviews
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {kostData.ulasan?.length ? (
+                  kostData.ulasan.map((items, index) => (
+                    <Reviews key={index} data={items} />
+                  ))
+                ) : (
+                  <p className="text-gray-600">
+                    Belum ada ulasan untuk kost ini.
+                  </p>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       ) : (
-        <p>Data tidak ditemukan</p>
+        <div className="flex-col">
+          <div className="fixed inset-x-0 top-0 h-16 z-10">
+            <NavbarItem />
+          </div>
+          <div className="flex justify-center items-center h-screen">
+            <p className="text-xl">Data tidak ditemukan</p>
+          </div>
+        </div>
       )}
     </div>
   );
 };
+
 export default SelectItemsComponent;

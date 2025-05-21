@@ -8,11 +8,9 @@ import API from "@/app/components/util/API";
 import { useParams } from "next/navigation";
 import { useHook } from "@/app/components/component/hooks/Kontex";
 import { itemsType } from "@/app/components/type/API";
-
 import { getFasilitas } from "@/app/components/helper/faslitasHelper";
 
 const ReservaseComponent: React.FC = () => {
-  const [reservase, setReservase] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedField, setSelectedField] = useState<any>();
   const [kostData, setKostData] = useState<itemsType | null>(null);
@@ -22,260 +20,265 @@ const ReservaseComponent: React.FC = () => {
   const [nomor_hp, setNomor_Hp] = useState<string>();
   const [gender, setGender] = useState<boolean | null>(null);
   const [email, setEmail] = useState<string>("");
-  const [periode_penyewaan, setPeriode_Penyewaan] = useState<string>("");
+  const [metode_pembayaran, setMetode_pembayaran] = useState<string>("");
   const [kontrak, setKontrak] = useState<string>("");
   const [bukti_pembayaran, setBukti_Pembayaran] = useState<string>("");
   const { currentUser } = useHook();
   const { id } = useParams();
 
-  const PeriodeOption = ["Bulan", "Tahun"];
+  const MetodePembayaran = [
+    "Bank Syariah Indonesia",
+    "Bank Mandiri",
+    "Bank Negara Indonesia",
+    "Bank Tabungan Negara",
+    "Bank Central Asia",
+    "Bank Aceh Syariah",
+  ];
 
   const handleGetDataKos = async () => {
     if (id) {
-      setIsLoading(false);
-      API.get(`/api/kos/${id}`, {
-        headers: {
-          Authorization: `Bearer ${id}`,
-        },
-      })
-        .then((res) => {
-          setKostData(res.data);
-          console.log("Data kos berhasil diterima", res.data);
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          console.log("Data kos gagal diambil", err);
-          setIsLoading(false);
+      setIsLoading(true);
+      try {
+        const res = await API.get(`/api/kos/${id}`, {
+          headers: {
+            Authorization: `Bearer ${id}`,
+          },
         });
+        setKostData(res.data);
+        console.log("Data kos berhasil diterima", res.data);
+        setIsLoading(false);
+      } catch (err) {
+        console.log("Data kos gagal diambil", err);
+        setIsLoading(false);
+      }
     }
   };
 
   const handleReservase = async () => {
-    API.post(
-      `/api/reservase/${currentUser?.user._id}/${kostData?.id_kos}`,
-      {
-        nama,
-        tanggal_lahir,
-        nomor_hp,
-        gender,
-        email,
-        periode_penyewaan: selectedField,
-        kontrak,
-        bukti_pembayaran,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${currentUser?.token}`,
+    try {
+      const res = await API.post(
+        `/api/reservase/${currentUser?.user._id}/${kostData?.id_kos}`,
+        {
+          nama,
+          tanggal_lahir,
+          nomor_hp,
+          gender,
+          email,
+          metode_pembayaran: selectedField,
+          kontrak,
+          bukti_pembayaran,
         },
-      }
-    )
-      .then((res) => {
-        console.log("Berhasil Melakukan Reservase", res);
-      })
-      .catch((err) => {
-        console.log("Gagal Melakukan Reservase", err);
-      });
+        {
+          headers: {
+            Authorization: `Bearer ${currentUser?.token}`,
+          },
+        }
+      );
+      console.log("Berhasil Melakukan Reservase", res);
+    } catch (err) {
+      console.log("Gagal Melakukan Reservase", err);
+    }
   };
 
   const handleChange = (value: any) => {
-    setGender((prev) => (prev === value ? "" : value));
+    setGender((prev) => (prev === value ? null : value));
   };
 
   useEffect(() => {
     handleGetDataKos();
-    console.log("idKost Object", kostData?._id);
   }, []);
 
   return (
-    <div>
-      <div className="h-screen w-screen relative">
-        <div className="inset-x-0 top-0 h-16">
-          <NavbarItem />
-        </div>
+    <div className="min-h-screen w-full bg-gray-100">
+      <div className="fixed inset-x-0 top-0 h-16 z-10">
+        <NavbarItem />
+      </div>
 
-        <div className="grid grid-cols-[1.1fr_0.8fr] grid-rows-1 gap-x-4">
-          <div className="h-[60vh] p-2" title="ini kiri">
-            <div className="rounded-md flex justify-center items-center ">
-              <div className="grid grid-cols-2 grid-rows-1 gap-x-1">
-                <div className="flex justify-center items-center">
+      <div className="container mx-auto pt-20 px-4 lg:px-8">
+        {isLoading ? (
+          <div className="flex justify-center items-center h-[80vh]">
+            <p className="text-xl">Loading...</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="relative w-full h-[50vh] md:h-[60vh]">
                   {kostData?.image.gallery.slice(0, 1).map((item, key) => (
                     <Image
                       key={key}
                       src={`http://localhost:5000/${item}`}
-                      alt="gallery"
-                      width={600}
-                      height={500}
-                      className="w-full h-[50vh] object-center rounded-md"
+                      alt="Main gallery image"
+                      fill
+                      className="object-cover rounded-lg"
+                      priority
                     />
                   ))}
                 </div>
-                <div className="flex justify-center items-center h-[50vh] w-[24vw] mt-8 rounded-md">
-                  <div className="grid grid-cols-2 grid-rows-2 gap-2 h-[47vh] w-[23vw]">
-                    {kostData?.image.gallery.slice(1, 5).map((item, key) => (
+                <div className="grid grid-cols-2 gap-2 h-[50vh] md:h-[60vh]">
+                  {kostData?.image.gallery.slice(1, 5).map((item, key) => (
+                    <div key={key} className="relative w-full h-full">
                       <Image
-                        key={key}
                         src={`http://localhost:5000/${item}`}
-                        alt="gallery"
-                        width={300}
-                        height={200}
-                        className="w-full h-48 object-center rounded-md"
+                        alt="Gallery image"
+                        fill
+                        className="object-cover rounded-lg"
                       />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-blue-600 text-white p-6 rounded-lg shadow-lg">
+                  <div className="bg-white text-black p-6 rounded-md">
+                    <h1 className="text-3xl font-bold">{kostData?.nama_kos}</h1>
+                    <p className="text-gray-600 mt-2">{kostData?.alamat}</p>
+                    <div className="mt-4">
+                      <p className="text-lg">{kostData?.harga_pertahun}</p>
+                      <div className="flex mt-2">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <Star
+                            key={star}
+                            color={
+                              ratingStar || kostData?.avgBintang >= star
+                                ? "#FFFF00"
+                                : "#000000"
+                            }
+                            className="w-5 h-5"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    <div className="mt-4 space-y-2">
+                      <div className="flex items-center gap-2">
+                        <Phone className="w-5 h-5" />
+                        <p>{kostData?.kontak.nomor}</p>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Mail className="w-5 h-5" />
+                        <p>{kostData?.kontak.email}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-blue-600 p-6 rounded-lg shadow-lg">
+                  <div className="space-y-4">
+                    {kostData?.fasilitas.map((item, key) => (
+                      <div
+                        key={key}
+                        className="flex items-center bg-white p-3 rounded-lg"
+                      >
+                        {getFasilitas(item.nama)}
+                        <p className="ml-2">{item.jumlah}</p>
+                        <p className="ml-2">{item.nama}</p>
+                      </div>
                     ))}
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="grid grid-cols-2 grid-rows-1 gap-2">
-              <div className="mt-1 w-full rounded-md h-[30vh] bg-[#3572EF] flex justify-center items-center shadow-lg border-1">
-                <div className=" w-[25vw] bg-white h-[25vh] rounded-md flex-col px-6 ">
-                  <h1 className="text-[2rem] font-bold">
-                    {kostData?.nama_kos}
-                  </h1>
-                  <p className="font-light">{kostData?.alamat}</p>
-                  <div className="flex-col pt-4">
-                    <h1 className="font-light">{kostData?.harga_pertahun}</h1>
-                    <div className="flex">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <div key={star}>
-                          <Star
-                            color={
-                              ratingStar || kostData?.avgBintang >= star
-                                ? "#FFFF00"
-                                : "#000000"
-                            }
-                            className=""
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="flex-col pt-4">
-                    <div className="flex gap-2 my-1">
-                      <Phone />
-                      <h1 className=" font-light">{kostData?.kontak.nomor}</h1>
-                    </div>
-                    <div className="flex gap-2 my-1">
-                      <Mail />
-                      <h1 className=" font-light">{kostData?.kontak.email}</h1>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="mt-1 w-[48vh] rounded-md h-[30vh] bg-[#3572EF] border-1 p-4 m-2 flex-col">
-                <div className="flex-col ">
-                  {kostData?.fasilitas.map((item, key) => (
-                    <div
-                      key={key}
-                      className="flex flex-col w-full bg-white rounded-lg justify-center p-1 my-4"
-                    >
-                      <div className=" flex">
-                        {getFasilitas(item.nama)}
-                        <p className="px-2">{item.jumlah}</p>
-                        <h1 className="px-2">{item.nama}</h1>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="h-[90vh] rounded-md" title="ini kanan">
-            <div className="flex justify-center items-center h-[70vh] w-[35vw] mt-8 bg-white rounded-md shadow-lg border">
-              <div className="w-full p-4 space-y-4">
-                <h2 className="font-bold text-2xl text-center">
-                  Formulir Reservase
-                </h2>
-
-                <div className="grid grid-cols-2 gap-2">
+            <div className="bg-white p-6 rounded-lg shadow-lg h-fit">
+              <h2 className="text-2xl font-bold text-center mb-6">
+                Formulir Reservasi
+              </h2>
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="nama" className="font-medium">
-                      Nama:
+                    <label htmlFor="nama" className="block font-medium">
+                      Nama
                     </label>
                     <input
                       id="nama"
                       type="text"
-                      className="border-2 rounded-md w-full h-10 px-2"
+                      className="w-full border-2 rounded-md p-2"
                       value={nama}
                       onChange={(e) => setNama(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label htmlFor="tanggal_lahir" className="font-medium">
-                      Tanggal Lahir:
+                    <label
+                      htmlFor="tanggal_lahir"
+                      className="block font-medium"
+                    >
+                      Tanggal Lahir
                     </label>
                     <input
                       id="tanggal_lahir"
                       type="date"
-                      className="border-2 rounded-md w-full h-10 px-2"
+                      className="w-full border-2 rounded-md p-2"
                       value={tanggal_lahir}
                       onChange={(e) => setTanggal_Lahir(e.target.value)}
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="nomor_hp" className="font-medium">
-                      Nomor Handphone:
+                    <label htmlFor="nomor_hp" className="block font-medium">
+                      Nomor Handphone
                     </label>
                     <input
                       id="nomor_hp"
                       type="text"
-                      className="border-2 rounded-md w-full h-10 px-2"
+                      className="w-full border-2 rounded-md p-2"
                       value={nomor_hp}
                       onChange={(e) => setNomor_Hp(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label htmlFor="gender" className="font-medium">
-                      Gender:
-                    </label>
-                    <div className="flex items-center justify-around">
-                      <input
-                        type="radio"
-                        id="Laki"
-                        name="gender"
-                        value="true"
-                        checked={gender === true}
-                        onChange={() => setGender(true)}
-                        className="w-[2vw] h-[2vh]"
-                      />
-                      <label htmlFor="Laki">Laki-Laki</label>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="radio"
-                        id="Perempuan"
-                        name="gender"
-                        value="false"
-                        checked={gender === false}
-                        onChange={() => setGender(false)}
-                        className="w-[2vw] h-[2vh]"
-                      />
-                      <label htmlFor="Perempuan">Perempuan</label>
+                    <label className="block font-medium">Gender</label>
+                    <div className="flex gap-4">
+                      <div className="flex items-center">
+                        <input
+                          type="radio"
+                          id="Laki"
+                          name="gender"
+                          value="true"
+                          checked={gender === true}
+                          onChange={() => setGender(true)}
+                          className="w-4 h-4"
+                        />
+                        <label htmlFor="Laki" className="ml-2">
+                          Laki-Laki
+                        </label>
+                      </div>
+                      <div className="flex items-center">
+                        <input
+                          type="radio"
+                          id="Perempuan"
+                          name="gender"
+                          value="false"
+                          checked={gender === false}
+                          onChange={() => setGender(false)}
+                          className="w-4 h-4"
+                        />
+                        <label htmlFor="Perempuan" className="ml-2">
+                          Perempuan
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="font-medium">
-                    Email:
+                  <label htmlFor="email" className="block font-medium">
+                    Email
                   </label>
                   <input
                     id="email"
                     type="email"
-                    className="border-2 rounded-md w-full h-10 px-2"
+                    className="w-full border-2 rounded-md p-2"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   <p className="text-sm text-gray-600 mt-1">
                     Silakan unduh terlebih dahulu kontrak kos, tandatangani,
-                    lalu unggah kembali.
+                    lalu unggah kembali.{" "}
                     <a href="/asset/Kontrak kos.png" download>
-                      <span className="text-sky-500 cursor-pointer">
+                      <span className="text-blue-500 cursor-pointer">
                         Unduh disini
                       </span>
                     </a>
@@ -283,12 +286,12 @@ const ReservaseComponent: React.FC = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="kontrak" className="font-medium">
-                    Unggah Kontrak:
+                  <label htmlFor="kontrak" className="block font-medium">
+                    Unggah Kontrak
                   </label>
                   <input
                     type="file"
-                    className="border-2 rounded-md w-full h-10 px-2"
+                    className="w-full border-2 rounded-md p-2"
                     onChange={(e) => {
                       const file = e.target.files?.[0];
                       if (file) {
@@ -299,37 +302,33 @@ const ReservaseComponent: React.FC = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="pembayaran" className="font-medium">
-                    Periode Penyewaan:
-                  </label>{" "}
-                  <div className="border-2 rounded-md w-full h-10 px-2 flex items-center">
-                    <select
-                      value={selectedField}
-                      className="outline-none"
-                      onChange={(e) => {
-                        const field = e.target.value;
-                        setSelectedField(field);
-                      }}
-                    >
-                      <option value="" className="text-black font-bold ">
-                        Pilih Periode Penyewaan
+                  <label htmlFor="pembayaran" className="block font-medium">
+                    Metode Pembayaran
+                  </label>
+                  <select
+                    value={selectedField}
+                    className="w-full border-2 rounded-md p-2"
+                    onChange={(e) => setSelectedField(e.target.value)}
+                  >
+                    <option value="">Pilih Metode Pembayaran</option>
+                    {MetodePembayaran.map((e) => (
+                      <option key={e} value={e}>
+                        {e}
                       </option>
-                      {PeriodeOption.map((e) => (
-                        <option key={e} value={e}>
-                          {e}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
+                    ))}
+                  </select>
                 </div>
 
                 <div>
-                  <label htmlFor="bukti_pembayaran" className="font-medium">
-                    Unggah Bukti Pembayaran:
+                  <label
+                    htmlFor="bukti_pembayaran"
+                    className="block font-medium"
+                  >
+                    Unggah Bukti Pembayaran
                   </label>
                   <input
                     type="file"
-                    className="border-2 rounded-md w-full h-10 px-2"
+                    className="w-full border-2 rounded-md p-2"
                     onChange={(e) => {
                       const file = e.target.files?.[0];
                       if (file) {
@@ -339,17 +338,17 @@ const ReservaseComponent: React.FC = () => {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <button
-                    type="submit"
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 rounded-md duration-300"
+                    type="button"
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 rounded-md transition duration-300"
                     onClick={() => handleReservase()}
                   >
                     Reserve
                   </button>
                   <button
                     type="button"
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 rounded-md duration-300"
+                    className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 rounded-md transition duration-300"
                   >
                     Cancel
                   </button>
@@ -357,9 +356,10 @@ const ReservaseComponent: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
 };
+
 export default ReservaseComponent;

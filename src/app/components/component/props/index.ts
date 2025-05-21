@@ -1,7 +1,7 @@
 import {
   itemsType,
   ReviewType,
-  ReservaseType,
+  reservasiType,
 } from "@/app/components/type/API";
 
 import {
@@ -31,7 +31,6 @@ export interface itemsTypeProps {
 export interface appFooterTypeProps {
   data: appFooterType;
 }
-
-export interface ReservaseTypeProps {
-  data: ReservaseType;
+export interface reservasiTypeProps {
+  data: reservasiType;
 }

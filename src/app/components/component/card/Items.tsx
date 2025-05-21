@@ -10,70 +10,72 @@ const Items: React.FC<itemsTypeProps> = ({ data }) => {
   return (
     <Link
       href={`/kost/${data.id_kos}`}
-      className="shadow-lg border-1 rounded-lg flex flex-col items-center p-[1rem] hover:scale-[103%] duration-[0.3s]"
+      className="block w-full max-w-sm mx-auto bg-white shadow-lg rounded-lg p-4 hover:scale-105 transition-transform duration-300 border border-gray-200"
     >
       <Image
         src={
-          `http://localhost:5000/${data.image.thumbnail}`
+          data.image.thumbnail
             ? `http://localhost:5000/${data.image.thumbnail}`
             : kostDummy
         }
-        alt="thumbnail"
+        alt="Thumbnail"
         width={300}
         height={200}
         className="w-full h-48 object-cover rounded-lg"
       />
 
-      <div className="flex justify-center gap-x-2 p-2 items-center">
-        <div className="bg-[#A7E6FF] rounded-md p-2 ">
-          <h1 className="font-bold">Rp.{data.harga_pertahun}/Bulan</h1>
+      <div className="flex flex-col sm:flex-row justify-center gap-2 mt-4">
+        <div className="bg-blue-100 rounded-md px-3 py-1 text-center">
+          <h1 className="font-bold text-sm sm:text-base">
+            Rp. {data.harga_pertahun}/Bulan
+          </h1>
         </div>
-        <div className="bg-[#A7E6FF] rounded-md p-2">
-          <h1 className="font-bold">
-            {" "}
-            Rp.{data.harga_pertahun} /Tahun{" "}
-            <span className=" bg-[#2DE79D] rounded-md p-1 text-white">
+        <div className="bg-blue-100 rounded-md px-3 py-1 text-center">
+          <h1 className="font-bold text-sm sm:text-base">
+            Rp. {data.harga_pertahun}/Tahun
+            <span className="bg-green-500 text-white text-xs px-2 py-1 ml-2 rounded-md">
               Best Deal
             </span>
           </h1>
         </div>
       </div>
-      <div className="">
-        <h1 className="font-light">{data.deskripsi}</h1>
+
+      <div className="mt-3">
+        <p className="text-gray-600 text-sm line-clamp-2">{data.deskripsi}</p>
       </div>
-      <div className="flex">
-        <MapPin />
-        <h1 className="font-light">{data.alamat}</h1>
+
+      <div className="flex items-center gap-2 mt-2">
+        <MapPin className="w-5 h-5 text-gray-500" />
+        <p className="text-gray-600 text-sm">{data.alamat}</p>
       </div>
-      <div className="flex items-center gap-x-3">
-        <div className="grid grid-cols-4 grid-rows-1 gap-x-1 border-1 rounded-md p-1 w-[14vw] text-center">
-          <div className="flex">
-            {data.fasilitas.map((item, key) => (
-              <div key={key} className="flex justify-center items-center">
-                <div className="flex justify-center items-center mx-1">
-                  {getFasilitas(item.nama)}
-                  <span className="font-light">{item.jumlah}</span>
-                </div>
-              </div>
-            ))}
-          </div>
+
+      <div className="flex items-center justify-between mt-3">
+        <div className="flex flex-wrap gap-2">
+          {data.fasilitas.slice(0, 4).map((item, key) => (
+            <div
+              key={key}
+              className="flex items-center bg-gray-100 rounded-md px-2 py-1 text-sm"
+            >
+              {getFasilitas(item.nama)}
+              <span className="ml-1 font-medium">{item.jumlah}</span>
+            </div>
+          ))}
         </div>
-        <div className=" flex gap-1" title="Rating">
-          <Star />
-          <h1>/{data.avgBintang}</h1>
+        <div className="flex items-center gap-1" title="Rating">
+          <Star className="w-5 h-5 text-yellow-400" />
+          <p className="text-sm font-medium">{data.avgBintang}</p>
         </div>
       </div>
 
-      <div className="flex gap-x-[4rem] pt-[1rem] ">
-        <div className="flex items-center gap-x-1">
-          <h1 className="font-bold">{data?.nama_kos}</h1>
-        </div>
-        <div className="flex border-2 rounded-md p-1">
-          <Phone />
-          <h1 className="font-light">{data?.kontak?.nomor}</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-4">
+        <h1 className="font-bold text-lg">{data.nama_kos}</h1>
+        <div className="flex items-center gap-2 border-2 border-gray-200 rounded-md px-2 py-1">
+          <Phone className="w-5 h-5 text-gray-500" />
+          <p className="text-sm text-gray-600">{data.kontak?.nomor}</p>
         </div>
       </div>
     </Link>
   );
 };
+
 export default Items;

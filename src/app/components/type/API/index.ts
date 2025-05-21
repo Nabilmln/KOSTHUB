@@ -1,8 +1,8 @@
 export interface userType {
   token: string;
   user: {
-    fotoProfile: any;
     _id: string;
+    fotoProfile: any;
     username: string;
     email: string;
     fullname?: string;
@@ -13,21 +13,6 @@ export interface userType {
     bio?: string;
     savedKos?: string[];
   };
-}
-
-export interface ourServicesType {
-  image: string;
-  title: string;
-  deskripsi: string;
-}
-
-export interface bestPropertyType {
-  image: string;
-  title: string;
-  deskripsi: string;
-  lokasi: string;
-  toilet: string;
-  kamar: string;
 }
 
 export interface itemsType {
@@ -46,17 +31,33 @@ export interface itemsType {
     email: string;
     nomor: string;
   };
-  avgBintang: number;
+  avgBintang: any;
   ulasan: {
     nama: string;
     bintang: number;
     komentar: string;
+    tanggal: string;
+    imageUlasan: string;
   }[];
   image: {
     thumbnail: any;
     gallery: any[];
   };
   deskripsi: string;
+}
+
+export interface reservasiType {
+  _id: string;
+  id_user: userType;
+  id_kos: itemsType;
+  nama: string;
+  nomor_hp: string;
+  metode_pembayaran: string;
+  tanggal_lahir: string;
+  email: string;
+  bukti_pembayaran: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ModalProps {
@@ -71,26 +72,7 @@ export interface ModalProps {
 export interface ReviewType {
   nama: string;
   komentar: string;
-  bintang: any;
-}
-
-export interface bestReviewType {
-  image: string;
-  title: string;
-  date: string;
-  gambar: string;
-  deskripsi: string;
-}
-
-export interface appFooterType {
-  footerLeft: {
-    image: any;
-    title: string;
-    desc: string;
-  };
-
-  footerRight: {
-    title: string;
-    href: string;
-  }[];
+  bintang: number;
+  tanggal: string;
+  imageUlasan: string;
 }

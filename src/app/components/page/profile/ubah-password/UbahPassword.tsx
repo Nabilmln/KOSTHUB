@@ -5,7 +5,7 @@ import Image from "next/image";
 import profile from "../../../../../../public/asset/prfilhd.png";
 import { useState } from "react";
 import API from "@/app/components/util/API";
-import { ModalProps } from "@/app/components/type";
+import { ModalProps } from "@/app/components/type/API";
 import Modal from "@/app/components/component/modal/Modal";
 import { useHook } from "@/app/components/component/hooks/Kontex";
 import { useRouter } from "next/navigation";

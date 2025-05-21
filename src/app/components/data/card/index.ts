@@ -2,7 +2,7 @@ import {
   ourServicesType,
   bestPropertyType,
   bestReviewType,
-} from "@/app/components/type";
+} from "@/app/components/type/components";
 import HomeSecure from "../../../../../public/asset/Home Secure.png";
 import Secure from "../../../../../public/asset/Secured.png";
 import MoneyDolar from "../../../../../public/asset/Money Dollar.png";
@@ -43,70 +43,72 @@ export const ourServicesData: ourServicesType[] = [
 
 export const bestProperyData: bestPropertyType[] = [
   {
-    image: Kost1.src,
-    title: "Kost 1",
-    deskripsi: "lorem aja dulu dek ya",
-    lokasi: "Lampineng",
-    toilet: "1",
-    kamar: "1",
+    image: "images/kos12/gambar1.jpg",
   },
   {
-    image: Kost1.src,
-    title: "Kost 2",
-    deskripsi: "lorem aja dulu dek ya",
-    lokasi: "Lampineng",
-    toilet: "1",
-    kamar: "1",
+    image: "images/kos12/gambar2.jpg",
   },
   {
-    image: Kost1.src,
-    title: "Kost 3",
-    deskripsi: "lorem aja dulu dek ya",
-    lokasi: "Lampineng",
-    toilet: "1",
-    kamar: "1",
+    image: "images/kos12/gambar3.jpg",
   },
   {
-    image: Kost1.src,
-    title: "Kost 4",
-    deskripsi: "lorem aja dulu dek ya",
-    lokasi: "Lampineng",
-    toilet: "1",
-    kamar: "1",
+    image: "images/kos12/gambar4.jpg",
+  },
+  {
+    image: "images/kos12/gambar1.jpg",
+  },
+  {
+    image: "images/kos12/gambar2.jpg",
+  },
+  {
+    image: "images/kos12/gambar3.jpg",
+  },
+  {
+    image: "images/kos12/gambar4.jpg",
+  },
+  {
+    image: "images/kos12/gambar4.jpg",
+  },
+  {
+    image: "images/kos12/gambar4.jpg",
   },
 ];
 
 export const bestReviewData: bestReviewType[] = [
   {
     image: account.src,
-    title: "Aji Gunawan",
-    date: "21 Januari 2025",
-    gambar: kost3.src,
+    title: "Sinta Lestari",
+    date: "11 Februari 2025",
+    gambar: "images/kos34/gambar5.jpg",
     deskripsi:
-      "Lingkungan ternyaman selama ngekos. Tetangganya super ramah dan suka menolong. Kamarnya juga luas, betah banget di kos ini",
+      "Kosnya bersih dan fasilitas lengkap. Dapurnya nyaman buat masak bareng teman.",
+    avgBintang: 5,
   },
   {
     image: account.src,
-    title: "Aji Gunawan",
-    date: "21 Januari 2025",
-    gambar: kost3.src,
+    title: "Rizky Pratama",
+    date: "3 Maret 2025",
+    gambar: "images/kos34/gambar3.jpg",
     deskripsi:
-      "Lingkungan ternyaman selama ngekos. Tetangganya super ramah dan suka menolong. Kamarnya juga luas, betah banget di kos ini",
+      "Lokasi strategis dekat kampus. Sayangnya, suara jalan agak berisik malam hari.",
+    avgBintang: 3,
   },
   {
     image: account.src,
-    title: "Aji Gunawan",
-    date: "21 Januari 2025",
-    gambar: kost3.src,
+    title: "Dewi Anjani",
+    date: "27 Januari 2025",
+    gambar: "images/kos34/gambar4.jpg",
     deskripsi:
-      "Lingkungan ternyaman selama ngekos. Tetangganya super ramah dan suka menolong. Kamarnya juga luas, betah banget di kos ini",
+      "Tempatnya cozy dan tenang. Owner-nya juga sangat baik dan responsif.",
+    avgBintang: 4,
   },
   {
     image: account.src,
-    title: "Aji Gunawan",
-    date: "21 Januari 2025",
-    gambar: kost3.src,
+    title: "Bima Sakti",
+    date: "15 Februari 2025",
+    gambar: "images/kos34/gambar5.jpg",
     deskripsi:
-      "Lingkungan ternyaman selama ngekos. Tetangganya super ramah dan suka menolong. Kamarnya juga luas, betah banget di kos ini",
+      "Kamar luas dan dapat sinar matahari pagi. Tapi, kadang air mati saat malam.",
+    avgBintang: 2,
   },
 ];

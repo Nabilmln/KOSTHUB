@@ -9,7 +9,7 @@ import Github from "../../../../../../public/asset/GitHub.png";
 import { useState } from "react";
 import Image from "next/image";
 import Modal from "@/app/components/component/modal/Modal";
-import { ModalProps, userType } from "@/app/components/type";
+import { ModalProps, userType } from "@/app/components/type/API";
 import API from "@/app/components/util/API";
 import { useHook } from "@/app/components/component/hooks/Kontex";
 
@@ -73,6 +73,7 @@ const LoginComponent: React.FC = () => {
         });
       })
       .catch((err) => {
+        console.log("Login Kamu Gagal", err);
         setModalData({
           title: "Login Gagal",
           icon: "error",
@@ -124,51 +125,62 @@ const LoginComponent: React.FC = () => {
               </p>
             </div>
 
-            <form onSubmit={handleLogin} className="text-center">
-              <label htmlFor="username">Username:</label>
-              <br />
-              <input
-                className="border-2 w-[50vh] rounded-sm p-2 outline-none"
-                type="text"
-                onChange={(e) => setUsername(e.target.value)}
-                value={username}
-              ></input>
-
-              <div className="pb-3">
-                <label htmlFor="password">Password :</label> <br />
-                <div className="border-2 w-[50vh] rounded-sm p-2 flex">
+            <form onSubmit={handleLogin} className="w-full max-w-md space-y-4">
+              <div>
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Username
+                </label>
+                <input
+                  id="username"
+                  type="text"
+                  className="w-full border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-600"
+                  placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                />
+              </div>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700 mb-1"
+                >
+                  Password
+                </label>
+                <div className="relative">
                   <input
+                    id="password"
                     type={showpassword ? "text" : "password"}
-                    className="w-[48vh] outline-none"
-                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-600"
+                    placeholder="Password"
                     value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
-                  <span
+                  <button
+                    type="button"
                     onClick={() => setShowpassword((prev) => !prev)}
-                    className=""
+                    className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 text-sm"
                   >
-                    {showpassword ? "A" : "B"}
-                  </span>
+                    {showpassword ? "Hide" : "Show"}
+                  </button>
                 </div>
               </div>
-
-              <div id="forgot Password" className="flex justify-center">
-                <h1 className="font-bold">Forgot Password?</h1>
+              <div className="text-center">
+                <h1>Forgot Password</h1>
               </div>
-
-              <div id="button SignIn" className="flex justify-center py-3">
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg"
-                >
-                  {loading ? (
-                    <div className="border-4 border-white border-t-transparent w-4 h-4 rounded-full animate-spin"></div>
-                  ) : (
-                    "Sign In"
-                  )}
-                </button>
-              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-blue-600 text-white rounded-full py-2 hover:bg-blue-700 transition duration-300 shadow-md disabled:bg-blue-400 flex justify-center items-center"
+              >
+                {loading ? (
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                ) : (
+                  "Sign In"
+                )}
+              </button>
             </form>
           </div>
         </div>

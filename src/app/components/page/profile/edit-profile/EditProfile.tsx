@@ -5,7 +5,7 @@ import Image from "next/image";
 import profilehd from "../../../../../../public/asset/prfilhd.png";
 import { useState } from "react";
 import Modal from "@/app/components/component/modal/Modal";
-import { ModalProps } from "@/app/components/type";
+import { ModalProps } from "@/app/components/type/API";
 import { useRouter } from "next/navigation";
 import { useHook } from "@/app/components/component/hooks/Kontex";
 import API from "@/app/components/util/API";
@@ -20,7 +20,7 @@ const EditProfileComponent: React.FC = () => {
   const [bio, setBio] = useState<string>("");
   const [alamat, setAlamat] = useState<string>("");
   const [modalData, setModalData] = useState<ModalProps | null>(null);
-  const [fotoProfile, setFotoProfile] = useState<string>("");
+  const [fotoProfile, setFotoProfile] = useState<File | null>(null);
   const router = useRouter();
 
   const data = {
@@ -103,7 +103,12 @@ const EditProfileComponent: React.FC = () => {
                 <input
                   type="file"
                   className="border-2 p-2 mt-2 rounded-md bg-gray-400 w-[11vw] hover:bg-gray-600 duration-[0.3s]"
-                  onChange={(e) => setFotoProfile(e.target.value)}
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      setFotoProfile(file);
+                    }
+                  }}
                 />
               </div>
 

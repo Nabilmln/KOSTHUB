@@ -1,5 +1,4 @@
 "use client";
-
 import Link from "next/link";
 import Icon from "../../../../../../public/asset/icon.png";
 import GogleIcon from "../../../../../../public/asset/GogleIcon.png";
@@ -10,7 +9,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Modal from "@/app/components/component/modal/Modal";
 import { useRouter } from "next/navigation";
-import { ModalProps } from "@/app/components/type";
+import { ModalProps } from "@/app/components/type/API";
 import API from "@/app/components/util/API";
 import { useHook } from "@/app/components/component/hooks/Kontex";
 
@@ -29,16 +28,23 @@ const RegisterComponent: React.FC = () => {
 
   const handleRegister = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!username || !password || !email) {
+    if (
+      !username ||
+      !password ||
+      !email ||
+      !fullname ||
+      !tanggal_lahir ||
+      !gender ||
+      !nomor ||
+      !alamat
+    ) {
       setModalData({
-        title: "Edit Profile Gagal",
+        title: "Registrasi Gagal",
         icon: "warning",
-        deskripsi: "Field Tidak Boleh Kosong!",
+        deskripsi: "Semua field harus diisi!",
         confirmButtonColor: "#3572EF",
-        confirmButtonText: "try again!",
-        onClose: () => {
-          setModalData(null);
-        },
+        confirmButtonText: "Coba Lagi",
+        onClose: () => setModalData(null),
       });
       return;
     }
@@ -53,14 +59,12 @@ const RegisterComponent: React.FC = () => {
       alamat,
     })
       .then((res) => {
-        console.log(res.data.user);
         setCurrentUser(res.data.user);
-        localStorage.setItem("current", JSON.stringify(res.data.user));
         setModalData({
           title: "Berhasil Daftar",
           icon: "success",
-          deskripsi: "Selamat Datang Di KostHub",
-          confirmButtonText: "lanjut",
+          deskripsi: "Selamat Datang di KostHub",
+          confirmButtonText: "Lanjut",
           confirmButtonColor: "#3572EF",
           onClose: () => {
             setModalData(null);
@@ -73,22 +77,23 @@ const RegisterComponent: React.FC = () => {
         setModalData({
           title: "Gagal Daftar",
           icon: "error",
-          deskripsi: "Username dan kata sandi salah",
+          deskripsi:
+            err.response?.data?.message || "Terjadi kesalahan saat registrasi",
           confirmButtonColor: "#3572EF",
-          confirmButtonText: "try again!",
-          onClose: () => {
-            setModalData(null);
-          },
+          confirmButtonText: "Coba Lagi",
+          onClose: () => setModalData(null),
         });
       });
   };
 
-  const handleChange = (value: any) => {
+  const handleChange = (value: string) => {
     setGender((prev) => (prev === value ? "" : value));
   };
+
   return (
     <div className="w-screen h-screen flex justify-center items-center rounded-tl-lg">
-      <div className="grid grid-cols-[1fr_2fr] grid-rows-1 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-4">
+        {/* Left Section - Unchanged */}
         <div
           className="bg-[#3572EF] flex justify-center items-center rounded-r-full h-[100vh]"
           id="kanan"
@@ -120,143 +125,150 @@ const RegisterComponent: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex justify-center items-center" id="kiri">
-          <div id="side-kanan">
-            <div className="flex justify-center py-3">
-              <h1 className="text-[4rem] font-bold">Create Account</h1>
-            </div>
+        {/* Right Section - Updated */}
+        <div className="flex flex-col justify-center items-center p-6 md:p-8 bg-white h-full md:h-screen">
+          <h1 className="text-3xl md:text-4xl font-bold mb-6">
+            Create Account
+          </h1>
 
-            <div
-              className="grid grid-cols-4 grid-rows-1 gap-4 py-3"
-              id="icon-Login"
-            >
-              <div className="">
-                <Image src={GogleIcon} alt="Goggle" width={40} height={40} />
-              </div>
-              <div className="">
-                <Image
-                  src={FacebookIcon}
-                  alt="Facebook"
-                  width={40}
-                  height={40}
-                />
-              </div>
-              <div className="">
-                <Image src={LinkIn} alt="LinkIn" width={40} height={40} />
-              </div>
-              <div className="">
-                <Image src={Github} alt="" width={40} height={40} />
-              </div>
-            </div>
-
-            <div id="text">
-              <p className="flex justify-center font-light">
-                or use your email for registration
-              </p>
-            </div>
-
-            <form onSubmit={handleRegister} className="text-center">
-              <div className="my-1 w-full">
-                <input
-                  className="border-2 w-full rounded-lg p-2"
-                  type="text"
-                  onChange={(e) => setFullname(e.target.value)}
-                  placeholder="nama lengkap"
-                />
-              </div>
-
-              <div className="w-full my-1">
-                <input
-                  type="text"
-                  className="border-2 w-full rounded-lg p-2"
-                  placeholder="kostHub@example.com"
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-
-              <div className="grid grid-cols-2 grid-rows-1">
-                <div className="w-full my-1">
-                  <input
-                    type="email"
-                    className="border-2 w-[12vw] rounded-lg p-2"
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="username"
-                  />
-                </div>
-
-                <div className="w-full my-1">
-                  <input
-                    type="date"
-                    className="border-2 w-[12vw] rounded-lg p-2"
-                    value={tanggal_lahir}
-                    onChange={(e) => setTanggal_lahir(e.target.value)}
-                  />
-                </div>
-                <div className="w-full my-1">
-                  <input
-                    type="password"
-                    className="border-2 w-[12vw] rounded-lg p-2"
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="password"
-                  />
-                </div>
-                <div>
-                  <input
-                    type="text"
-                    className="border-2 w-[12vw] rounded-lg p-2"
-                    placeholder="+62"
-                    onChange={(e) => setNomor(e.target.value)}
-                  />
-                </div>
-
-                <div className="text-center">
-                  <input
-                    type="text"
-                    className="border-2 w-[12vw] rounded-lg p-2"
-                    placeholder="alamat"
-                    onChange={(e) => setAlamat(e.target.value)}
-                  />
-                </div>
-                <fieldset>
-                  <label htmlFor="Role">Gender:</label> <br />
-                  <div className="flex gap-x-1 text-[1rem] items-center justify-center">
-                    <label htmlFor="">Laki-Laki</label>
-                    <input
-                      type="radio"
-                      className="w-[2vw] h-[2vh]"
-                      name="gender"
-                      checked={gender === "Laki"}
-                      onChange={() => handleChange("Laki")}
-                    />
-
-                    <input
-                      type="radio"
-                      className="w-[2vw] h-[2vh]"
-                      name="gender"
-                      checked={gender === "Perempuan"}
-                      onChange={() => handleChange("Perempuan")}
-                    />
-                    <label htmlFor="Perempuan">Perempuan</label>
-                  </div>
-                </fieldset>
-              </div>
-
-              <div id="button SignIn" className="flex justify-center py-3">
-                <button
-                  className="border-2 rounded-full text-[1rem]  hover:bg-sky-800 duration-[1s] w-[8vw] h-[4vh] shadow-lg"
-                  onClick={handleRegister}
-                  type="submit"
-                >
-                  Sign Up
-                </button>
-              </div>
-              {modalData && <Modal {...modalData} />}
-            </form>
-
-            <div id="forgot Password" className="flex justify-center">
-              <h1 className="font-bold">Forgor Password?</h1>
-            </div>
+          {/* Social Login Icons */}
+          <div className="grid grid-cols-4 gap-4 mb-4">
+            <Image
+              src={GogleIcon}
+              alt="Google"
+              width={40}
+              height={40}
+              className="cursor-pointer"
+            />
+            <Image
+              src={FacebookIcon}
+              alt="Facebook"
+              width={40}
+              height={40}
+              className="cursor-pointer"
+            />
+            <Image
+              src={LinkIn}
+              alt="LinkedIn"
+              width={40}
+              height={40}
+              className="cursor-pointer"
+            />
+            <Image
+              src={Github}
+              alt="GitHub"
+              width={40}
+              height={40}
+              className="cursor-pointer"
+            />
           </div>
+          <p className="text-gray-600 text-sm mb-6">
+            or use your email for registration
+          </p>
+
+          <form onSubmit={handleRegister} className="w-full max-w-md space-y-4">
+            <div>
+              <input
+                type="text"
+                className="w-full border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-600"
+                placeholder="Nama Lengkap"
+                value={fullname}
+                onChange={(e) => setFullname(e.target.value)}
+              />
+            </div>
+            <div>
+              <input
+                type="email"
+                className="w-full border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-600"
+                placeholder="kostHub@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input
+                type="text"
+                className="w-full border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-600"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <input
+                type="date"
+                className="w-full border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-600"
+                value={tanggal_lahir}
+                onChange={(e) => setTanggal_lahir(e.target.value)}
+              />
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input
+                type="password"
+                className="w-full border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-600"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <input
+                type="text"
+                className="w-full border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-600"
+                placeholder="Nomor Telepon (+62)"
+                value={nomor}
+                onChange={(e) => setNomor(e.target.value)}
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                className="w-full border-2 border-gray-300 rounded-lg p-2 focus:outline-none focus:border-blue-600"
+                placeholder="Alamat"
+                value={alamat}
+                onChange={(e) => setAlamat(e.target.value)}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Gender
+              </label>
+              <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    id="Laki"
+                    name="gender"
+                    value="Laki"
+                    checked={gender === "Laki"}
+                    onChange={() => handleChange("Laki")}
+                    className="w-4 h-4"
+                  />
+                  <label htmlFor="Laki" className="text-sm">
+                    Laki-Laki
+                  </label>
+                </div>
+                <div className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    id="Perempuan"
+                    name="gender"
+                    value="Perempuan"
+                    checked={gender === "Perempuan"}
+                    onChange={() => handleChange("Perempuan")}
+                    className="w-4 h-4"
+                  />
+                  <label htmlFor="Perempuan" className="text-sm">
+                    Perempuan
+                  </label>
+                </div>
+              </div>
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white rounded-full py-2 hover:bg-blue-700 transition duration-300 shadow-md"
+            >
+              Sign Up
+            </button>
+          </form>
+
+          {modalData && <Modal {...modalData} />}
         </div>
       </div>
     </div>
