@@ -9,16 +9,17 @@ import { ModalProps } from "@/app/components/type/API";
 import Modal from "@/app/components/component/modal/Modal";
 import { useHook } from "@/app/components/component/hooks/Kontex";
 import { useRouter } from "next/navigation";
+import PopUp from "@/app/components/component/modal/PopUp";
 
 const UbahPasswordComponent: React.FC = () => {
   const { currentUser } = useHook();
   const [oldPassword, setOldPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [modalData, setModalData] = useState<ModalProps | null>(null);
+  const [openPopUp, setOpenPopUp] = useState<"NewPassword" | null>(null);
   const router = useRouter();
 
-  const handlePassword = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handlePassword = () => {
     API.put(
       "/api/auth/change-password",
       {
@@ -32,20 +33,7 @@ const UbahPasswordComponent: React.FC = () => {
       }
     )
       .then((res) => {
-        setModalData({
-          title: "Berhasil ganti password",
-          deskripsi: "Selamat Password Anda Berubah",
-          icon: "success",
-          confirmButtonColor: "#3572EF",
-          confirmButtonText: "lanjut",
-          onClose: () => {
-            setModalData(null);
-            console.log(res.data);
-            setOldPassword("");
-            setNewPassword("");
-            router.push("/profile");
-          },
-        });
+        console.log("Berhasil", res);
       })
       .catch((err) => {
         setModalData({
@@ -108,12 +96,51 @@ const UbahPasswordComponent: React.FC = () => {
                     </div>
 
                     <button
-                      className="border-2 w-[30vw] rounded-md p-2 bg-sky-600 mt-4"
-                      onClick={(e) => handlePassword(e)}
+                      className="border-2 w-[30vw] rounded-md p-2 bg-sky-600 mt-4 cursor-pointer"
+                      onClick={() => setOpenPopUp("NewPassword")}
                     >
                       Ubah
                     </button>
                   </div>
+                  <PopUp
+                    isOpen={openPopUp === "NewPassword"}
+                    onClose={() => setOpenPopUp(null)}
+                  >
+                    <div className="flex justify-center items-center flex-col">
+                      <h1 className="text-[1.3rem] font-bold w-60 text-center">
+                        Apakah Anda Yakin Ingin Merubah Password
+                      </h1>
+                      <div className="flex justify-center items-center gap-4 ">
+                        <button
+                          className="p-2 bg-red-600 rounded-md text-white font-bold cursor-pointer"
+                          onClick={() => setOpenPopUp(null)}
+                        >
+                          Tidak
+                        </button>
+                        <button
+                          className="p-2 bg-[#58CC41] rounded-md text-white font-bold cursor-pointer"
+                          onClick={() => {
+                            handlePassword();
+                            setModalData({
+                              title: "Berhasil ganti password",
+                              deskripsi: "Selamat Password Anda Berubah",
+                              icon: "success",
+                              confirmButtonColor: "#3572EF",
+                              confirmButtonText: "lanjut",
+                              onClose: () => {
+                                setModalData(null);
+                                setOpenPopUp(null);
+                                router.push("/profile");
+                              },
+                            });
+                          }}
+                        >
+                          Yakin
+                        </button>
+                      </div>
+                    </div>
+                  </PopUp>
+
                   {modalData && <Modal {...modalData} />}
                 </div>
               </div>

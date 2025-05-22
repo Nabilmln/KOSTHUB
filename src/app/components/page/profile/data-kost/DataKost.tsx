@@ -13,6 +13,7 @@ import PopUp from "@/app/components/component/modal/PopUp";
 import { Star } from "lucide-react";
 import Modal from "@/app/components/component/modal/Modal";
 import { ModalProps } from "@/app/components/type/API";
+import { useRouter } from "next/navigation";
 
 const DataKostComponent: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -20,13 +21,14 @@ const DataKostComponent: React.FC = () => {
   const [dataReservase, setDataReservase] = useState<reservasiType[]>();
   const [idReservase, setIdReservase] = useState<reservasiType>();
   const [openPopUp, setOpenPopUp] = useState<
-    "Pengaduan" | "Review" | "Submit" | null
+    "Pengaduan" | "Review" | "Submit" | "Hapus" | null
   >(null);
   const [ratingStar, setRatingStar] = useState<number>(0);
   const [hoverStar, setHoverStar] = useState<number>(0);
   const [image, setImage] = useState<File | null>(null);
   const [komentar, setKomentar] = useState<string>("");
   const [modal, setModal] = useState<ModalProps | null>();
+  const router = useRouter();
 
   const handleDeleteReservase = async () => {
     try {
@@ -161,6 +163,18 @@ const DataKostComponent: React.FC = () => {
                           </div>
 
                           <PopUp
+                            isOpen={openPopUp === "Hapus"}
+                            onClose={() => setOpenPopUp(null)}
+                          >
+                            <div className="flex justify-center items-center">
+                              <h1>
+                                Apakah anda yakin ingin Menghapus Reservasi Ini
+                                ?
+                              </h1>
+                            </div>
+                          </PopUp>
+
+                          <PopUp
                             isOpen={openPopUp === "Review"}
                             onClose={() => setOpenPopUp(null)}
                           >
@@ -262,9 +276,47 @@ const DataKostComponent: React.FC = () => {
                             </div>
                           </PopUp>
 
+                          <PopUp
+                            isOpen={openPopUp === "Hapus"}
+                            onClose={() => setOpenPopUp(null)}
+                          >
+                            <div className="flex justify-center items-center flex-col">
+                              <h1 className="font-bold w-60 text-center text-[1.2rem]">
+                                Apakah anda yakin ingin Menghapus Reservasi Ini
+                                ?
+                              </h1>
+                              <div className="flex justify-center items-center gap-4">
+                                <button
+                                  className="p-2 bg-red-600 rounded-md font-bold text-white"
+                                  onClick={() => setOpenPopUp(null)}
+                                >
+                                  Tidak
+                                </button>
+                                <button
+                                  className="p-2 bg-[#06BE37] rounded-md font-bold text-white"
+                                  onClick={() => {
+                                    handleDeleteReservase();
+                                    setModal({
+                                      title: "Berhasil Delete",
+                                      deskripsi: "",
+                                      icon: "success",
+                                      onClose: () => {
+                                        setModal(null);
+                                        setOpenPopUp(null);
+                                        router.push("/profile");
+                                      },
+                                    });
+                                  }}
+                                >
+                                  Yakin
+                                </button>
+                              </div>
+                            </div>
+                          </PopUp>
+
                           <div className="border-2 bg-[#3572EF] rounded-lg p-2 w-full flex justify-center hover:scale-103 duration-[0.3s]">
                             <button
-                              onClick={() => handleDeleteReservase()}
+                              onClick={() => setOpenPopUp("Hapus")}
                               className="text-white font-bold"
                             >
                               Hapus Reservasi

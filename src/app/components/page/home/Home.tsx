@@ -87,10 +87,10 @@ const HomeComponent: React.FC = () => {
             <div className="flex justify-around">
               <div className="flex w-full justify-around gap-[60rem]">
                 <div title="side-kana" className="flex space-x-4 ">
-                  <button className="border-2 border-gray-300 rounded-md w-[5vw] hover:bg-sky-400 duration-[1s]">
+                  <button className="border-2 border-gray-300 rounded-md w-[5vw]  duration-[1s]">
                     All
                   </button>
-                  <button className="border-2 border-gray-300 rounded-md w-[5vw] hover:bg-sky-400 duration-[1s]">
+                  <button className="border-2 border-gray-300 rounded-md w-[5vw]  duration-[1s]">
                     Top Kost
                   </button>
                 </div>

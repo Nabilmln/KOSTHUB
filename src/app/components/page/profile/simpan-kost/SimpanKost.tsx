@@ -41,7 +41,7 @@ const SimpanKostComponent: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="h-screen w-screen">
+        <div className="h-full w-screen">
           <div className="inset-x-0 top-0 h-16">
             <NavbarProfil />
           </div>

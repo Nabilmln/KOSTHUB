@@ -15,6 +15,8 @@ import { getFasilitas } from "@/app/components/helper/faslitasHelper";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import DataKost from "@/app/(pages)/profile/data-kost/page";
+import Modal from "@/app/components/component/modal/Modal";
+import { ModalProps } from "@/app/components/type/API";
 
 const SelectItemsComponent: React.FC = () => {
   const { currentUser } = useHook();
@@ -23,6 +25,7 @@ const SelectItemsComponent: React.FC = () => {
   const [ratingStar] = useState<number>(0);
   const pathname = usePathname();
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [modal, setModal] = useState<ModalProps | null>(null);
   const { id } = useParams();
 
   const handleGetData = async () => {
@@ -86,6 +89,7 @@ const SelectItemsComponent: React.FC = () => {
           </div>
           <div className="container mx-auto px-4 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {modal && <Modal {...modal} />}
               <div className="lg:col-span-2 space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="relative w-full h-[50vh] md:h-[60vh]">
@@ -118,7 +122,20 @@ const SelectItemsComponent: React.FC = () => {
                   <h1 className="text-3xl font-bold">{kostData.nama_kos}</h1>
                   <div className="flex gap-4">
                     <Forward className="w-6 h-6 cursor-pointer hover:text-blue-500 transition" />
-                    <button onClick={handleSaveKost}>
+                    <button
+                      onClick={() => {
+                        handleSaveKost();
+                        setModal({
+                          title: "Berhasil Menyimpan Kost",
+                          deskripsi: "",
+                          icon: "success",
+                          confirmButtonColor: "#3572EF",
+                          onClose: () => {
+                            setModal(null);
+                          },
+                        });
+                      }}
+                    >
                       <Bookmark className="w-6 h-6 cursor-pointer hover:text-yellow-300 transition" />
                     </button>
                   </div>
@@ -221,7 +238,6 @@ const SelectItemsComponent: React.FC = () => {
               </div>
             </div>
 
-            {/* Reviews Section */}
             <div className="mt-8">
               <h2 className="text-2xl font-bold mb-4">
                 {kostData.ulasan?.length || 0} Reviews

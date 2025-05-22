@@ -34,7 +34,11 @@ const NavbarHome: React.FC = () => {
         </div>
       </Link>
       <div className="flex border-2 rounded-full items-center w-[25vw] justify-between p-5">
-        <input type="text" placeholder="Search" className="outline-none " />
+        <input
+          type="text"
+          placeholder="Search"
+          className="outline-none w-full "
+        />
 
         <Search />
       </div>

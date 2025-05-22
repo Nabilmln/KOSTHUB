@@ -9,6 +9,7 @@ import { ModalProps } from "@/app/components/type/API";
 import { useRouter } from "next/navigation";
 import { useHook } from "@/app/components/component/hooks/Kontex";
 import API from "@/app/components/util/API";
+import PopUp from "@/app/components/component/modal/PopUp";
 
 const EditProfileComponent: React.FC = () => {
   const { setCurrentUser, currentUser } = useHook();
@@ -21,6 +22,7 @@ const EditProfileComponent: React.FC = () => {
   const [alamat, setAlamat] = useState<string>("");
   const [modalData, setModalData] = useState<ModalProps | null>(null);
   const [fotoProfile, setFotoProfile] = useState<File | null>(null);
+  const [openPopUp, setOpenPopUp] = useState<"Edit" | null>(null);
   const router = useRouter();
 
   const data = {
@@ -40,8 +42,7 @@ const EditProfileComponent: React.FC = () => {
     )
   );
 
-  const handleEditProfile = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleEditProfile = () => {
     API.put(
       "/api/auth/update-profile",
       {
@@ -55,24 +56,12 @@ const EditProfileComponent: React.FC = () => {
       }
     )
       .then((res) => {
-        setModalData({
-          title: "Behasil Update Profile",
-          icon: "success",
-          deskripsi: "Selamat Profile Anda Sudah Berubah",
-          confirmButtonColor: "#3572EF",
-          confirmButtonText: "Lanjut",
-          onClose: () => {
-            setModalData(null);
-            console.log(res.data.user);
-            setCurrentUser(res.data);
-            setAlamat("");
-            setBio("");
-            setEmail("");
-            setFullName("");
-            setNomor("");
-            router.push("/profile");
-          },
-        });
+        setCurrentUser(res.data);
+        setAlamat("");
+        setBio("");
+        setEmail("");
+        setFullName("");
+        setNomor("");
       })
       .catch((err) => {
         console.log("gagal Update", err);
@@ -113,7 +102,7 @@ const EditProfileComponent: React.FC = () => {
               </div>
 
               <div className=" flex justify-center items-center">
-                <form onSubmit={handleEditProfile}>
+                <div>
                   <div className="grid grid-cols-1 grid-rows-2 gap-2">
                     <div className="flex items-center">
                       <div className="mx-2">
@@ -216,13 +205,49 @@ const EditProfileComponent: React.FC = () => {
                     <div className="mx-2">
                       <button
                         className="border-2 rounded-md p-1 w-[31vw] hover:bg-sky-500 duration-[0.3s]"
-                        type="submit"
+                        onClick={() => setOpenPopUp("Edit")}
                       >
                         Done
                       </button>
+                      <PopUp
+                        isOpen={openPopUp === "Edit"}
+                        onClose={() => setOpenPopUp(null)}
+                      >
+                        <div className="w-full flex justify-center items-center flex-col">
+                          <h1 className="text-center w-[20vw] font-bold text-[1.8rem]">
+                            Apakah anda yakin ingin mengubah profile?
+                          </h1>
+                          <div className="flex justify-center items-center gap-4 my-2">
+                            <button
+                              className="border-1 p-3 rounded-lg text-white font-bold bg-red-600"
+                              onClick={() => setOpenPopUp(null)}
+                            >
+                              Tidak
+                            </button>
+                            <button
+                              className="border-1 p-3 rounded-lg text-white font-bold bg-[#58CC41]"
+                              onClick={() => {
+                                handleEditProfile();
+                                setModalData({
+                                  title: "Selamat Kamu Berhasil Update Profile",
+                                  icon: "success",
+                                  deskripsi: "",
+                                  onClose: () => {
+                                    setModalData(null);
+                                    setOpenPopUp(null);
+                                    router.push("/profile");
+                                  },
+                                });
+                              }}
+                            >
+                              Yakin
+                            </button>
+                          </div>
+                        </div>
+                      </PopUp>
                     </div>
                   </div>
-                </form>
+                </div>
               </div>
               {modalData && <Modal {...modalData} />}
             </div>
