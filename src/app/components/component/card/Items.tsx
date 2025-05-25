@@ -69,7 +69,7 @@ const Items: React.FC<itemsTypeProps> = ({ data }) => {
 
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mt-4">
         <h1 className="font-bold text-lg">{data.nama_kos}</h1>
-        <div className="flex items-center gap-2 border-2 border-gray-200 rounded-md px-2 py-1">
+        <div className="flex items-center gap-2 border-2 border-green-500 rounded-md px-2 py-1">
           <Phone className="w-5 h-5 text-gray-500" />
           <p className="text-sm text-gray-600">{data.kontak?.nomor}</p>
         </div>

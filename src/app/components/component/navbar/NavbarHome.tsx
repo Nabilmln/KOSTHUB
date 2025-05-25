@@ -33,7 +33,7 @@ const NavbarHome: React.FC = () => {
           <h1 className="font-bold text-black text-[2rem]">Kosthub</h1>
         </div>
       </Link>
-      <div className="flex border-2 rounded-full items-center w-[25vw] justify-between p-5">
+      <div className="flex border-2 border-gray-300 rounded-full items-center w-[25vw] justify-between p-5">
         <input
           type="text"
           placeholder="Search"

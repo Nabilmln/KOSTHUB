@@ -21,14 +21,7 @@ const HomeComponent: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [selectedField, setSelectedField] = useState<any>();
 
-  const FilterOption = [
-    "fasilitas",
-    "minHarga",
-    "maxHarga",
-    "rating",
-    "tipeHarga",
-    "harga",
-  ];
+  const FilterOption = ["rating"];
   const handleFetch = async () => {
     try {
       const res = await API.get("/api/kos/", {
